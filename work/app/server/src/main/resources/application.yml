@@ -1,0 +1,86 @@
+server:
+  port: 8000
+  servlet:
+    context-path: /api
+    encoding:
+      charset: UTF-8
+      force: true
+
+spring:
+  application:
+    name: ai-training
+  # 本地私有配置（数据库密码等），该文件不提交到仓库
+  # 使用方式：复制 application-local.yml.example 为 application-local.yml 并填入真实密码
+  config:
+    import: optional:file:./application-local.yml
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/ai_training?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
+    # 密码通过环境变量 DB_PASSWORD 提供，或在 application-local.yml 中覆盖
+    password: ${DB_PASSWORD:123456}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    default-property-inclusion: always
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+sa-token:
+  token-name: Authorization
+  token-prefix: Bearer
+  timeout: 86400
+  active-timeout: -1
+  is-concurrent: true
+  is-share: false
+  token-style: uuid
+  is-log: false
+  is-print: false
+
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+# ============ AI 模块配置 ============
+# api-key 留空时系统自动降级为「纯规则方案」，全功能仍可演示；
+# 填入 DEEPSEEK_API_KEY 环境变量或此处直接写 key 即启用大模型。
+ai:
+  llm:
+    enabled: true
+    base-url: https://api.deepseek.com
+    api-key: ${DEEPSEEK_API_KEY:}
+    model: deepseek-chat
+    temperature: 0.3
+    max-tokens: 2000
+    timeout-seconds: 90
+    max-retry: 2
+  rag:
+    enabled: true
+    top-k: 5
+    min-score: 0.15
+    max-context-chars: 3000
+
+logging:
+  level:
+    root: info
+    com.aitraining: info

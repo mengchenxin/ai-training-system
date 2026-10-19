@@ -1,0 +1,51 @@
+# ===== 依赖 =====
+node_modules/
+.pnpm-store/
+
+# ===== 构建产物 =====
+target/
+dist/
+*.jar
+
+# ===== 本地私有配置（含数据库密码，禁止入库）=====
+application-local.yml
+application-local.yaml
+
+# ===== 备份目录 =====
+.backup-*/
+*.bak
+
+# ===== IDE =====
+.idea/
+*.iml
+.vscode/
+*.ipr
+*.iws
+
+# ===== 安装包（体积过大，不入库）=====
+installers/
+
+# ===== 第三方参考模板（非本项目代码）=====
+work/work/
+
+# ===== 诊断输出 =====
+_diagnostics/
+
+# ===== 日志 =====
+*.log
+logs/
+_run.log
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+.venv/
+
+# ===== 系统 =====
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# ===== 临时文件 =====
+.tmp*
+*.swp

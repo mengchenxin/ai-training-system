@@ -1,0 +1,18 @@
+# 统一换行符，避免跨平台克隆后 .bat 变成 LF 导致 cmd 解析失败
+* text=auto
+
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+*.sh text eol=lf
+*.sql text eol=lf
+*.java text eol=lf
+*.xml text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.md text eol=lf
+*.ts text eol=lf
+*.js text eol=lf
+*.vue text eol=lf
+*.json text eol=lf
+*.py text eol=lf
