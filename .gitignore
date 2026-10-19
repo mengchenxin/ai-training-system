@@ -11,6 +11,9 @@ dist/
 application-local.yml
 application-local.yaml
 
+# ===== 个人本地脚本（内含个人仓库地址，不入库）=====
+push.bat
+
 # ===== 备份目录 =====
 .backup-*/
 *.bak
