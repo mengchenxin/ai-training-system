@@ -60,10 +60,11 @@ export DB_PASSWORD=你的密码
 ```bash
 cd work/app/server
 
-# 开发模式
+# 开发模式（首次会自动下载依赖）
 mvn spring-boot:run
 
-# 或已打包的 jar
+# 或先打包再运行
+mvn package -DskipTests
 java -jar target/ai-training-server-1.0.0.jar
 ```
 
