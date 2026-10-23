@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
@@ -34,13 +35,29 @@ public class LlmClient {
 
     private RestClient client;
 
+    /**
+     * 惰性初始化，双重检查加锁，避免并发首次调用创建多个实例。
+     * 超时取 ai.llm.timeout-seconds（读超时），连接超时固定 5 秒——
+     * 否则模型接口挂起时请求线程会被无限占用。
+     */
     private RestClient client() {
-        if (client == null) {
-            client = RestClient.builder()
-                    .baseUrl(props.getLlm().getBaseUrl())
-                    .build();
+        RestClient c = client;
+        if (c != null) {
+            return c;
         }
-        return client;
+        synchronized (this) {
+            if (client == null) {
+                int readTimeout = Math.max(5, props.getLlm().getTimeoutSeconds());
+                SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+                factory.setConnectTimeout(Duration.ofSeconds(5));
+                factory.setReadTimeout(Duration.ofSeconds(readTimeout));
+                client = RestClient.builder()
+                        .baseUrl(props.getLlm().getBaseUrl())
+                        .requestFactory(factory)
+                        .build();
+            }
+            return client;
+        }
     }
 
     public boolean available() {
