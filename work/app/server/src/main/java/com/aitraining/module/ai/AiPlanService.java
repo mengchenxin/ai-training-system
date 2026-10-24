@@ -76,7 +76,8 @@ public class AiPlanService {
                     wantLlm ? "未配置大模型 API Key，已降级为规则方案" : "调用方要求使用纯规则方案");
             // 耗时必须在写记录前落到 VO 上，否则 ai_gen_record.cost_ms 会被写成 null
             result.setCostMs((int) (System.currentTimeMillis() - start));
-            result.setAiRecordId(writeRecord(gap, ruleCourses, hits, null, result, 1));
+            result.setAiRecordId(writeRecord(gap, ruleCourses, hits, null, result, 1,
+                    wantLlm ? "FALLBACK" : "RULE_ONLY"));
         }
 
         result.setUserId(userId);
@@ -112,7 +113,7 @@ public class AiPlanService {
         if (!resp.isSuccess()) {
             PlanGenResultVO r = fallback(gap, ruleCourses, "大模型调用失败：" + resp.getError());
             r.setCostMs(resp.getCostMs());
-            r.setAiRecordId(writeRecord(gap, ruleCourses, hits, resp, r, resp.getAttempts()));
+            r.setAiRecordId(writeRecord(gap, ruleCourses, hits, resp, r, resp.getAttempts(), null));
             return r;
         }
 
@@ -122,7 +123,7 @@ public class AiPlanService {
         } catch (Exception e) {
             PlanGenResultVO r = fallback(gap, ruleCourses, "模型输出不是合法 JSON");
             r.setCostMs(resp.getCostMs());
-            r.setAiRecordId(writeRecord(gap, ruleCourses, hits, resp, r, resp.getAttempts()));
+            r.setAiRecordId(writeRecord(gap, ruleCourses, hits, resp, r, resp.getAttempts(), null));
             return r;
         }
 
@@ -131,7 +132,7 @@ public class AiPlanService {
             PlanGenResultVO r = fallback(gap, ruleCourses, "结构化校验未通过：" + vr.message);
             r.setSchemaValid(false);
             r.setCostMs(resp.getCostMs());
-            r.setAiRecordId(writeRecord(gap, ruleCourses, hits, resp, r, resp.getAttempts()));
+            r.setAiRecordId(writeRecord(gap, ruleCourses, hits, resp, r, resp.getAttempts(), null));
             return r;
         }
 
@@ -144,7 +145,7 @@ public class AiPlanService {
         result.setCourses(vr.courses);
         result.setTotalHours(sumHours(vr.courses));
         result.setCostMs(resp.getCostMs());
-        result.setAiRecordId(writeRecord(gap, ruleCourses, hits, resp, result, resp.getAttempts()));
+        result.setAiRecordId(writeRecord(gap, ruleCourses, hits, resp, result, resp.getAttempts(), null));
         return result;
     }
 
@@ -223,9 +224,16 @@ public class AiPlanService {
         return objectMapper.convertValue(node, Map.class);
     }
 
-    /** 写入 AI 生成记录，返回记录 ID（论文实验数据来源） */
+    /**
+     * 写入 AI 生成记录，返回记录 ID（论文实验数据来源）。
+     *
+     * @param statusOverride 显式指定状态；为 null 时按实际执行情况推导。
+     *                       用于区分「主动选择纯规则（RULE_ONLY）」与「调用失败降级（FALLBACK）」，
+     *                       否则统计降级率会把前者一并算进去。
+     */
     private Long writeRecord(GapResultVO gap, List<PlannedCourse> ruleCourses, List<RagHit> hits,
-                             LlmResponse resp, PlanGenResultVO result, Integer attempts) {
+                             LlmResponse resp, PlanGenResultVO result, Integer attempts,
+                             String statusOverride) {
         AiGenRecord rec = new AiGenRecord();
         rec.setBizType("PLAN_GEN");
         rec.setUserId(gap.getUserId());
@@ -256,8 +264,9 @@ public class AiPlanService {
             rec.setCostMs(result.getCostMs());
             rec.setAttemptCount(1);
         }
-        rec.setStatus(Boolean.TRUE.equals(result.getLlmUsed()) ? "SUCCESS"
-                : (resp != null && resp.isSuccess() ? "SCHEMA_FAILED" : "FALLBACK"));
+        rec.setStatus(statusOverride != null ? statusOverride
+                : (Boolean.TRUE.equals(result.getLlmUsed()) ? "SUCCESS"
+                : (resp != null && resp.isSuccess() ? "SCHEMA_FAILED" : "FALLBACK")));
         if (resp != null && !resp.isSuccess()) {
             rec.setStatus("API_ERROR");
         }
