@@ -71,7 +71,7 @@
       </el-col>
     </el-row>
 
-    <div class="card">
+    <div class="card" id="records">
       <div class="flex-between mb16">
         <b>AI 生成记录</b>
         <el-select v-model="bizType" size="small" style="width: 150px" clearable placeholder="业务类型"
@@ -129,6 +129,7 @@ const adoptRef = ref<HTMLElement>();
 
 const STATUS: Record<string, string> = {
   SUCCESS: "成功",
+  RULE_ONLY: "仅规则",
   FALLBACK: "降级规则",
   SCHEMA_FAILED: "结构校验失败",
   API_ERROR: "接口异常"
@@ -141,7 +142,10 @@ const ADOPT: Record<string, string> = {
 };
 
 function statusType(s: string) {
-  return s === "SUCCESS" ? "success" : s === "FALLBACK" ? "warning" : "danger";
+  if (s === "SUCCESS") return "success";
+  if (s === "FALLBACK") return "warning";
+  if (s === "RULE_ONLY") return "info";
+  return "danger";
 }
 function adoptType(s: string) {
   return s === "ADOPTED" ? "success" : s === "MODIFIED" ? "primary" : s === "REJECTED" ? "danger" : "info";
@@ -198,7 +202,13 @@ function renderPies() {
   }
 }
 
-onMounted(load);
+onMounted(async () => {
+  await load();
+  if (location.hash === "#records") {
+    await nextTick();
+    document.getElementById("records")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+});
 </script>
 
 <style scoped>

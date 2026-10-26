@@ -195,14 +195,33 @@ onMounted(load);
 .opts {
   display: flex;
   flex-direction: column;
+  /* el-radio-group / el-checkbox-group 默认 align-items: center，
+     会让每个选项按自身宽度居中，导致左边缘参差不齐，必须覆盖 */
+  align-items: stretch;
   gap: 6px;
+  width: 100%;
 }
 
 .opt {
   height: auto;
-  padding: 6px 0;
+  margin-right: 0;
+  padding: 8px 12px;
   align-items: flex-start;
   white-space: normal;
+  border-radius: 6px;
+  line-height: 1.7;
+  transition: background-color 0.15s;
+}
+
+.opt:hover {
+  background: #f8fafc;
+}
+
+.opt :deep(.el-radio__label),
+.opt :deep(.el-checkbox__label) {
+  text-align: left;
+  padding-left: 2px;
+  line-height: 1.7;
 }
 
 .mr8 {

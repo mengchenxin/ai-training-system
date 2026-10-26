@@ -4,8 +4,9 @@ node_modules/
 
 # ===== 构建产物 =====
 target/
-dist/
 *.jar
+# 注意：不忽略 dist/。前端产物 work/app/web/dist 需要入库，
+# Render 静态站直接托管它（云端不做前端构建，原因见 render.yaml 注释）
 
 # ===== 本地私有配置（含数据库密码，禁止入库）=====
 application-local.yml

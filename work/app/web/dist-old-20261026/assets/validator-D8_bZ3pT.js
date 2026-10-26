@@ -1,0 +1,1 @@
+import{Qr as e}from"./router-CEsXThfp.js";var t=t=>[``,...e].includes(t);export{t};

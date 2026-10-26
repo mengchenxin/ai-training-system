@@ -17,10 +17,11 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/ai_training?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
     username: ${DB_USERNAME:root}
-    # 密码通过环境变量 DB_PASSWORD 提供，或在 application-local.yml 中覆盖
-    password: ${DB_PASSWORD:123456}
+    # 密码只从环境变量或 application-local.yml 取，不再留明文兜底
+    password: ${DB_PASSWORD:}
     hikari:
-      maximum-pool-size: 10
+      # 云上免费实例连接数有限、内存紧张，用 DB_POOL_SIZE 调小
+      maximum-pool-size: ${DB_POOL_SIZE:10}
       minimum-idle: 2
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

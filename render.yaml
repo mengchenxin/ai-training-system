@@ -1,0 +1,48 @@
+# Render 蓝图：一条命令拉起后端（Docker）+ 前端（静态站）
+# 用法：Render 控制台 → New → Blueprint → 选本仓库
+#
+# 数据库不在 Render 上（Render 只提供 Postgres/Redis，本项目是 MySQL），
+# 使用外部 TiDB Cloud Serverless，连接信息在部署时手动填入。
+
+services:
+  # ---------- 后端 Spring Boot ----------
+  - type: web
+    name: ai-training-server
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./work/app/server/Dockerfile
+    dockerContext: ./work/app/server
+    healthCheckPath: /api/health
+    envVars:
+      # 完整 JDBC 串，TiDB 控制台可直接复制，例如：
+      # jdbc:mysql://gateway01.ap-southeast-1.prod.aws.tidbcloud.com:4000/ai_training
+      #   ?sslMode=VERIFY_IDENTITY&useSSL=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      # TiDB Serverless 用户名形如 3xxxxxx.root
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
+      # 大模型 Key；不填会自动降级为纯规则方案（功能仍可用，但没有 AI 生成）
+      - key: DEEPSEEK_API_KEY
+        sync: false
+      - key: DB_POOL_SIZE
+        value: "5"
+      - key: TZ
+        value: Asia/Shanghai
+
+  # ---------- 前端 Vue 静态站 ----------
+  # 纯托管，不在 Render 上构建：项目由 pnpm 安装依赖且未提交 lock 文件，
+  # 云端用 npm 重装会导致依赖版本漂移、构建失败。
+  # 前端产物由本地 `web/build-for-render.bat <后端域名>` 构建后提交到 dist/。
+  - type: web
+    name: ai-training-web
+    runtime: static
+    staticPublishPath: ./work/app/web/dist
+    routes:
+      # Vue Router 是 history 模式，刷新子路由必须回落到 index.html
+      - type: rewrite
+        source: /*
+        destination: /index.html

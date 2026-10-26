@@ -27,7 +27,7 @@
       </el-form>
 
       <div class="demo">
-        <div class="demo-title">演示账号（密码均为 123456）</div>
+        <div class="demo-title">演示账号（密码均为 123456，点标签可自动填充）</div>
         <div class="demo-list">
           <el-tag
             v-for="a in accounts"
@@ -39,6 +39,9 @@
           >
             {{ a.label }}：{{ a.username }}
           </el-tag>
+        </div>
+        <div class="guide">
+          建议浏览顺序：工作台 → 技能差距分析 → AI 方案生成 → 效果诊断 → 进度看板
         </div>
       </div>
     </div>
@@ -80,6 +83,10 @@ async function onSubmit() {
   const valid = await formRef.value?.validate().catch(() => false);
   if (!valid) return;
   loading.value = true;
+  // 免费实例休眠后首个请求要 30–60 秒，超时给提示，避免用户以为卡死而关页面
+  const wakeTip = setTimeout(() => {
+    ElMessage({ message: "云端服务正在唤醒，通常 30–60 秒，请稍候", type: "info", duration: 6000 });
+  }, 8000);
   try {
     await userStore.login(form.username, form.password);
     ElMessage.success("登录成功");
@@ -88,6 +95,7 @@ async function onSubmit() {
   } catch {
     /* 拦截器已提示 */
   } finally {
+    clearTimeout(wakeTip);
     loading.value = false;
   }
 }
@@ -166,5 +174,12 @@ async function onSubmit() {
 
 .acc {
   cursor: pointer;
+}
+
+.guide {
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #9ca3af;
 }
 </style>

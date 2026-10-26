@@ -1,0 +1,11 @@
+# 构建上下文瘦身：不把本地依赖、产物、密钥送进镜像
+target/
+application-local.yml
+*.log
+_diagnostics/
+
+# 版本控制与文档
+.git/
+.gitignore
+outputs/
+*.md

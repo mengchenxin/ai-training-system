@@ -26,6 +26,9 @@
         <el-button type="primary" :loading="loading" @click="generate">
           <el-icon class="mr4"><MagicStick /></el-icon>生成方案
         </el-button>
+        <el-button text @click="router.push('/ai/metrics#records')">
+          <el-icon class="mr4"><Histogram /></el-icon>生成记录
+        </el-button>
       </div>
     </div>
 

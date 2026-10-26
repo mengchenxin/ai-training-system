@@ -153,6 +153,7 @@ public class AiController {
         m.put("fallbackRate", pct(fallback, total));
         m.put("statusDist", Map.of(
                 "SUCCESS", llmSuccess,
+                "RULE_ONLY", planRecords.stream().filter(r -> "RULE_ONLY".equals(r.getStatus())).count(),
                 "FALLBACK", fallback,
                 "SCHEMA_FAILED", planRecords.stream().filter(r -> "SCHEMA_FAILED".equals(r.getStatus())).count(),
                 "API_ERROR", planRecords.stream().filter(r -> "API_ERROR".equals(r.getStatus())).count()));
