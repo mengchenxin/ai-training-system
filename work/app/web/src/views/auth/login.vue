@@ -83,10 +83,6 @@ async function onSubmit() {
   const valid = await formRef.value?.validate().catch(() => false);
   if (!valid) return;
   loading.value = true;
-  // 免费实例休眠后首个请求要 30–60 秒，超时给提示，避免用户以为卡死而关页面
-  const wakeTip = setTimeout(() => {
-    ElMessage({ message: "云端服务正在唤醒，通常 30–60 秒，请稍候", type: "info", duration: 6000 });
-  }, 8000);
   try {
     await userStore.login(form.username, form.password);
     ElMessage.success("登录成功");
@@ -95,7 +91,6 @@ async function onSubmit() {
   } catch {
     /* 拦截器已提示 */
   } finally {
-    clearTimeout(wakeTip);
     loading.value = false;
   }
 }

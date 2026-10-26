@@ -2,7 +2,7 @@
 node_modules/
 
 # Build output
-# dist/ 刻意不忽略：Render 静态站直接托管该目录，云端不做前端构建
+dist/
 dist-ssr/
 stats.html
 

@@ -16,8 +16,7 @@ export interface PageResult<T = any> {
 }
 
 const service = axios.create({
-  // 本地开发走 vite proxy（/api）；线上部署时由构建环境变量指定后端完整地址
-  baseURL: import.meta.env.VITE_API_BASE || "/api",
+  baseURL: "/api",
   timeout: 120000
 });
 

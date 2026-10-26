@@ -1,1 +1,0 @@
-import{Qr as e}from"./router-DJOAlPGE.js";var t=t=>[``,...e].includes(t);export{t};
