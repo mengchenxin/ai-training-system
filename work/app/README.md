@@ -341,10 +341,10 @@ Java arguments: -XX:TieredStopAtLevel=1 -cp @C:\Users\...\Temp\spring-boot-xxxx.
 
 问题在于：argfile **以 UTF-8 写入**，而 JVM 读取 `@argfile` 时使用的是系统原生编码（中文 Windows 下 `sun.jnu.encoding = GBK`）。路径是纯英文时两种编码字节完全一致，看不出差别；一旦路径含中文，字节被按 GBK 解释成别的字符，classpath 整体失效，于是「找不到主类」。
 
-本项目同时命中两处中文路径：
+本项目曾同时命中两处中文路径：
 
-- 项目路径 `C:\Users\梦萦\Documents\...`
-- 本地仓库 `C:\Users\梦萦\.m2\repository`（依赖 jar 全在这里）
+- 项目路径（2026-11 已迁至纯英文路径 `D:\Desktop\learn\graduate\bi`，此处不再是问题）
+- 本地仓库 `C:\Users\梦萦\.m2\repository`（依赖 jar 全在这里，仍然含中文）
 
 **已做的处理**
 
