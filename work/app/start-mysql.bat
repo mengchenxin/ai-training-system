@@ -1,51 +1,182 @@
 @echo off
-chcp 65001 >nul
+chcp 936 >nul
 setlocal
+title Æô¶¯ MySQL - AI ÅàÑµ¼Æ»®¹ÜÀíÏµÍ³
 
 rem ============================================================
-rem  å¯åŠ¨æœ¬é¡¹ç›®ä¸“ç”¨çš„ MySQL 8.0 å®žä¾‹ï¼ˆ3306ï¼‰
+rem  Æô¶¯±¾ÏîÄ¿×¨ÓÃµÄ MySQL 8.0 ÊµÀý£¨3306£©
 rem
-rem  è¯´æ˜Žï¼šæœ¬æœºåŽŸæœ‰ MySQL80 æœåŠ¡ç”¨çš„æ˜¯å¦ä¸€ä¸ªæ•°æ®ç›®å½•ï¼ˆå«å…¶ä»–åº“ï¼‰ï¼Œ
-rem        æœ¬é¡¹ç›®ä¸ºéš”ç¦»èµ·è§ä½¿ç”¨ç‹¬ç«‹å®žä¾‹ï¼š
-rem          æ•°æ®ç›®å½•  D:\develop\mysql-data\ai-training
-rem          é…ç½®æ–‡ä»¶  D:\develop\mysql-data\conf\ai-training.cnf
-rem        ä¸¤è€…å…±ç”¨ 3306 ç«¯å£ï¼Œå› æ­¤ä¸è¦åŒæ—¶å¯åŠ¨ MySQL80 æœåŠ¡ã€‚
+rem  ±¾»ú»¹ÓÐÏµÍ³×Ô´øµÄ MySQL80 ·þÎñ£¬ÓÃµÄÊÇÁíÒ»¸öÊý¾ÝÄ¿Â¼£¨º¬ÆäËû¿â£©¡£
+rem  ±¾ÏîÄ¿Îª¸ôÀëÆð¼ûÊ¹ÓÃ¶ÀÁ¢ÊµÀý£º
+rem      Êý¾ÝÄ¿Â¼  D:\develop\mysql-data\ai-training
+rem      ÅäÖÃÎÄ¼þ  D:\develop\mysql-data\conf\ai-training.cnf
+rem  Á½Õß¶¼ÇÀ 3306£¬ËùÒÔÆô¶¯Ç°±ØÐëÏÈÈ·ÈÏ¶Ë¿ÚÉÏÅÜµÄÊÇË­¡£
+rem
+rem  ÅÐ¶¨·½Ê½£ºÁ¬ÉÏÈ¥Ö´ÐÐ show databases like 'ai_training'
+rem    ²éµÃµ½  -> ±¾ÏîÄ¿µÄÊµÀý£¬Ö±½ÓÓÃ
+rem    ²é²»µ½  -> ÊÇ MySQL80£¬»áÈÃºó¶Ë±¨ Unknown database£¬ÐèÒªÏÈ¹Øµô
+rem
+rem  ²ÎÊý£ºquiet  ±» start-all.bat µ÷ÓÃÊ±Ê¹ÓÃ£¬²»ÔÝÍ£¡¢²»½»»¥
 rem ============================================================
+
+rem ---- ÊÇ·ñ¾²Ä¬£¨ÓÉ start-all.bat ´«Èë£©----
+set PZ=pause
+if /i "%~1"=="quiet" set PZ=rem
 
 set MYSQLD=D:\develop\MySQL\MySQL Server 8.0\bin\mysqld.exe
+set MYSQLADMIN=D:\develop\MySQL\MySQL Server 8.0\bin\mysqladmin.exe
+set MYSQLCLI=D:\develop\MySQL\MySQL Server 8.0\bin\mysql.exe
 set MYCNF=D:\develop\mysql-data\conf\ai-training.cnf
+set LOCALYML=%~dp0server\application-local.yml
+set CHK=%TEMP%\ai_training_port_check.tmp
 
-rem ---- å·²åœ¨ç›‘å¬åˆ™ç›´æŽ¥è¿”å›ž ----
+rem ---------- ´Ó application-local.yml ¶ÁÊý¾Ý¿âÃÜÂë ----------
+rem Ö»È¡º¬ password: µÄÄÇÒ»ÐÐ£¬²»ÒÀÀµËõ½ø¿Õ¸ñÊý
+set PW=
+if exist "%LOCALYML%" (
+    for /f "tokens=2 delims=:" %%a in ('findstr "password:" "%LOCALYML%"') do set PW=%%a
+)
+set PW=%PW: =%
+if defined PW set MYSQL_PWD=%PW%
+
+echo ==================================================
+echo    Æô¶¯ MySQL£¨ÏîÄ¿×¨ÓÃÊµÀý£©
+echo ==================================================
+echo.
+
+rem ---------- 1. 3306 ÊÇ·ñÒÑ±»Õ¼ÓÃ ----------
 netstat -ano | findstr ":3306 " | findstr LISTENING >nul 2>nul
-if not errorlevel 1 (
-    echo [OK] MySQL å·²åœ¨ 3306 ç›‘å¬ï¼Œæ— éœ€å¯åŠ¨
-    exit /b 0
+if errorlevel 1 goto startours
+
+echo [¼ì²é] 3306 ÒÑ±»Õ¼ÓÃ£¬ÅÐ¶ÏÊÇ²»ÊÇ±¾ÏîÄ¿µÄÊµÀý...
+
+if not defined PW goto foreign
+
+"%MYSQLCLI%" --connect-timeout=5 -h127.0.0.1 -P3306 -uroot -N -B -e "show databases like 'ai_training'" >"%CHK%" 2>nul
+if errorlevel 1 goto foreign
+
+set FOUND=
+for /f "usebackq delims=" %%a in ("%CHK%") do set FOUND=%%a
+if /i not "%FOUND%"=="ai_training" goto foreign
+
+echo [OK] ±¾ÏîÄ¿µÄ MySQL ÊµÀýÒÑÔÚ 3306 ÔËÐÐ£¬ÎÞÐèÆô¶¯
+del "%CHK%" >nul 2>nul
+%PZ%
+exit /b 0
+
+rem ---------- 2. ¶Ë¿Ú±»±ðµÄÊµÀýÕ¼ÁË ----------
+:foreign
+echo.
+echo [¾¯¸æ] 3306 ÉÏÅÜµÄ²»ÊÇ±¾ÏîÄ¿µÄÊµÀý
+echo.
+echo        Í¨³£ÊÇÏµÍ³×Ô´øµÄ MySQL80 ·þÎñ£¨¿ª»ú×ÔÆô£©£¬
+echo        ËüµÄÊý¾ÝÄ¿Â¼ÀïÃ»ÓÐ ai_training ¿â¡£
+echo        Ö±½ÓÆô¶¯»áÈÃºó¶Ë±¨£ºUnknown database 'ai_training'
+echo.
+echo        ÕýÔÚÔËÐÐµÄ MySQL ·þÎñ£º
+net start | findstr /i "mysql"
+if errorlevel 1 echo        £¨Ã»ÓÐ£¬Õ¼ÓÃÕß¿ÉÄÜÊÇÊÖ¶¯Æô¶¯µÄ mysqld ½ø³Ì£©
+echo.
+
+if not defined PW goto manual
+if /i "%~1"=="quiet" goto manual
+
+choice /c YN /n /m "  ÊÇ·ñ¹Ø±ÕËü²¢Æô¶¯±¾ÏîÄ¿ÊµÀý? [Y ¹Ø±Õ / N ÍË³ö] "
+if errorlevel 2 goto abort
+
+echo.
+echo [´¦Àí] ÕýÔÚ¹Ø±ÕÕ¼ÓÃ 3306 µÄÊµÀý...
+"%MYSQLADMIN%" --connect-timeout=5 -h127.0.0.1 -P3306 -uroot shutdown >nul 2>nul
+if errorlevel 1 (
+    echo [ÌáÊ¾] ¿Í»§¶Ë¹Ø±ÕÊ§°Ü£¬¸ÄÓÃ·þÎñ·½Ê½Í£Ö¹ MySQL80£¨ÐèÒª¹ÜÀíÔ±È¨ÏÞ£©...
+    net stop MySQL80 >nul 2>nul
 )
 
+for /l %%i in (1,1,15) do (
+    netstat -ano | findstr ":3306 " | findstr LISTENING >nul 2>nul
+    if errorlevel 1 goto portfree
+    timeout /t 1 /nobreak >nul
+)
+
+echo.
+echo [´íÎó] 3306 ÈÔ±»Õ¼ÓÃ£¬ÎÞ·¨Æô¶¯ÏîÄ¿ÊµÀý
+goto manual
+
+:portfree
+echo [OK] 3306 ÒÑÊÍ·Å
+echo.
+
+rem ---------- 3. Æô¶¯±¾ÏîÄ¿ÊµÀý ----------
+:startours
 if not exist "%MYSQLD%" (
-    echo [é”™è¯¯] æ‰¾ä¸åˆ° mysqldï¼š%MYSQLD%
-    pause
+    echo [´íÎó] ÕÒ²»µ½ mysqld£º%MYSQLD%
+    %PZ%
     exit /b 1
 )
 if not exist "%MYCNF%" (
-    echo [é”™è¯¯] æ‰¾ä¸åˆ°é…ç½®æ–‡ä»¶ï¼š%MYCNF%
-    pause
+    echo [´íÎó] ÕÒ²»µ½ÅäÖÃÎÄ¼þ£º%MYCNF%
+    %PZ%
     exit /b 1
 )
 
-echo æ­£åœ¨å¯åŠ¨ MySQL å®žä¾‹ï¼ˆæ•°æ®ç›®å½• D:\develop\mysql-data\ai-trainingï¼‰...
-start "AIåŸ¹è®­-MySQL" cmd /k ""%MYSQLD%" --defaults-file="%MYCNF%" --console"
+echo ÕýÔÚÆô¶¯ MySQL ÊµÀý£¨Êý¾ÝÄ¿Â¼ D:\develop\mysql-data\ai-training£©...
+start "AIÅàÑµ-MySQL" cmd /k ""%MYSQLD%" --defaults-file="%MYCNF%" --console"
 
-rem ---- æœ€å¤šç­‰ 30 ç§’ ----
+rem ---- ×î¶àµÈ 30 Ãë ----
 for /l %%i in (1,1,30) do (
     netstat -ano | findstr ":3306 " | findstr LISTENING >nul 2>nul
     if not errorlevel 1 goto ready
     timeout /t 1 /nobreak >nul
 )
 
-echo [è­¦å‘Š] 30 ç§’å†…æœªæ£€æµ‹åˆ° 3306 ç›‘å¬ï¼Œè¯·æŸ¥çœ‹å¼¹å‡ºçš„ MySQL çª—å£æŠ¥é”™
+echo.
+echo [¾¯¸æ] 30 ÃëÄÚÎ´¼ì²âµ½ 3306 ¼àÌý£¬Çë²é¿´µ¯³öµÄ MySQL ´°¿Ú±¨´í
+%PZ%
 exit /b 1
 
 :ready
-echo [OK] MySQL å·²å°±ç»ªï¼ˆ3306ï¼‰
+echo [OK] MySQL ÒÑ¾ÍÐ÷£¨3306£©
+
+rem ---- ÔÙÈ·ÈÏÒ»´Î¿âÀïÓÐÃ»ÓÐ ai_training ----
+if not defined PW (
+    echo [ÌáÊ¾] Î´¶Áµ½Êý¾Ý¿âÃÜÂë£¬Ìø¹ý¿âÐ£Ñé
+    echo.
+    %PZ%
+    exit /b 0
+)
+
+"%MYSQLCLI%" --connect-timeout=5 -h127.0.0.1 -P3306 -uroot -N -B -e "show databases like 'ai_training'" >"%CHK%" 2>nul
+if errorlevel 1 (
+    echo [¾¯¸æ] ÒÑ¼àÌýµ«Á¬²»ÉÏ£¬Çë¼ì²é application-local.yml ÀïµÄÃÜÂë
+) else (
+    findstr /i "ai_training" "%CHK%" >nul 2>nul
+    if errorlevel 1 (
+        echo [¾¯¸æ] Á¬ÉÏÁËµ«ÕÒ²»µ½ ai_training ¿â£¬ÇëÈ·ÈÏÊý¾ÝÄ¿Â¼Î´±»Çå¿Õ
+    ) else (
+        echo [OK] ai_training ¿â´æÔÚ£¬¿ÉÒÔÆô¶¯ºó¶ËÁË
+    )
+)
+del "%CHK%" >nul 2>nul
+
+echo.
+%PZ%
 exit /b 0
+
+rem ---------- ÊÕÎ²·ÖÖ§ ----------
+:manual
+echo.
+echo        ÊÖ¶¯´¦Àí°ì·¨£¨ÈÎÑ¡Ò»ÖÖ£©£º
+echo          1) ÒÔ¹ÜÀíÔ±Éí·Ý´ò¿ª cmd£¬Ö´ÐÐ£º net stop MySQL80
+echo          2) ÔÚ services.msc Àï°Ñ MySQL80 µÄÆô¶¯ÀàÐÍ¸Ä³É¡¸ÊÖ¶¯¡¹
+echo        ´¦ÀíÍêÔÙË«»÷±¾½Å±¾
+echo.
+%PZ%
+exit /b 1
+
+:abort
+echo.
+echo [ÍË³ö] Î´×öÈÎºÎ¸Ä¶¯
+echo        ÈôÒª×ßÊÖ¶¯Á÷³Ì£º¹ÜÀíÔ± cmd ÀïÖ´ÐÐ net stop MySQL80£¬ÔÙË«»÷±¾½Å±¾
+echo.
+%PZ%
+exit /b 1

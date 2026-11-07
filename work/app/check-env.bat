@@ -1,17 +1,17 @@
 @echo off
-chcp 65001 >nul
-title ç¯å¢ƒè‡ªæ£€ - AI åŸ¹è®­è®¡åˆ’ç®¡ç†ç³»ç»Ÿ
+chcp 936 >nul
+title »·¾³×Ô¼ì - AI ÅàÑµ¼Æ»®¹ÜÀíÏµÍ³
 cd /d "%~dp0"
 
 echo ================================================
-echo    AI åŸ¹è®­è®¡åˆ’ç®¡ç†ç³»ç»Ÿ - ç¯å¢ƒè‡ªæ£€
+echo    AI ÅàÑµ¼Æ»®¹ÜÀíÏµÍ³ - »·¾³×Ô¼ì
 echo ================================================
 echo.
 
 echo [1] Java 21
 java -version >nul 2>&1
 if errorlevel 1 (
-    echo     [X] æ²¡æœ‰æ‰¾åˆ° javaï¼Œè¯·å®‰è£… JDK 21 å¹¶é…ç½® PATH
+    echo     [X] Ã»ÓĞÕÒµ½ java£¬Çë°²×° JDK 21 ²¢ÅäÖÃ PATH
 ) else (
     java -version 2>&1 | findstr /i "version"
 )
@@ -20,7 +20,7 @@ echo.
 echo [2] Node.js
 node -v >nul 2>&1
 if errorlevel 1 (
-    echo     [X] æ²¡æœ‰æ‰¾åˆ° nodeï¼Œè¯·å®‰è£… Node.js 22
+    echo     [X] Ã»ÓĞÕÒµ½ node£¬Çë°²×° Node.js 22
 ) else (
     echo     node: 
     node -v
@@ -29,42 +29,42 @@ if errorlevel 1 (
 )
 echo.
 
-echo [3] MySQL æœåŠ¡
+echo [3] MySQL ·şÎñ
 net start 2>nul | findstr /i "mysql" >nul 2>&1
 if errorlevel 1 (
-    echo     [!] æ²¡æœ‰è¿è¡Œä¸­çš„ MySQL æœåŠ¡
-    echo         å¦‚æœç”¨çš„æ˜¯ç»¿è‰²ç‰ˆ,è¯·æ‰‹åŠ¨å¯åŠ¨ mysqld
+    echo     [!] Ã»ÓĞÔËĞĞÖĞµÄ MySQL ·şÎñ
+    echo         Èç¹ûÓÃµÄÊÇÂÌÉ«°æ,ÇëÊÖ¶¯Æô¶¯ mysqld
 ) else (
-    echo     MySQL æœåŠ¡æ­£åœ¨è¿è¡Œ:
+    echo     MySQL ·şÎñÕıÔÚÔËĞĞ:
     net start 2>nul | findstr /i "mysql"
 )
 echo.
 
-echo [4] 3306 ç«¯å£
+echo [4] 3306 ¶Ë¿Ú
 netstat -ano | findstr ":3306 " | findstr LISTENING
 if errorlevel 1 (
-    echo     [X] 3306 æ²¡æœ‰ç›‘å¬,æ•°æ®åº“æ²¡å¯åŠ¨
+    echo     [X] 3306 Ã»ÓĞ¼àÌı,Êı¾İ¿âÃ»Æô¶¯
 )
 echo.
 
-echo [5] åç«¯ jar åŒ…
+echo [5] ºó¶Ë jar °ü
 if exist "server\target\ai-training-server-1.0.0.jar" (
-    echo     [OK] jar å­˜åœ¨
+    echo     [OK] jar ´æÔÚ
 ) else (
-    echo     [X] ç¼ºå°‘ jar,éœ€è¦ mvn package æˆ–ä»åŸç”µè„‘å¤åˆ¶ target ç›®å½•
+    echo     [X] È±ÉÙ jar,ĞèÒª mvn package »ò´ÓÔ­µçÄÔ¸´ÖÆ target Ä¿Â¼
 )
 echo.
 
-echo [6] å‰ç«¯ä¾èµ–
+echo [6] Ç°¶ËÒÀÀµ
 if exist "web\node_modules" (
-    echo     [OK] node_modules å·²å®‰è£…
+    echo     [OK] node_modules ÒÑ°²×°
 ) else (
-    echo     [X] æœªå®‰è£…,è¯·æ‰§è¡Œ: cd web ç„¶å npm install
+    echo     [X] Î´°²×°,ÇëÖ´ĞĞ: cd web È»ºó npm install
 )
 echo.
 
 echo ================================================
-echo    æ£€æŸ¥å®Œæ¯•
-echo    å¸¦ [X] çš„é¡¹,æŒ‰ outputs\æ–°ç”µè„‘ç¯å¢ƒå®‰è£…è¯´æ˜.md å¤„ç†
+echo    ¼ì²éÍê±Ï
+echo    ´ø [X] µÄÏî,°´ outputs\ĞÂµçÄÔ»·¾³°²×°ËµÃ÷.md ´¦Àí
 echo ================================================
 pause

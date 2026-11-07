@@ -1,5 +1,5 @@
 @echo off
-chcp 65001 >nul
+chcp 936 >nul
 setlocal
 cd /d "%~dp0server"
 
@@ -8,32 +8,32 @@ set JAR=target\ai-training-server-1.0.0.jar
 if exist "%JAR%" goto run
 
 echo.
-echo [1/2] é¦–æ¬¡è¿è¡Œï¼Œæ­£åœ¨æ‰“åŒ…åç«¯ï¼ˆè·³è¿‡æµ‹è¯•ï¼‰...
+echo [1/2] Ê×´ÎÔËĞĞ£¬ÕıÔÚ´ò°üºó¶Ë£¨Ìø¹ı²âÊÔ£©...
 echo.
 
 where mvn >nul 2>nul
 if %errorlevel%==0 (
     call mvn -B package -DskipTests
-) else if exist "C:\Users\æ¢¦è¦\.workbuddy\binaries\apache-maven-3.9.16\bin\mvn.cmd" (
-    call "C:\Users\æ¢¦è¦\.workbuddy\binaries\apache-maven-3.9.16\bin\mvn.cmd" -B package -DskipTests
+) else if exist "C:\Users\ÃÎİÓ\.workbuddy\binaries\apache-maven-3.9.16\bin\mvn.cmd" (
+    call "C:\Users\ÃÎİÓ\.workbuddy\binaries\apache-maven-3.9.16\bin\mvn.cmd" -B package -DskipTests
 ) else (
-    echo [é”™è¯¯] æ‰¾ä¸åˆ° mvnã€‚è¯·å®‰è£… Maven 3.9+ å¹¶åŠ å…¥ PATHï¼Œæˆ–ç”¨ IDE æ‰“åŒ…ã€‚
+    echo [´íÎó] ÕÒ²»µ½ mvn¡£Çë°²×° Maven 3.9+ ²¢¼ÓÈë PATH£¬»òÓÃ IDE ´ò°ü¡£
     pause
     exit /b 1
 )
 
 if not exist "%JAR%" (
     echo.
-    echo [é”™è¯¯] æ‰“åŒ…å¤±è´¥ï¼Œæœªç”Ÿæˆ %JAR%
+    echo [´íÎó] ´ò°üÊ§°Ü£¬Î´Éú³É %JAR%
     pause
     exit /b 1
 )
 
 :run
 echo.
-echo [2/2] å¯åŠ¨åç«¯: http://127.0.0.1:8000/api
-echo       æ¥å£æ–‡æ¡£: http://127.0.0.1:8000/api/doc.html
-echo       å…³é—­æ­¤çª—å£å³åœæ­¢åç«¯
+echo [2/2] Æô¶¯ºó¶Ë: http://127.0.0.1:8000/api
+echo       ½Ó¿ÚÎÄµµ: http://127.0.0.1:8000/api/doc.html
+echo       ¹Ø±Õ´Ë´°¿Ú¼´Í£Ö¹ºó¶Ë
 echo.
 java -jar %JAR% --server.port=8000
 

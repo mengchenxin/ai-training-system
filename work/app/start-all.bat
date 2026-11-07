@@ -1,46 +1,39 @@
 @echo off
-chcp 65001 >nul
+chcp 936 >nul
 setlocal
 cd /d "%~dp0"
 
 echo ==========================================
-echo   AI åŸ¹è®­è®¡åˆ’ç®¡ç†ç³»ç»Ÿ - ä¸€é”®å¯åŠ¨
+echo   AI ÅàÑµ¼Æ»®¹ÜÀíÏµÍ³ - Ò»¼üÆô¶¯
 echo ==========================================
 echo.
 
-rem ---- å‰ç½®æ£€æŸ¥ï¼šMySQL ----
-netstat -ano | findstr ":3306 " | findstr LISTENING >nul 2>nul
+rem ---- Ç°ÖÃ¼ì²é£ºMySQL£¨¶Ë¿ÚÉÏÊÇÄÄ¸öÊµÀı£¬½»¸ø start-mysql.bat ÅĞ¶¨£©----
+call "%~dp0start-mysql.bat" quiet
 if errorlevel 1 (
-    echo [æç¤º] 3306 æœªç›‘å¬ï¼Œå°è¯•å¯åŠ¨æœ¬é¡¹ç›®ä¸“ç”¨ MySQL å®ä¾‹...
     echo.
-    call "%~dp0start-mysql.bat"
-    if errorlevel 1 (
-        echo.
-        echo [é”™è¯¯] MySQL å¯åŠ¨å¤±è´¥ï¼Œè¯·æ‰‹åŠ¨æ£€æŸ¥ã€‚
-        echo        ä¹Ÿå¯å•ç‹¬è¿è¡Œ start-mysql.bat æŸ¥çœ‹è¯¦ç»†æŠ¥é”™ã€‚
-        echo.
-        choice /c YN /m "ä»è¦ç»§ç»­å¯åŠ¨åç«¯ä¸å‰ç«¯å—"
-        if errorlevel 2 exit /b 1
-    )
-) else (
-    echo [OK] MySQL å·²åœ¨ 3306 ç›‘å¬
+    echo [´íÎó] MySQL Î´¾ÍĞ÷£¬ºó¶Ë»á±¨ Unknown database »òÁ¬½ÓÊ§°Ü¡£
+    echo        Çëµ¥¶ÀÔËĞĞ start-mysql.bat ²é¿´ÏêÏ¸±¨´í¡£
+    echo.
+    choice /c YN /m "ÈÔÒª¼ÌĞøÆô¶¯ºó¶ËÓëÇ°¶ËÂğ"
+    if errorlevel 2 exit /b 1
 )
 
 echo.
-echo æ­£åœ¨æ‰“å¼€ä¸¤ä¸ªçª—å£ï¼šåç«¯(8000) ä¸ å‰ç«¯(3000)
-echo ä¸¤ä¸ªçª—å£éƒ½å…³æ‰æ‰ç®—å…¨éƒ¨åœæ­¢ã€‚
+echo ÕıÔÚ´ò¿ªÁ½¸ö´°¿Ú£ººó¶Ë(8000) Óë Ç°¶Ë(3000)
+echo Á½¸ö´°¿Ú¶¼¹Øµô²ÅËãÈ«²¿Í£Ö¹¡£
 echo.
 
-start "AIåŸ¹è®­-åç«¯" cmd /k "%~dp0start-backend.bat"
+start "AIÅàÑµ-ºó¶Ë" cmd /k "%~dp0start-backend.bat"
 timeout /t 3 /nobreak >nul
-start "AIåŸ¹è®­-å‰ç«¯" cmd /k "%~dp0start-frontend.bat"
+start "AIÅàÑµ-Ç°¶Ë" cmd /k "%~dp0start-frontend.bat"
 timeout /t 8 /nobreak >nul
 
-echo æ­£åœ¨æ¢æµ‹æœåŠ¡...
+echo ÕıÔÚÌ½²â·şÎñ...
 timeout /t 6 /nobreak >nul
-curl -s -o nul -w "åç«¯ 8000: %%{http_code}\n" http://127.0.0.1:8000/api/ai/status
-curl -s -o nul -w "å‰ç«¯ 3000: %%{http_code}\n" http://127.0.0.1:3000/
+curl -s -o nul -w "ºó¶Ë 8000: %%{http_code}\n" http://127.0.0.1:8000/api/ai/status
+curl -s -o nul -w "Ç°¶Ë 3000: %%{http_code}\n" http://127.0.0.1:3000/
 echo.
-echo åç«¯è¿”å› 401 å±æ­£å¸¸ï¼ˆæœªç™»å½•ï¼‰ï¼Œè¯´æ˜æœåŠ¡å·²èµ·æ¥ã€‚
-echo æµè§ˆå™¨è®¿é—® http://127.0.0.1:3000
+echo ºó¶Ë·µ»Ø 401 ÊôÕı³££¨Î´µÇÂ¼£©£¬ËµÃ÷·şÎñÒÑÆğÀ´¡£
+echo ä¯ÀÀÆ÷·ÃÎÊ http://127.0.0.1:3000
 pause

@@ -1,13 +1,13 @@
 @echo off
-chcp 65001 >nul
+chcp 936 >nul
 title MySQL - ai_training (localhost:3306)
 echo ================================================
-echo   MySQL å‘½ä»¤è¡Œ  ai_training  @ 127.0.0.1:3306
-echo   è´¦å· rootï¼Œå›è½¦åè¾“å…¥å¯†ç ï¼ˆä¸æ˜¾ç¤ºä»»ä½•å­—ç¬¦ï¼‰
-echo   é€€å‡ºè¯·è¾“å…¥ï¼š exit   æˆ–   quit
+echo   MySQL ÃüÁîĞĞ  ai_training  @ 127.0.0.1:3306
+echo   ÕËºÅ root£¬»Ø³µºóÊäÈëÃÜÂë£¨²»ÏÔÊ¾ÈÎºÎ×Ö·û£©
+echo   ÍË³öÇëÊäÈë£º exit   »ò   quit
 echo ================================================
 echo.
 "D:\develop\MySQL\MySQL Server 8.0\bin\mysql.exe" -uroot -p -h127.0.0.1 -P3306 --default-character-set=utf8mb4 ai_training
 echo.
-echo [å·²é€€å‡º MySQL]
+echo [ÒÑÍË³ö MySQL]
 pause
