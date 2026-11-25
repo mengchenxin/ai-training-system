@@ -64,16 +64,16 @@ public class UserService {
         }
         Set<Long> deptIds = users.stream().map(SysUser::getDeptId).filter(Objects::nonNull).collect(Collectors.toSet());
         Set<Long> postIds = users.stream().map(SysUser::getPostId).filter(Objects::nonNull).collect(Collectors.toSet());
-        Map<Long, String> deptMap = deptIds.isEmpty() ? Map.of() : deptMapper.selectBatchIds(deptIds).stream()
+        Map<Long, String> deptMap = deptIds.isEmpty() ? Collections.emptyMap() : deptMapper.selectBatchIds(deptIds).stream()
                 .collect(Collectors.toMap(SysDept::getId, SysDept::getDeptName));
-        Map<Long, String> postMap = postIds.isEmpty() ? Map.of() : postMapper.selectBatchIds(postIds).stream()
+        Map<Long, String> postMap = postIds.isEmpty() ? Collections.emptyMap() : postMapper.selectBatchIds(postIds).stream()
                 .collect(Collectors.toMap(Post::getId, Post::getPostName));
 
         List<Long> userIds = users.stream().map(SysUser::getId).toList();
         List<SysUserRole> links = userRoleMapper.selectList(
                 new LambdaQueryWrapper<SysUserRole>().in(SysUserRole::getUserId, userIds));
         Set<Long> roleIds = links.stream().map(SysUserRole::getRoleId).collect(Collectors.toSet());
-        Map<Long, SysRole> roleMap = roleIds.isEmpty() ? Map.of() : roleMapper.selectBatchIds(roleIds).stream()
+        Map<Long, SysRole> roleMap = roleIds.isEmpty() ? Collections.emptyMap() : roleMapper.selectBatchIds(roleIds).stream()
                 .collect(Collectors.toMap(SysRole::getId, r -> r));
         Map<Long, List<SysUserRole>> linkMap = links.stream()
                 .collect(Collectors.groupingBy(SysUserRole::getUserId));

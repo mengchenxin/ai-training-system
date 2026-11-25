@@ -184,12 +184,12 @@ public class TrainPlanService {
         vo.setCourses(courses);
 
         Set<Long> courseIds = courses.stream().map(PlanCourse::getCourseId).collect(Collectors.toSet());
-        Map<Long, Course> courseMap = courseIds.isEmpty() ? Map.of()
+        Map<Long, Course> courseMap = courseIds.isEmpty() ? Collections.emptyMap()
                 : courseMapper.selectBatchIds(courseIds).stream()
                 .collect(Collectors.toMap(Course::getId, c -> c));
         Set<Long> skillIds = courses.stream().map(PlanCourse::getCoverSkillId)
                 .filter(Objects::nonNull).collect(Collectors.toSet());
-        Map<Long, String> skillNames = skillIds.isEmpty() ? Map.of()
+        Map<Long, String> skillNames = skillIds.isEmpty() ? Collections.emptyMap()
                 : skillMapper.selectBatchIds(skillIds).stream()
                 .collect(Collectors.toMap(Skill::getId, Skill::getSkillName));
 

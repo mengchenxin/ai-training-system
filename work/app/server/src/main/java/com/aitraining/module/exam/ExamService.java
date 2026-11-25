@@ -183,7 +183,7 @@ public class ExamService {
         List<ExamPaperQuestion> pqs = paperQuestionMapper.selectList(
                 new LambdaQueryWrapper<ExamPaperQuestion>().eq(ExamPaperQuestion::getPaperId, paperId)
                         .orderByAsc(ExamPaperQuestion::getSeqNo));
-        Map<Long, Question> qm = pqs.isEmpty() ? Map.of() : questionMapper.selectBatchIds(
+        Map<Long, Question> qm = pqs.isEmpty() ? Collections.emptyMap() : questionMapper.selectBatchIds(
                         pqs.stream().map(ExamPaperQuestion::getQuestionId).toList())
                 .stream().collect(Collectors.toMap(Question::getId, q -> q));
         Map<Long, String> skillNames = skillNames(qm.values().stream()
@@ -400,7 +400,7 @@ public class ExamService {
         Map<Long, String> papers = paperMapper.selectBatchIds(paperIds).stream()
                 .collect(Collectors.toMap(ExamPaper::getId, ExamPaper::getPaperName));
         Set<Long> userIds = list.stream().map(ExamRecord::getUserId).collect(Collectors.toSet());
-        Map<Long, String> userNames = userIds.isEmpty() ? Map.of()
+        Map<Long, String> userNames = userIds.isEmpty() ? Collections.emptyMap()
                 : userMapper.selectBatchIds(userIds).stream()
                 .collect(Collectors.toMap(com.aitraining.module.system.entity.SysUser::getId,
                         com.aitraining.module.system.entity.SysUser::getRealName));

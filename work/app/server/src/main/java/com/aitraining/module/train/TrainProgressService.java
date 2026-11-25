@@ -147,10 +147,10 @@ public class TrainProgressService {
         Page<TrainProgress> p = progressMapper.selectPage(new Page<>(current, size), w);
 
         Set<Long> userIds = p.getRecords().stream().map(TrainProgress::getUserId).collect(Collectors.toSet());
-        Map<Long, SysUser> users = userIds.isEmpty() ? Map.of() : userMapper.selectBatchIds(userIds)
+        Map<Long, SysUser> users = userIds.isEmpty() ? Collections.emptyMap() : userMapper.selectBatchIds(userIds)
                 .stream().collect(Collectors.toMap(SysUser::getId, u -> u));
         Set<Long> courseIds = p.getRecords().stream().map(TrainProgress::getCourseId).collect(Collectors.toSet());
-        Map<Long, Course> courses = courseIds.isEmpty() ? Map.of() : courseMapper.selectBatchIds(courseIds)
+        Map<Long, Course> courses = courseIds.isEmpty() ? Collections.emptyMap() : courseMapper.selectBatchIds(courseIds)
                 .stream().collect(Collectors.toMap(Course::getId, c -> c));
         Map<Long, String> depts = deptMapper.selectList(new LambdaQueryWrapper<>()).stream()
                 .collect(Collectors.toMap(SysDept::getId, SysDept::getDeptName));
