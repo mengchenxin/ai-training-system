@@ -408,8 +408,9 @@ CREATE TABLE ai_prompt_template (
   template_code VARCHAR(64)  NOT NULL                COMMENT '模板编码',
   template_name VARCHAR(128) NOT NULL,
   scene         VARCHAR(32)  NOT NULL
-                COMMENT '场景：PLAN_GEN方案生成/EFFECT_DIAG效果诊断/RETRAIN补训方案/QA知识问答/PAPER_GEN组卷/JUDGE主观题评分',
+                COMMENT '场景：PLAN_GEN方案生成/EFFECT_DIAG效果诊断/QA知识问答/JUDGE主观题评分',
   content       TEXT         NOT NULL                COMMENT 'Prompt 模板正文，用 {{变量}} 占位',
+  system_content TEXT        NULL                    COMMENT '系统提示词，与 content（用户提示词）分离管理，避免硬编码在 Java 里',
   input_schema  JSON         NULL                    COMMENT '期望输入的变量说明与校验规则',
   output_schema JSON         NULL                    COMMENT '期望输出的 JSON 结构，用于校验',
   model         VARCHAR(64)  NOT NULL DEFAULT 'deepseek-chat'
@@ -443,6 +444,9 @@ CREATE TABLE ai_gen_record (
   completion_tokens  INT          NULL,
   cost_ms            INT          NULL               COMMENT '耗时（毫秒），性能指标',
   attempt_count      INT          NOT NULL DEFAULT 1 COMMENT '尝试次数（含重试）',
+  gen_mode           VARCHAR(16)  NULL               COMMENT '生成模式：RULE/HYBRID/LLM_ONLY，三组对比实验的分组键',
+  hallucination_count INT         NULL               COMMENT '幻觉课程数（仅 LLM_ONLY 有意义）',
+  blind_score        TINYINT      NULL               COMMENT '盲评得分 1-5（人工在不知模式的条件下打分）',
   status             VARCHAR(24)  NOT NULL DEFAULT 'SUCCESS'
                      COMMENT '状态：SUCCESS成功/SCHEMA_FAILED结构校验失败/RETRIED重试/FALLBACK降级为规则方案/API_ERROR接口异常',
   adopt_status       VARCHAR(16)  NOT NULL DEFAULT 'PENDING'

@@ -71,6 +71,32 @@
       </el-col>
     </el-row>
 
+    <div class="card mb16">
+      <div class="flex-between mb12">
+        <b>三组对比实验（按生成模式分组）</b>
+        <span class="muted" style="font-size: 12px">
+          缓存命中率 {{ metrics?.cache?.hitRate ?? 0 }}%（缓存 {{ metrics?.cache?.size ?? 0 }} 条）
+        </span>
+      </div>
+      <el-table :data="metrics?.modeStats || []" size="small">
+        <el-table-column prop="label" label="生成模式" min-width="160" />
+        <el-table-column prop="samples" label="样本数" width="90" align="center" />
+        <el-table-column prop="avgCostMs" label="平均耗时(ms)" width="130" align="center" />
+        <el-table-column prop="avgTotalTokens" label="平均 tokens" width="130" align="center" />
+        <el-table-column prop="avgHallucination" label="平均幻觉课程" width="140" align="center">
+          <template #default="{ row }">
+            <span :style="{ color: row.avgHallucination > 0 ? '#dc2626' : '#16a34a' }">
+              {{ row.avgHallucination ?? 0 }}
+            </span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="successRate" label="成功率(%)" width="110" align="center" />
+      </el-table>
+      <div class="muted mt8" style="font-size: 12px">
+        纯规则模式不消耗 token；纯大模型组的「平均幻觉课程」就是约束必要性的量化证据。
+      </div>
+    </div>
+
     <div class="card" id="records">
       <div class="flex-between mb16">
         <b>AI 生成记录</b>

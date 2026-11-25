@@ -320,7 +320,7 @@ public class EffectService {
         vars.put("gapReduce", eval.getGapReduce());
         String prompt = tpl == null ? eval.getDiagnosis() : PromptService.render(tpl.getContent(), vars);
 
-        LlmResponse resp = llmClient.chat("你是培训效果评估专家，只输出 JSON。", prompt, true);
+        LlmResponse resp = llmClient.chat(promptService.systemPrompt("EFFECT_DIAG", "你是培训效果评估专家，只输出 JSON。"), prompt, true);
         if (resp.isSuccess()) {
             try {
                 JsonNode node = objectMapper.readTree(cleanJson(resp.getContent()));

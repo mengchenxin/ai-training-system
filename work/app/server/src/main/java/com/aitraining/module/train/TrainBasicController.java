@@ -7,6 +7,10 @@ import com.aitraining.common.PageResult;
 import com.aitraining.common.Result;
 import com.aitraining.module.skill.entity.Skill;
 import com.aitraining.module.skill.mapper.SkillMapper;
+import com.aitraining.module.system.entity.Post;
+import com.aitraining.module.system.entity.SysDept;
+import com.aitraining.module.system.mapper.PostMapper;
+import com.aitraining.module.system.mapper.SysDeptMapper;
 import com.aitraining.module.train.entity.Course;
 import com.aitraining.module.train.entity.TrainNeed;
 import com.aitraining.module.train.mapper.CourseMapper;
@@ -33,6 +37,8 @@ public class TrainBasicController {
     private final CourseMapper courseMapper;
     private final TrainNeedMapper needMapper;
     private final SkillMapper skillMapper;
+    private final SysDeptMapper deptMapper;
+    private final PostMapper postMapper;
 
     // ---------------- 课程 ----------------
 
@@ -200,11 +206,101 @@ public class TrainBasicController {
         return Result.ok();
     }
 
+    /**
+     * 培训需求汇总 —— 按部门 / 岗位 / 技能 / 优先级 / 状态多维聚合。
+     *
+     * <p>补齐「需求汇总」的聚合维度：需求列表只能逐条看，
+     * 计划编制前需要先回答「哪个部门缺口最多、哪类技能被反复提报」，
+     * 因此这里一次性返回可直接渲染看板的分组结果，避免前端拉全量再自己算。
+     */
+    @Operation(summary = "培训需求汇总（部门/岗位/技能/优先级聚合）")
+    @GetMapping("/need/summary")
+    public Result<Map<String, Object>> needSummary(@RequestParam(required = false) String auditStatus,
+                                                   @RequestParam(required = false) Long deptId) {
+        LoginHelper.requireManager();
+        LambdaQueryWrapper<TrainNeed> w = new LambdaQueryWrapper<>();
+        if (StringUtils.hasText(auditStatus)) {
+            w.eq(TrainNeed::getAuditStatus, auditStatus);
+        }
+        if (deptId != null) {
+            w.eq(TrainNeed::getDeptId, deptId);
+        }
+        List<TrainNeed> all = needMapper.selectList(w);
+
+        Map<Long, String> deptNames = deptNameMap(all.stream()
+                .map(TrainNeed::getDeptId).filter(Objects::nonNull).collect(Collectors.toSet()));
+        Map<Long, String> postNames = postNameMap(all.stream()
+                .map(TrainNeed::getPostId).filter(Objects::nonNull).collect(Collectors.toSet()));
+        Map<Long, String> skillNames = skillNameMap(all.stream()
+                .map(TrainNeed::getSkillId).filter(Objects::nonNull).collect(Collectors.toSet()));
+
+        Map<String, Object> m = new LinkedHashMap<>();
+        m.put("total", all.size());
+        m.put("byStatus", groupCount(all, n -> Objects.requireNonNullElse(n.getAuditStatus(), "UNKNOWN")));
+        m.put("byPriority", groupCount(all, n -> String.valueOf(Objects.requireNonNullElse(n.getPriority(), 3))));
+        m.put("byDept", groupCount(all, n -> n.getDeptId() == null ? "未归属"
+                : deptNames.getOrDefault(n.getDeptId(), "部门#" + n.getDeptId())));
+        m.put("byPost", groupCount(all, n -> n.getPostId() == null ? "未指定"
+                : postNames.getOrDefault(n.getPostId(), "岗位#" + n.getPostId())));
+        m.put("bySkill", groupCount(all, n -> n.getSkillId() == null ? "未指定"
+                : skillNames.getOrDefault(n.getSkillId(), "技能#" + n.getSkillId())));
+
+        // 高优先级需求清单（priority=1），计划编制时优先排
+        List<Map<String, Object>> urgent = all.stream()
+                .filter(n -> n.getPriority() != null && n.getPriority() == 1)
+                .sorted(Comparator.comparing(TrainNeed::getId).reversed())
+                .limit(10)
+                .map(n -> {
+                    Map<String, Object> item = new LinkedHashMap<>();
+                    item.put("id", n.getId());
+                    item.put("needTitle", n.getNeedTitle());
+                    item.put("deptName", n.getDeptId() == null ? null : deptNames.get(n.getDeptId()));
+                    item.put("postName", n.getPostId() == null ? null : postNames.get(n.getPostId()));
+                    item.put("skillName", n.getSkillId() == null ? null : skillNames.get(n.getSkillId()));
+                    item.put("auditStatus", n.getAuditStatus());
+                    item.put("createTime", n.getCreateTime());
+                    return item;
+                }).toList();
+        m.put("urgent", urgent);
+        return Result.ok(m);
+    }
+
     private Map<Long, String> skillNameMap(Set<Long> ids) {
         if (ids.isEmpty()) {
             return Map.of();
         }
         return skillMapper.selectBatchIds(ids).stream()
                 .collect(Collectors.toMap(Skill::getId, Skill::getSkillName));
+    }
+
+    /** 按分组键统计条数，并按数量倒序，前端直接当图表数据用 */
+    private List<Map<String, Object>> groupCount(List<TrainNeed> list,
+                                                 java.util.function.Function<TrainNeed, String> key) {
+        Map<String, Long> counts = list.stream()
+                .collect(Collectors.groupingBy(key, LinkedHashMap::new, Collectors.counting()));
+        return counts.entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .map(e -> {
+                    Map<String, Object> item = new LinkedHashMap<>();
+                    item.put("name", e.getKey());
+                    item.put("value", e.getValue());
+                    return item;
+                }).toList();
+    }
+
+    private Map<Long, String> deptNameMap(Set<Long> ids) {
+        if (ids.isEmpty()) {
+            return Map.of();
+        }
+        return deptMapper.selectBatchIds(ids).stream()
+                .collect(Collectors.toMap(SysDept::getId, SysDept::getDeptName));
+    }
+
+    private Map<Long, String> postNameMap(Set<Long> ids) {
+        if (ids.isEmpty()) {
+            return Map.of();
+        }
+        return postMapper.selectBatchIds(ids).stream()
+                .collect(Collectors.toMap(Post::getId, Post::getPostName));
     }
 }

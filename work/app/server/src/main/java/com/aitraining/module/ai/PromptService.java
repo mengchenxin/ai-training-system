@@ -57,6 +57,18 @@ public class PromptService {
         cache.clear();
     }
 
+    /**
+     * 取某场景的系统提示词。模板里配了就用模板的，没配才回退到代码默认值——
+     * 这样「Prompt 统一管理」在代码层面才成立，而不是只把用户提示词搬进库。
+     */
+    public String systemPrompt(String scene, String fallback) {
+        AiPromptTemplate t = getByScene(scene);
+        if (t != null && t.getSystemContent() != null && !t.getSystemContent().isBlank()) {
+            return t.getSystemContent();
+        }
+        return fallback;
+    }
+
     /** 渲染模板，未提供的变量替换为空串 */
     public static String render(String template, Map<String, Object> vars) {
         if (template == null) {

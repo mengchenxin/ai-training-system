@@ -50,6 +50,15 @@ public class AiGenRecord implements Serializable {
     /** 尝试次数（含重试） */
     private Integer attemptCount;
 
+    /** 生成模式：RULE / HYBRID / LLM_ONLY，三组对比实验的分组键 */
+    private String genMode;
+
+    /** 幻觉课程数：仅 LLM_ONLY 有意义，输出中课程库不存在的课程数量 */
+    private Integer hallucinationCount;
+
+    /** 盲评得分（1-5），由人工在不知模式的条件下打分 */
+    private Integer blindScore;
+
     private String status;
 
     private String adoptStatus;

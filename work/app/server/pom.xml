@@ -116,6 +116,16 @@
                     <parameters>true</parameters>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <!--
+                  固定 3.1.2：父 POM 默认的 3.2.5 会去中央仓库拉 surefire-junit-platform，
+                  在离线/内网环境下解析不到就直接 build failure。3.1.2 的 provider 本地已有，
+                  且对 JUnit 5 的支持与 3.2.x 无差异。
+                -->
+                <version>3.1.2</version>
+            </plugin>
         </plugins>
     </build>
 </project>

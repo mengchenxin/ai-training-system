@@ -58,6 +58,7 @@ export const trainApi = {
   removeCourse: (id: number) => request({ url: `/train/course/${id}`, method: "delete" }),
 
   needPage: (params: any) => request<PageResult>({ url: "/train/need/page", params }),
+  needSummary: (params?: any) => request<any>({ url: "/train/need/summary", params }),
   saveNeed: (data: any) => request({ url: "/train/need", method: "post", data }),
   auditNeed: (id: number, status: string) =>
     request({ url: `/train/need/${id}/audit`, method: "post", params: { status } }),
@@ -107,6 +108,11 @@ export const aiApi = {
   status: () => request<any>({ url: "/ai/status" }),
   generatePlan: (userId: number, params?: any) =>
     request<any>({ url: "/ai/plan/generate", method: "post", params: { userId, ...params } }),
+  comparePlans: (userId: number, budget?: number) =>
+    request<any>({ url: "/ai/plan/compare", method: "post", params: { userId, budget } }),
+  blindPick: (data: { blindId: string; scores: Record<string, number> }) =>
+    request<any>({ url: "/ai/plan/blind-pick", method: "post", data }),
+  blindSummary: () => request<any[]>({ url: "/ai/plan/blind-summary" }),
   adopt: (recordId: number, status: string, reason?: string) =>
     request({ url: `/ai/plan/${recordId}/adopt`, method: "post", params: { status, reason } }),
   recordPage: (params: any) => request<PageResult>({ url: "/ai/record/page", params }),

@@ -42,6 +42,7 @@ public class AiController {
     private final AiGenRecordMapper genRecordMapper;
     private final AiPromptTemplateMapper templateMapper;
     private final AiQaLogMapper qaLogMapper;
+    private final PlanCacheService planCache;
 
     // ---------------- 运行状态 ----------------
 
@@ -53,20 +54,60 @@ public class AiController {
         m.put("model", llmClient.modelName());
         m.put("ragIndexSize", ragService.indexSize());
         m.put("mode", llmClient.available() ? "规则+大模型混合" : "纯规则降级模式（未配置 API Key）");
+        m.put("modes", java.util.Arrays.stream(PlanMode.values()).map(pm -> Map.of(
+                "value", pm.name(),
+                "label", pm.label(),
+                "needLlm", pm != PlanMode.RULE,
+                "available", pm == PlanMode.RULE || llmClient.available())).toList());
+        m.put("cacheTtlSeconds", 1800);
         return Result.ok(m);
     }
 
     // ---------------- 个性化方案生成 ----------------
 
-    @Operation(summary = "生成个性化培训方案（规则+大模型混合）")
+    @Operation(summary = "生成个性化培训方案（三模式：RULE / HYBRID / LLM_ONLY）")
     @PostMapping("/plan/generate")
     public Result<PlanGenResultVO> generate(@RequestParam Long userId,
                                             @RequestParam(required = false) BigDecimal budget,
-                                            @RequestParam(required = false) Boolean useLlm) {
+                                            @RequestParam(required = false) Boolean useLlm,
+                                            @RequestParam(required = false) String mode,
+                                            @RequestParam(required = false, defaultValue = "false") boolean refresh) {
         if (LoginHelper.isEmployee() && !LoginHelper.userId().equals(userId)) {
             throw new BizException(403, "只能为自己生成方案");
         }
-        return Result.ok(planService.generate(userId, budget, useLlm));
+        return Result.ok(planService.generate(userId, budget, useLlm, mode, refresh));
+    }
+
+    @Operation(summary = "三组方案匿名对比（盲评材料，隐去模式标签）")
+    @PostMapping("/plan/compare")
+    public Result<Map<String, Object>> compare(@RequestParam Long userId,
+                                               @RequestParam(required = false) BigDecimal budget) {
+        LoginHelper.requireManager();
+        return Result.ok(planService.compare(userId, budget));
+    }
+
+    @Operation(summary = "提交盲评打分（1-5 分，最高分为首选）")
+    @PostMapping("/plan/blind-pick")
+    public Result<Map<String, Object>> blindPick(@RequestBody Map<String, Object> body) {
+        LoginHelper.requireManager();
+        String blindId = body.get("blindId") == null ? null : String.valueOf(body.get("blindId"));
+        if (blindId == null || blindId.isBlank()) {
+            throw new BizException("缺少 blindId");
+        }
+        Object raw = body.get("scores");
+        Map<String, Integer> scores = new LinkedHashMap<>();
+        if (raw instanceof Map<?, ?> m) {
+            m.forEach((k, v) -> scores.put(String.valueOf(k),
+                    v instanceof Number n ? n.intValue() : Integer.parseInt(String.valueOf(v))));
+        }
+        return Result.ok(planService.blindPick(blindId, scores));
+    }
+
+    @Operation(summary = "盲评结果汇总（按模式解盲，论文表格数据源）")
+    @GetMapping("/plan/blind-summary")
+    public Result<List<Map<String, Object>>> blindSummary() {
+        LoginHelper.requireManager();
+        return Result.ok(planService.blindSummary());
     }
 
     @Operation(summary = "采纳或驳回方案（写入实验指标）")
@@ -82,6 +123,11 @@ public class AiController {
         r.setAdoptStatus(status);
         r.setRejectReason(reason);
         genRecordMapper.updateById(r);
+        // 采纳/驳回意味着该员工的结果已被消费，缓存的旧方案不再有意义
+        AiGenRecord db = genRecordMapper.selectById(recordId);
+        if (db != null && db.getUserId() != null) {
+            planCache.invalidateUser(db.getUserId());
+        }
         return Result.ok();
     }
 
@@ -122,6 +168,9 @@ public class AiController {
             m.put("llmShare", BigDecimal.ZERO);
             m.put("llmCalls", 0);
             m.put("fallbackRate", BigDecimal.ZERO);
+            m.put("modeDist", Map.of());
+            m.put("modeStats", List.of());
+            m.put("cache", planCache.stats());
             return Result.ok(m);
         }
         // 结构合规率只统计真正发起过大模型调用的记录：
@@ -162,6 +211,41 @@ public class AiController {
                 "ADOPTED", planRecords.stream().filter(r -> "ADOPTED".equals(r.getAdoptStatus())).count(),
                 "MODIFIED", planRecords.stream().filter(r -> "MODIFIED".equals(r.getAdoptStatus())).count(),
                 "REJECTED", planRecords.stream().filter(r -> "REJECTED".equals(r.getAdoptStatus())).count()));
+
+        // ---- 三组对比实验口径：按生成模式分组统计（论文表格直接取这一块）----
+        m.put("modeDist", planRecords.stream().filter(r -> r.getGenMode() != null)
+                .collect(java.util.stream.Collectors.groupingBy(AiGenRecord::getGenMode,
+                        java.util.stream.Collectors.counting())));
+        List<Map<String, Object>> modeStats = new java.util.ArrayList<>();
+        for (PlanMode pm : PlanMode.values()) {
+            List<AiGenRecord> list = planRecords.stream()
+                    .filter(r -> pm.name().equals(r.getGenMode())).toList();
+            if (list.isEmpty()) {
+                continue;
+            }
+            Map<String, Object> s = new LinkedHashMap<>();
+            s.put("mode", pm.name());
+            s.put("label", pm.label());
+            s.put("samples", list.size());
+            s.put("avgCostMs", Math.round(list.stream()
+                    .mapToInt(r -> r.getCostMs() == null ? 0 : r.getCostMs()).average().orElse(0)));
+            s.put("avgTotalTokens", Math.round(list.stream()
+                    .mapToInt(r -> (r.getPromptTokens() == null ? 0 : r.getPromptTokens())
+                            + (r.getCompletionTokens() == null ? 0 : r.getCompletionTokens()))
+                    .average().orElse(0)));
+            s.put("avgHallucination", BigDecimal.valueOf(list.stream()
+                            .mapToInt(r -> r.getHallucinationCount() == null ? 0 : r.getHallucinationCount())
+                            .average().orElse(0))
+                    .setScale(2, RoundingMode.HALF_UP));
+            // 纯规则模式的正常状态是 RULE_ONLY（不是 SUCCESS、也不是降级），
+            // 两者都算「按预期产出」，否则规则组成功率会显示成 0%
+            s.put("successRate", pct(list.stream()
+                    .filter(r -> "SUCCESS".equals(r.getStatus()) || "RULE_ONLY".equals(r.getStatus()))
+                    .count(), list.size()));
+            modeStats.add(s);
+        }
+        m.put("modeStats", modeStats);
+        m.put("cache", planCache.stats());
         return Result.ok(m);
     }
 

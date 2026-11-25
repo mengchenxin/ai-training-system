@@ -872,16 +872,6 @@ INSERT INTO ai_prompt_template (template_code,template_name,scene,content,model,
 
 【要求】判断培训是否有效，指出仍存在的主要短板及其业务影响，给出 2-3 条具体改进建议。
 输出 JSON：{"result":"EXCELLENT|PASS|FAIL","diagnosis":"诊断结论，200字以内","weakPoints":["短板1","短板2"],"suggestions":["建议1","建议2"]}','deepseek-chat',0.20,1200,1),
-  ('RETRAIN_V1','补训方案生成','RETRAIN','你是一名培训方案设计专家。员工 {{realName}}（{{postName}}）在培训后仍未达标，需要生成补训方案。
-
-【未达标原因】{{diagnosis}}
-【剩余技能差距】{{remains}}
-【前测/后测成绩】{{preScore}} / {{postScore}}
-【可用课程】{{courseCandidates}}
-
-【要求】针对剩余差距设计补训方案，优先安排差距最大项；给出补训周期建议与验收方式。
-只从可用课程中选择。输出 JSON：
-{"summary":"补训思路，100字以内","duration":"建议周期，如 2周","courses":[{"courseId":数字,"hours":数字,"reason":"安排依据"}],"acceptance":"验收方式"}','deepseek-chat',0.30,1200,1),
   ('QA_V1','知识库问答','QA','你是企业培训知识助手。请仅依据下面检索到的知识片段回答用户问题，不要编造。
 
 【知识片段】
@@ -891,12 +881,6 @@ INSERT INTO ai_prompt_template (template_code,template_name,scene,content,model,
 
 【要求】回答简洁准确；若知识片段不足以回答，明确说明"知识库中未收录该内容"，不要猜测。
 在回答末尾用「参考：文档名」标注引用来源。','deepseek-chat',0.10,1000,1),
-  ('PAPER_GEN_V1','按技能自动组卷','PAPER_GEN','你是组卷专家。请根据技能范围与难度分布要求，从题库中选择题目组卷。
-【技能范围】{{skillNames}}
-【难度分布】简单 {{easyCount}} 题 / 中等 {{mediumCount}} 题 / 困难 {{hardCount}} 题
-【可用题目】{{questionPool}}
-【要求】只从可用题目中选择 questionId，覆盖各技能点。输出 JSON：
-{"paperName":"试卷名称","questions":[{"questionId":数字,"score":数字,"reason":"选取理由"}]}','deepseek-chat',0.20,1500,1),
   ('JUDGE_V1','主观题辅助评分','JUDGE','你是严谨的阅卷老师，请为简答题评分。
 
 【题目】{{question}}
@@ -907,6 +891,12 @@ INSERT INTO ai_prompt_template (template_code,template_name,scene,content,model,
 
 【要求】按参考要点给分，允许同义表述；给分需保守客观。输出 JSON：
 {"score":数字,"reason":"评分理由，80字以内","missing":"遗漏的要点"}','deepseek-chat',0.10,600,1);
+-- 系统提示词入库：与用户提示词分开管理，避免写死在 Java 里
+UPDATE ai_prompt_template SET system_content='你是企业培训方案设计专家。你只能从给定的候选课程中选择，输出必须是合法 JSON，不要输出任何解释性文字、Markdown 代码块或注释。' WHERE scene='PLAN_GEN';
+UPDATE ai_prompt_template SET system_content='你是企业培训知识助手，回答必须基于给定资料，不得编造。' WHERE scene='QA';
+UPDATE ai_prompt_template SET system_content='你是严谨的阅卷老师，只输出 JSON。' WHERE scene='JUDGE';
+UPDATE ai_prompt_template SET system_content='你是培训效果评估专家，只输出 JSON。' WHERE scene='EFFECT_DIAG';
+
 
 -- ============ 示例培训计划（部门计划）============
 INSERT INTO train_plan (id,plan_no,plan_name,plan_type,target_dept_id,start_date,end_date,status,gen_type,creator_id,auditor_id,audit_time) VALUES

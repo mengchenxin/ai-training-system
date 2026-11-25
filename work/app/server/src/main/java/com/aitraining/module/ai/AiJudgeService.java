@@ -72,7 +72,7 @@ public class AiJudgeService {
                 + "\n请输出 JSON：{\"score\":数字,\"reason\":\"\"}"
                 : PromptService.render(tpl.getContent(), vars);
 
-        LlmResponse resp = llmClient.chat("你是严谨的阅卷老师，只输出 JSON。", prompt, true);
+        LlmResponse resp = llmClient.chat(promptService.systemPrompt("JUDGE", "你是严谨的阅卷老师，只输出 JSON。"), prompt, true);
         if (!resp.isSuccess()) {
             r.reason = "AI 评分失败：" + resp.getError() + "，已按规则评分";
             JudgeResult rule = ruleJudge(q, userAnswer, full);

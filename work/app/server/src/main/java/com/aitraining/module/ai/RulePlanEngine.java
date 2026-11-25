@@ -69,20 +69,33 @@ public class RulePlanEngine {
                     .comparingInt((Course c) -> Math.abs(c.getLevel() - item.getTargetLevel()))
                     .thenComparing(Course::getLevel));
             int want = item.getGap() >= 2 && candidates.size() > 1 ? 2 : 1;
-            int added = 0;
+
+            // 先按「与目标等级的距离」挑出能塞进预算的课，再按等级升序排学习顺序：
+            // 否则目标等级为 3 时会先排 3 级课、后排 1 级课，
+            // 「基础补齐 / 进阶强化」两个标签就反了。
+            List<Course> chosen = new ArrayList<>();
+            BigDecimal trial = used;
             for (Course c : candidates) {
-                if (added >= want) {
+                if (chosen.size() >= want) {
                     break;
                 }
                 if (picked.contains(c.getId())) {
                     continue;
                 }
                 BigDecimal hours = c.getDurationHours() == null ? BigDecimal.valueOf(4) : c.getDurationHours();
-                BigDecimal next = used.add(hours);
+                BigDecimal next = trial.add(hours);
                 if (next.compareTo(budget) > 0) {
-                    continue;
+                    continue;   // 这门塞不下，继续看后面更短的课
                 }
-                used = next;
+                trial = next;
+                chosen.add(c);
+            }
+            chosen.sort(Comparator.comparingInt(Course::getLevel));
+
+            int added = 0;
+            for (Course c : chosen) {
+                BigDecimal hours = c.getDurationHours() == null ? BigDecimal.valueOf(4) : c.getDurationHours();
+                used = used.add(hours);
                 PlannedCourse pc = new PlannedCourse();
                 pc.setCourseId(c.getId());
                 pc.setCourseName(c.getCourseName());
@@ -93,7 +106,7 @@ public class RulePlanEngine {
                 pc.setGapBefore(item.getGap());
                 pc.setCourseLevel(c.getLevel());
                 pc.setPriorityScore(item.getPriorityScore());
-                pc.setReason(buildReason(item, c, added + 1, want));
+                pc.setReason(buildReason(item, c, added + 1, chosen.size()));
                 out.add(pc);
                 picked.add(c.getId());
                 added++;

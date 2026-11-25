@@ -26,6 +26,9 @@ public class AiPromptTemplate implements Serializable {
     /** Prompt 模板正文，用 {{变量}} 占位 */
     private String content;
 
+    /** 系统提示词，与 content（用户提示词）分开管理 */
+    private String systemContent;
+
     /** 期望输入的变量说明与校验规则 */
     private String inputSchema;
 

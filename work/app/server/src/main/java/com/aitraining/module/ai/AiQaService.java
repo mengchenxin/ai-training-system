@@ -51,7 +51,7 @@ public class AiQaService {
             String prompt = tpl == null
                     ? "根据以下资料回答问题：\n" + ragService.buildContext(hits) + "\n问题：" + question
                     : PromptService.render(tpl.getContent(), vars);
-            LlmResponse resp = llmClient.chat("你是企业培训知识助手，回答必须基于给定资料，不得编造。", prompt, false);
+            LlmResponse resp = llmClient.chat(promptService.systemPrompt("QA", "你是企业培训知识助手，回答必须基于给定资料，不得编造。"), prompt, false);
             if (resp.isSuccess()) {
                 answer = resp.getContent().trim();
                 llmUsed = true;

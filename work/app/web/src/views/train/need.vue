@@ -8,6 +8,35 @@
       <el-button type="primary" @click="openForm()">登记需求</el-button>
     </div>
 
+    <div class="card mb16">
+      <div class="flex-between mb12">
+        <b style="font-size: 14px">需求汇总</b>
+        <span class="muted" style="font-size: 12px">按部门与技能聚合，用于判断「该先给谁排课」</span>
+      </div>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-num">{{ summary?.total ?? 0 }}</div>
+          <div class="stat-label">需求总数</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num warn">{{ pendingCount }}</div>
+          <div class="stat-label">待审核</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num danger">{{ urgentCount }}</div>
+          <div class="stat-label">高优先级</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">{{ (summary?.byDept || []).length }}</div>
+          <div class="stat-label">涉及部门</div>
+        </div>
+      </div>
+      <div class="chart-row">
+        <div ref="deptRef" class="chart"></div>
+        <div ref="skillRef" class="chart"></div>
+      </div>
+    </div>
+
     <div class="card">
       <div class="filter-bar">
         <el-input v-model="query.keyword" placeholder="需求标题" clearable style="width: 200px"
@@ -90,7 +119,8 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from "vue";
+import { computed, nextTick, onMounted, reactive, ref } from "vue";
+import * as echarts from "echarts";
 import { ElMessage } from "element-plus";
 import { skillApi, trainApi } from "@/api";
 import { useUserStore } from "@/stores/user";
@@ -101,6 +131,18 @@ const total = ref(0);
 const skills = ref<any[]>([]);
 const loading = ref(false);
 const dialog = ref(false);
+
+const summary = ref<any>(null);
+const deptRef = ref<HTMLElement>();
+const skillRef = ref<HTMLElement>();
+const pendingCount = computed(() => {
+  const item = (summary.value?.byStatus || []).find((x: any) => x.name === "PENDING");
+  return item?.value ?? 0;
+});
+const urgentCount = computed(() => {
+  const item = (summary.value?.byPriority || []).find((x: any) => x.name === "1");
+  return item?.value ?? 0;
+});
 
 const SOURCE: Record<string, string> = { GAP: "差距生成", EMP: "员工提报", LECTURER: "讲师提报" };
 const PRIORITY: Record<number, string> = { 1: "高", 2: "中", 3: "低" };
@@ -115,12 +157,47 @@ function auditType(s: string) {
   return s === "APPROVED" ? "success" : s === "REJECTED" ? "danger" : "warning";
 }
 
+async function loadSummary() {
+  if (!userStore.isManager) return;
+  summary.value = await trainApi.needSummary();
+  await nextTick();
+  renderBar(deptRef.value, summary.value?.byDept || [], "按部门（需求条数）", "#2563eb");
+  renderBar(skillRef.value, summary.value?.bySkill || [], "按技能（需求条数）", "#0d9488");
+}
+
+function renderBar(el: HTMLElement | undefined, data: any[], title: string, color: string) {
+  if (!el) return;
+  const top = data.slice(0, 8).reverse();
+  const chart = echarts.getInstanceByDom(el) || echarts.init(el);
+  chart.setOption({
+    title: { text: title, left: 0, top: 0, textStyle: { fontSize: 12, color: "#6b7280", fontWeight: "normal" } },
+    grid: { left: 8, right: 24, top: 28, bottom: 8, containLabel: true },
+    tooltip: { trigger: "axis", axisPointer: { type: "shadow" } },
+    xAxis: { type: "value", splitLine: { lineStyle: { color: "#f1f5f9" } }, axisLabel: { color: "#94a3b8" } },
+    yAxis: {
+      type: "category",
+      data: top.map((x) => x.name),
+      axisLine: { show: false },
+      axisTick: { show: false },
+      axisLabel: { color: "#4b5563", fontSize: 11 }
+    },
+    series: [{
+      type: "bar",
+      data: top.map((x) => x.value),
+      barWidth: 12,
+      itemStyle: { color, borderRadius: [0, 4, 4, 0] },
+      label: { show: true, position: "right", color: "#6b7280", fontSize: 11 }
+    }]
+  });
+}
+
 async function load() {
   loading.value = true;
   try {
     const res = await trainApi.needPage(query);
     rows.value = res.records;
     total.value = res.total;
+    await loadSummary();
   } finally {
     loading.value = false;
   }
@@ -150,3 +227,50 @@ onMounted(async () => {
   load();
 });
 </script>
+
+<style scoped>
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.stat {
+  background: #f8fafc;
+  border: 1px solid #eef2f7;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.stat-num {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.3;
+}
+
+.stat-num.warn {
+  color: #d97706;
+}
+
+.stat-num.danger {
+  color: #dc2626;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.chart-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.chart {
+  width: 100%;
+  height: 220px;
+}
+</style>

@@ -124,6 +124,10 @@ public class RagService {
         return s == Character.UnicodeScript.HAN;
     }
 
+    private static boolean isSingleCjk(String token) {
+        return token.length() == 1 && isCjk(token.charAt(0));
+    }
+
     private static Map<String, Integer> termFreq(List<String> tokens) {
         Map<String, Integer> tf = new HashMap<>();
         for (String t : tokens) {
@@ -139,7 +143,15 @@ public class RagService {
         if (!props.getRag().isEnabled() || query == null || query.isBlank() || docs.isEmpty()) {
             return List.of();
         }
-        List<String> qTokens = tokenize(query).stream().distinct().toList();
+        List<String> qTokens = tokenize(query).stream().distinct()
+                // 高频单字（「的」「与」「在」这类虚词）会把不相关片段拉进结果，
+                // 超过半数片段都含有的单字按停用词处理；2-gram 不受影响。
+                .filter(t -> !(isSingleCjk(t) && docs.size() >= 3
+                        && df.getOrDefault(t, 0) * 2 > docs.size()))
+                .toList();
+        if (qTokens.isEmpty()) {
+            return List.of();
+        }
         int n = docs.size();
         List<RagHit> hits = new ArrayList<>();
         double maxScore = 0;
