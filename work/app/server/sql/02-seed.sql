@@ -897,6 +897,36 @@ UPDATE ai_prompt_template SET system_content='你是企业培训知识助手，�
 UPDATE ai_prompt_template SET system_content='你是严谨的阅卷老师，只输出 JSON。' WHERE scene='JUDGE';
 UPDATE ai_prompt_template SET system_content='你是培训效果评估专家，只输出 JSON。' WHERE scene='EFFECT_DIAG';
 
+-- 纯大模型对照组的独立模板：正文与系统提示词都不含「只能从候选课程中选择」的约束，
+-- 否则与「放开候选集」的实验意图矛盾（见 05-migration-plan-gen-free.sql 的说明）
+INSERT INTO ai_prompt_template
+  (template_code,template_name,scene,content,system_content,model,temperature,max_tokens,version)
+VALUES
+  ('PLAN_GEN_FREE_V1','纯大模型方案生成（无候选集约束）','PLAN_GEN_FREE','你是一名企业培训专家。请根据下面的员工技能差距数据，自主设计一份个性化培训方案。
+
+【员工信息】
+姓名：{{realName}}；岗位：{{postName}}；部门：{{deptName}}
+
+【技能差距（已按优先级排序，gap=目标等级-当前等级，priority=gap×权重）】
+{{gapTable}}
+
+【课程库（仅作命名与学时参考，不构成选择限制）】
+{{courseCandidates}}
+
+【知识库依据】
+{{ragContext}}
+
+【要求】
+1. 不限课程范围：可结合岗位要求与技能差距自主判断学什么、先学什么，课程名称可用课程库中的课程，也可按专业判断给出更合适的名称；
+2. 按 gap 从大到小安排学习顺序，先补高权重差距；
+3. 总学时控制在 {{totalHours}} 学时以内，超出视为不合格；
+4. 每门课必须给出 reason，说明它解决哪个技能差距、为什么排在此时；
+5. 学时按经验估计，但需与课程体量相称；
+6. 输出严格为 JSON，不要任何解释性文字或 Markdown 代码块。
+
+【输出格式】
+{"summary":"方案总体说明，150字以内","totalHours":数字,"courses":[{"courseName":"课程名称","hours":数字,"reason":"安排依据","courseId":数字}]}','你是企业培训方案设计专家。请根据员工的岗位要求与技能差距，自主设计一份培训方案，包括课程组合、学习顺序与学时安排，并为每门课程说明安排依据。输出必须是合法 JSON，不要输出任何解释性文字、Markdown 代码块或注释。','deepseek-chat',0.30,2000,1);
+
 
 -- ============ 示例培训计划（部门计划）============
 INSERT INTO train_plan (id,plan_no,plan_name,plan_type,target_dept_id,start_date,end_date,status,gen_type,creator_id,auditor_id,audit_time) VALUES

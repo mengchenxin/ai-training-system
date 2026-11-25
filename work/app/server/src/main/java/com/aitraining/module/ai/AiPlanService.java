@@ -256,7 +256,11 @@ public class AiPlanService {
                 + "学时按经验估计即可。务必输出合法 JSON，courses 中每项包含 courseName、hours、reason，"
                 + "若能对应到课程库中的课程，请同时给出 courseId。";
 
-        LlmResponse resp = llmClient.chat(llmOnlySystemPrompt(), prompt, true);
+        // 纯大模型对照组使用独立场景 PLAN_GEN_FREE：它的系统提示词与混合模式不同
+        // （不受候选集约束），若沿用 PLAN_GEN 会把两组的提示词混在一起，
+        // 在模板表里改 PLAN_GEN 时本组行为也会跟着变，三组对比就失去独立性。
+        LlmResponse resp = llmClient.chat(
+                promptService.systemPrompt("PLAN_GEN_FREE", llmOnlySystemPrompt()), prompt, true);
         if (!resp.isSuccess()) {
             PlanGenResultVO r = new PlanGenResultVO();
             r.setGenType(PlanMode.LLM_ONLY.code());
@@ -603,7 +607,8 @@ public class AiPlanService {
         AiGenRecord rec = new AiGenRecord();
         rec.setBizType("PLAN_GEN");
         rec.setUserId(gap.getUserId());
-        AiPromptTemplate tpl = promptService.getByScene("PLAN_GEN");
+        AiPromptTemplate tpl = promptService.getByScene(
+                mode == PlanMode.LLM_ONLY ? "PLAN_GEN_FREE" : "PLAN_GEN");
         rec.setTemplateId(tpl == null ? null : tpl.getId());
         rec.setGenMode(mode == null ? null : mode.name());
         rec.setHallucinationCount(hallucinationCount);
