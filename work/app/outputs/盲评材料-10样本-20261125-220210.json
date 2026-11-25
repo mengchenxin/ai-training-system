@@ -1,0 +1,2204 @@
+[
+ {
+  "blindId": "cfb0c401f9a9",
+  "userId": 1,
+  "variants": [
+   {
+    "label": "A",
+    "summary": "针对培训专员岗位，按加权差距从高到低安排：优先补齐沟通表达与技术文档写作两项高权重通用技能，再通过现场管理与带教、流程制度执行两门管理课程支撑岗位核心职责，最后以团队协作与安全生产规范收尾。总学时38，全部选用课程库课程，先基础后进阶，确保每项差距有对应课程覆盖。",
+    "courses": [
+     {
+      "courseId": 22,
+      "courseName": "沟通表达基础",
+      "seqNo": 1,
+      "hours": 6.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "沟通表达加权差距9.00居首，当前0级需从基础建立概念；课程库中该技能仅基础(1级)与进阶(3级)两门，先学基础打底，依据通用岗位技能标准等级递进要求。"
+     },
+     {
+      "courseId": 23,
+      "courseName": "沟通表达进阶与实战",
+      "seqNo": 2,
+      "hours": 12.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 0,
+      "courseLevel": 3,
+      "priorityScore": null,
+      "reason": "基础课后紧接进阶课，将沟通表达从1级推向3级，覆盖目标5级差距的主体部分；进阶课含实战演练，符合高优先级技能需强化训练的安排逻辑。"
+     },
+     {
+      "courseId": 24,
+      "courseName": "技术文档写作基础",
+      "seqNo": 3,
+      "hours": 6.0,
+      "coverSkillId": 16,
+      "coverSkill": "技术文档写作",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "技术文档写作加权差距6.00列第二，岗位需编写作业指导书与问题分析报告；知识库片段5明确等级递进路径，先以基础课建立编写规范概念。"
+     },
+     {
+      "courseId": 28,
+      "courseName": "现场管理与带教基础",
+      "seqNo": 4,
+      "hours": 6.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "现场管理与带教加权差距6.00并列第三，知识库片段2指出需掌握5S、目视化与新人带教方法；先学基础课建立概念，为后续进阶实战铺垫。"
+     },
+     {
+      "courseId": 29,
+      "courseName": "现场管理与带教进阶与实战",
+      "seqNo": 5,
+      "hours": 10.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 0,
+      "courseLevel": 4,
+      "priorityScore": null,
+      "reason": "在基础课之后安排进阶实战，将带教能力推向4级目标；知识库片段2要求能处理复杂与异常场景并指导他人，进阶课对应等级4要求。"
+     },
+     {
+      "courseId": 27,
+      "courseName": "流程制度执行基础",
+      "seqNo": 6,
+      "hours": 8.0,
+      "coverSkillId": 18,
+      "coverSkill": "流程制度执行",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "流程制度执行加权差距4.80，知识库片段1与片段3建议先安排基础课程建立概念，再以实操与测验验证；本课覆盖等级2要求，为后续现场应用打基础。"
+     },
+     {
+      "courseId": 21,
+      "courseName": "团队协作基础",
+      "seqNo": 7,
+      "hours": 4.0,
+      "coverSkillId": 14,
+      "coverSkill": "团队协作",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "团队协作加权差距4.80，知识库片段4涵盖跨班组沟通与交接班信息传递；安排基础课建立协同概念，与已学沟通表达形成互补。"
+     },
+     {
+      "courseId": 1,
+      "courseName": "安全生产规范基础",
+      "seqNo": 8,
+      "hours": 4.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "安全生产规范加权差距4.00列末位，但属安全类必修底线；先以基础课覆盖等级1概念要求，总学时控制在40以内，后续可结合岗位需要再补进阶。"
+     }
+    ],
+    "totalHours": 56.0,
+    "costMs": 3830,
+    "totalTokens": 3109
+   },
+   {
+    "label": "B",
+    "summary": "针对培训专员岗位，按加权差距优先补齐沟通表达（差距5级，权重最高），依次安排技术文档写作、现场管理与带教等基础课程。总学时30，控制在40以内。先基础后进阶，符合知识库“先建概念、再实操强化”的建议，兼顾岗位通用与管理技能达标。",
+    "courses": [
+     {
+      "courseId": 22,
+      "courseName": "沟通表达基础",
+      "seqNo": 1,
+      "hours": 6.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 5,
+      "courseLevel": 1,
+      "priorityScore": 100.0,
+      "reason": "沟通表达差距5级、加权差距9.00，优先级第1位。先以等级1基础课程建立概念，对应候选课程中唯一的基础层级课程，为后续进阶打基础。"
+     },
+     {
+      "courseId": 23,
+      "courseName": "沟通表达进阶与实战",
+      "seqNo": 2,
+      "hours": 12.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 5,
+      "courseLevel": 3,
+      "priorityScore": 100.0,
+      "reason": "在基础课程之后衔接等级3进阶与实战课程，覆盖同一5级差距，符合先基础后实战的递进逻辑，强化跨场景沟通与冲突处理能力。"
+     },
+     {
+      "courseId": 24,
+      "courseName": "技术文档写作基础",
+      "seqNo": 3,
+      "hours": 6.0,
+      "coverSkillId": 16,
+      "coverSkill": "技术文档写作",
+      "gapBefore": 4,
+      "courseLevel": 1,
+      "priorityScore": 66.67,
+      "reason": "技术文档写作差距4级、加权差距6.00，优先级第2位。依据《通用岗位技能标准》技术文档写作要求，先以等级1课程建立作业指导书、报告编写的基本概念。"
+     },
+     {
+      "courseId": 28,
+      "courseName": "现场管理与带教基础",
+      "seqNo": 4,
+      "hours": 6.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 4,
+      "courseLevel": 2,
+      "priorityScore": 66.67,
+      "reason": "现场管理与带教差距4级、加权差距6.00，优先级第3位。依据《管理岗位技能标准》，先安排等级2基础课程掌握5S、目视化与带教方法，能在指导下完成常规作业。"
+     },
+     {
+      "courseId": 29,
+      "courseName": "现场管理与带教进阶与实战",
+      "seqNo": 5,
+      "hours": 10.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 4,
+      "courseLevel": 4,
+      "priorityScore": 66.67,
+      "reason": "在基础课程后衔接等级4进阶与实战，覆盖同一4级差距，向“处理复杂异常并指导他人”的目标等级推进，符合知识库先基础再实操强化的培训建议。"
+     }
+    ],
+    "totalHours": 40.0,
+    "costMs": 2838,
+    "totalTokens": 1861
+   },
+   {
+    "label": "C",
+    "summary": "针对系统管理员（培训专员）的 6 项技能差距，按「加权差距 = 等级差 × 技能权重」排序后，优先补齐沟通表达（差 5 级）、技术文档写作（差 4 级），共安排 5 门课程、合计 40.0 学时。",
+    "courses": [
+     {
+      "courseId": 22,
+      "courseName": "沟通表达基础",
+      "seqNo": 1,
+      "hours": 6.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 5,
+      "courseLevel": 1,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 0 级、岗位要求 5 级，差 5 级，权重 1.80，加权差距 9.00，在岗位差距中优先级排第 1 位；《沟通表达基础》覆盖等级 1，与目标等级最接近，作为基础补齐课程。"
+     },
+     {
+      "courseId": 23,
+      "courseName": "沟通表达进阶与实战",
+      "seqNo": 2,
+      "hours": 12.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 5,
+      "courseLevel": 3,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 0 级、岗位要求 5 级，差 5 级，权重 1.80，加权差距 9.00，在岗位差距中优先级排第 1 位；《沟通表达进阶与实战》覆盖等级 3，与目标等级最接近，作为进阶强化课程。"
+     },
+     {
+      "courseId": 24,
+      "courseName": "技术文档写作基础",
+      "seqNo": 3,
+      "hours": 6.0,
+      "coverSkillId": 16,
+      "coverSkill": "技术文档写作",
+      "gapBefore": 4,
+      "courseLevel": 1,
+      "priorityScore": 66.67,
+      "reason": "该技能当前 0 级、岗位要求 4 级，差 4 级，权重 1.50，加权差距 6.00，在岗位差距中优先级排第 2 位；《技术文档写作基础》覆盖等级 1，与目标等级最接近，作为针对性补齐课程。"
+     },
+     {
+      "courseId": 28,
+      "courseName": "现场管理与带教基础",
+      "seqNo": 4,
+      "hours": 6.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 4,
+      "courseLevel": 2,
+      "priorityScore": 66.67,
+      "reason": "该技能当前 0 级、岗位要求 4 级，差 4 级，权重 1.50，加权差距 6.00，在岗位差距中优先级排第 3 位；《现场管理与带教基础》覆盖等级 2，与目标等级最接近，作为基础补齐课程。"
+     },
+     {
+      "courseId": 29,
+      "courseName": "现场管理与带教进阶与实战",
+      "seqNo": 5,
+      "hours": 10.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 4,
+      "courseLevel": 4,
+      "priorityScore": 66.67,
+      "reason": "该技能当前 0 级、岗位要求 4 级，差 4 级，权重 1.50，加权差距 6.00，在岗位差距中优先级排第 3 位；《现场管理与带教进阶与实战》覆盖等级 4，与目标等级最接近，作为进阶强化课程。"
+     }
+    ],
+    "totalHours": 40.0,
+    "costMs": 15,
+    "totalTokens": null
+   }
+  ]
+ },
+ {
+  "blindId": "f90953fcc9e2",
+  "userId": 2,
+  "variants": [
+   {
+    "label": "A",
+    "summary": "针对张三当前各技能均为0级、差距较大的现状，按加权差距由高到低安排学习：优先补齐沟通表达（差距5级），依次安排基础与进阶课程；随后覆盖技术文档写作、现场管理与带教等高优先级技能。总学时控制在40学时内，先建立概念再实战强化，符合知识库中先基础后实操的培训建议。",
+    "courses": [
+     {
+      "courseId": 22,
+      "courseName": "沟通表达基础",
+      "seqNo": 1,
+      "hours": 6.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 5,
+      "courseLevel": 1,
+      "priorityScore": 100.0,
+      "reason": "沟通表达加权差距9.00为最高优先级，当前0级需先建立基本概念，依据《通用岗位技能标准》等级1要求安排基础课程。"
+     },
+     {
+      "courseId": 23,
+      "courseName": "沟通表达进阶与实战",
+      "seqNo": 2,
+      "hours": 12.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 5,
+      "courseLevel": 3,
+      "priorityScore": 100.0,
+      "reason": "在基础课程之后衔接进阶与实战课程，强化沟通表达能力向目标5级提升，符合先基础后实战的培训路径。"
+     },
+     {
+      "courseId": 24,
+      "courseName": "技术文档写作基础",
+      "seqNo": 3,
+      "hours": 6.0,
+      "coverSkillId": 16,
+      "coverSkill": "技术文档写作",
+      "gapBefore": 4,
+      "courseLevel": 1,
+      "priorityScore": 66.67,
+      "reason": "技术文档写作加权差距6.00为第二优先级，依据《通用岗位技能标准》技术文档写作等级1要求，先安排基础课程建立作业指导书、报告编写概念。"
+     },
+     {
+      "courseId": 28,
+      "courseName": "现场管理与带教基础",
+      "seqNo": 4,
+      "hours": 6.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 4,
+      "courseLevel": 2,
+      "priorityScore": 66.67,
+      "reason": "现场管理与带教加权差距6.00为第三优先级，依据《管理岗位技能标准》等级2要求，先安排基础课程掌握5S、目视化与带教基本方法。"
+     },
+     {
+      "courseId": 29,
+      "courseName": "现场管理与带教进阶与实战",
+      "seqNo": 5,
+      "hours": 10.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 4,
+      "courseLevel": 4,
+      "priorityScore": 66.67,
+      "reason": "在基础课程后安排进阶与实战课程，向目标4级提升，符合知识库中先建概念再实操强化的培训与考核建议。"
+     }
+    ],
+    "totalHours": 40.0,
+    "costMs": 2451,
+    "totalTokens": 1830
+   },
+   {
+    "label": "B",
+    "summary": "针对培训专员张三6项技能均为0级的现状，按加权差距从高到低安排：先补沟通表达与技术文档写作两项高权重通用技能，再补现场管理与带教、团队协作、流程制度执行，最后安排安全生产规范基础。总学时38学时，控制在40学时以内，每门课均由基础层起步，符合知识库“先建概念、再实操强化”的培训建议。",
+    "courses": [
+     {
+      "courseId": 22,
+      "courseName": "沟通表达基础",
+      "seqNo": 1,
+      "hours": 6.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "沟通表达加权差距9.00居首，目标5级而当前0级，须从基础层起步建立概念；课程库中沟通表达基础（等级1）为唯一对应基础课，先学可为后续进阶与实战打底。"
+     },
+     {
+      "courseId": 23,
+      "courseName": "沟通表达进阶与实战",
+      "seqNo": 2,
+      "hours": 12.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 0,
+      "courseLevel": 3,
+      "priorityScore": null,
+      "reason": "在基础课之后衔接进阶与实战（等级3），覆盖培训专员授课表达、跨部门沟通等高频场景，符合知识库“先基础后实操强化”的等级递进原则，支撑目标5级达成。"
+     },
+     {
+      "courseId": 24,
+      "courseName": "技术文档写作基础",
+      "seqNo": 3,
+      "hours": 6.0,
+      "coverSkillId": 16,
+      "coverSkill": "技术文档写作",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "技术文档写作加权差距6.00列第2，知识库片段5明确其内涵为编写作业指导书、检验报告与问题分析报告，与培训专员编写培训教材、方案文档直接相关，先以基础课建立写作规范概念。"
+     },
+     {
+      "courseId": 28,
+      "courseName": "现场管理与带教基础",
+      "seqNo": 4,
+      "hours": 6.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "现场管理与带教加权差距6.00列第3，知识库片段2指出其含5S、目视化与新人带教方法，带教能力是培训专员核心职责，先学基础（等级2）掌握带教流程与工具。"
+     },
+     {
+      "courseId": 29,
+      "courseName": "现场管理与带教进阶与实战",
+      "seqNo": 5,
+      "hours": 10.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 0,
+      "courseLevel": 4,
+      "priorityScore": null,
+      "reason": "在基础课之上安排进阶与实战（等级4），训练复杂与异常场景下的带教处理及指导他人能力，对应目标4级要求，符合知识库等级递进与实操强化建议。"
+     },
+     {
+      "courseId": 21,
+      "courseName": "团队协作基础",
+      "seqNo": 6,
+      "hours": 4.0,
+      "coverSkillId": 14,
+      "coverSkill": "团队协作",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "团队协作加权差距4.80列第4，知识库片段4涵盖跨班组沟通、任务协同与交接班信息传递，培训专员需组织跨部门培训，先以基础课建立协同与冲突处理概念。"
+     },
+     {
+      "courseId": 27,
+      "courseName": "流程制度执行基础",
+      "seqNo": 7,
+      "hours": 8.0,
+      "coverSkillId": 18,
+      "coverSkill": "流程制度执行",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "流程制度执行加权差距4.80列第5，知识库片段1、3要求先建概念再实操并以测验验证，基础课（等级2）可让张三掌握制度规范执行与记录留存，为培训合规管理打底。"
+     },
+     {
+      "courseId": 1,
+      "courseName": "安全生产规范基础",
+      "seqNo": 8,
+      "hours": 4.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "安全生产规范加权差距4.00列第6，属安全类底线要求；培训专员需在培训组织中传递安全要求，安排基础课（等级1）建立安全规范概念，学时少、性价比高，作为收尾课程。"
+     }
+    ],
+    "totalHours": 56.0,
+    "costMs": 4389,
+    "totalTokens": 3170
+   },
+   {
+    "label": "C",
+    "summary": "针对张三（培训专员）的 6 项技能差距，按「加权差距 = 等级差 × 技能权重」排序后，优先补齐沟通表达（差 5 级）、技术文档写作（差 4 级），共安排 5 门课程、合计 40.0 学时。",
+    "courses": [
+     {
+      "courseId": 22,
+      "courseName": "沟通表达基础",
+      "seqNo": 1,
+      "hours": 6.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 5,
+      "courseLevel": 1,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 0 级、岗位要求 5 级，差 5 级，权重 1.80，加权差距 9.00，在岗位差距中优先级排第 1 位；《沟通表达基础》覆盖等级 1，与目标等级最接近，作为基础补齐课程。"
+     },
+     {
+      "courseId": 23,
+      "courseName": "沟通表达进阶与实战",
+      "seqNo": 2,
+      "hours": 12.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 5,
+      "courseLevel": 3,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 0 级、岗位要求 5 级，差 5 级，权重 1.80，加权差距 9.00，在岗位差距中优先级排第 1 位；《沟通表达进阶与实战》覆盖等级 3，与目标等级最接近，作为进阶强化课程。"
+     },
+     {
+      "courseId": 24,
+      "courseName": "技术文档写作基础",
+      "seqNo": 3,
+      "hours": 6.0,
+      "coverSkillId": 16,
+      "coverSkill": "技术文档写作",
+      "gapBefore": 4,
+      "courseLevel": 1,
+      "priorityScore": 66.67,
+      "reason": "该技能当前 0 级、岗位要求 4 级，差 4 级，权重 1.50，加权差距 6.00，在岗位差距中优先级排第 2 位；《技术文档写作基础》覆盖等级 1，与目标等级最接近，作为针对性补齐课程。"
+     },
+     {
+      "courseId": 28,
+      "courseName": "现场管理与带教基础",
+      "seqNo": 4,
+      "hours": 6.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 4,
+      "courseLevel": 2,
+      "priorityScore": 66.67,
+      "reason": "该技能当前 0 级、岗位要求 4 级，差 4 级，权重 1.50，加权差距 6.00，在岗位差距中优先级排第 3 位；《现场管理与带教基础》覆盖等级 2，与目标等级最接近，作为基础补齐课程。"
+     },
+     {
+      "courseId": 29,
+      "courseName": "现场管理与带教进阶与实战",
+      "seqNo": 5,
+      "hours": 10.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 4,
+      "courseLevel": 4,
+      "priorityScore": 66.67,
+      "reason": "该技能当前 0 级、岗位要求 4 级，差 4 级，权重 1.50，加权差距 6.00，在岗位差距中优先级排第 3 位；《现场管理与带教进阶与实战》覆盖等级 4，与目标等级最接近，作为进阶强化课程。"
+     }
+    ],
+    "totalHours": 40.0,
+    "costMs": 13,
+    "totalTokens": null
+   }
+  ]
+ },
+ {
+  "blindId": "fc74d2fd5d81",
+  "userId": 3,
+  "variants": [
+   {
+    "label": "A",
+    "summary": "针对王海涛当前技能均为0级、设备维护保养与故障诊断差距最大的情况，按加权差距从高到低安排5门候选课程：先建立维护保养与故障诊断基础，再进入诊断进阶实战，随后补齐电气安全与安全生产规范。总学时36，控制在40学时内，形成基础到实战的递进路径。",
+    "courses": [
+     {
+      "courseId": 9,
+      "courseName": "设备维护保养基础",
+      "seqNo": 1,
+      "hours": 4.0,
+      "coverSkillId": 6,
+      "coverSkill": "设备维护保养",
+      "gapBefore": 5,
+      "courseLevel": 2,
+      "priorityScore": 100.0,
+      "reason": "该技能加权差距9.00、优先级第1，当前0级需从基础建立概念；课程等级2对应“能在指导下完成”，依据《技术岗位技能标准》设备维护保养分级要求，作为入门第一课。"
+     },
+     {
+      "courseId": 10,
+      "courseName": "设备故障诊断与排除基础",
+      "seqNo": 2,
+      "hours": 6.0,
+      "coverSkillId": 7,
+      "coverSkill": "设备故障诊断与排除",
+      "gapBefore": 5,
+      "courseLevel": 2,
+      "priorityScore": 100.0,
+      "reason": "该技能加权差距9.00、优先级第2，知识库片段2建议先安排基础课程建立概念；课程等级2为后续进阶与现场实操打基础。"
+     },
+     {
+      "courseId": 11,
+      "courseName": "设备故障诊断与排除进阶与实战",
+      "seqNo": 3,
+      "hours": 16.0,
+      "coverSkillId": 7,
+      "coverSkill": "设备故障诊断与排除",
+      "gapBefore": 5,
+      "courseLevel": 4,
+      "priorityScore": 100.0,
+      "reason": "在基础课程之后衔接等级4进阶实战，依据片段2“基础—实操案例—测验验证”的培训路径，面向复杂异常场景处理，支撑目标5级。"
+     },
+     {
+      "courseId": 18,
+      "courseName": "电气安全与操作基础",
+      "seqNo": 4,
+      "hours": 6.0,
+      "coverSkillId": 12,
+      "coverSkill": "电气安全与操作",
+      "gapBefore": 4,
+      "courseLevel": 2,
+      "priorityScore": 66.67,
+      "reason": "该技能加权差距6.00、优先级第3，当前0级；课程等级2覆盖低压电气安全操作、停送电挂牌与防护要求，依据片段4分级标准安排。"
+     },
+     {
+      "courseId": 1,
+      "courseName": "安全生产规范基础",
+      "seqNo": 5,
+      "hours": 4.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 4,
+      "courseLevel": 1,
+      "priorityScore": 44.44,
+      "reason": "该技能加权差距4.00、优先级第4，属安全类必修；课程等级1用于建立安全生产规范基本概念，为后续现场作业合规打底。"
+     }
+    ],
+    "totalHours": 36.0,
+    "costMs": 2863,
+    "totalTokens": 1844
+   },
+   {
+    "label": "B",
+    "summary": "针对设备维修技术员王海涛6项技能均为0级的现状，按加权差距从高到低安排学习顺序：先补设备维护保养与故障诊断两项高权重技能，再补电气安全与安全生产规范，最后安排自动化控制基础与问题解决与改进。总学时控制在40学时以内，采用基础课程建立概念、进阶课程强化实战的路径，确保每项技能达到岗位目标等级。",
+    "courses": [
+     {
+      "courseId": 9,
+      "courseName": "设备维护保养基础",
+      "seqNo": 1,
+      "hours": 4.0,
+      "coverSkillId": 6,
+      "coverSkill": "设备维护保养",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "设备维护保养加权差距9.00，优先级第1位。依据《技术岗位技能标准》该技能需掌握日常点检、润滑保养、易损件更换与一级保养规范，先以基础课程建立概念，为后续现场实操打基础。"
+     },
+     {
+      "courseId": 10,
+      "courseName": "设备故障诊断与排除基础",
+      "seqNo": 2,
+      "hours": 6.0,
+      "coverSkillId": 7,
+      "coverSkill": "设备故障诊断与排除",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "设备故障诊断与排除加权差距9.00，优先级第2位。依据知识库片段1、2，需先安排基础课程建立概念，再通过现场实操与案例研讨强化，本课程作为该技能提升的第一步。"
+     },
+     {
+      "courseId": 11,
+      "courseName": "设备故障诊断与排除进阶与实战",
+      "seqNo": 3,
+      "hours": 16.0,
+      "coverSkillId": 7,
+      "coverSkill": "设备故障诊断与排除",
+      "gapBefore": 0,
+      "courseLevel": 4,
+      "priorityScore": null,
+      "reason": "在基础课程之后衔接进阶实战课程，依据片段2培训与考核建议，通过案例研讨强化复杂与异常场景处理能力，支撑该技能从2级向4级以上提升，满足目标5级要求。"
+     },
+     {
+      "courseId": 18,
+      "courseName": "电气安全与操作基础",
+      "seqNo": 4,
+      "hours": 6.0,
+      "coverSkillId": 12,
+      "coverSkill": "电气安全与操作",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "电气安全与操作加权差距6.00，优先级第3位。依据片段4，该技能需掌握低压电气安全操作、停送电挂牌与电气防护要求，设备维修岗位电气作业风险高，须优先补齐基础安全操作能力。"
+     },
+     {
+      "courseId": 1,
+      "courseName": "安全生产规范基础",
+      "seqNo": 5,
+      "hours": 4.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "安全生产规范加权差距4.00，优先级第4位。依据片段5岗位说明书，安全生产规范为岗位硬性要求，先以基础课程建立安全规范意识，为进阶课程做准备。"
+     },
+     {
+      "courseId": 2,
+      "courseName": "安全生产规范进阶与实战",
+      "seqNo": 6,
+      "hours": 10.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 0,
+      "courseLevel": 3,
+      "priorityScore": null,
+      "reason": "在基础课程之后衔接进阶实战课程，使安全生产规范达到目标4级，满足岗位说明书对安全等级的达标要求，并结合设备维修现场实际场景强化应用。"
+     },
+     {
+      "courseId": 19,
+      "courseName": "自动化控制基础基础",
+      "seqNo": 7,
+      "hours": 8.0,
+      "coverSkillId": 13,
+      "coverSkill": "自动化控制基础",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "自动化控制基础加权差距3.00，优先级第5位。设备维修技术员需具备自动化控制基础知识以应对电气与控制系统故障，先安排基础课程建立概念，支撑目标3级达成。"
+     },
+     {
+      "courseId": 25,
+      "courseName": "问题解决与改进基础",
+      "seqNo": 8,
+      "hours": 8.0,
+      "coverSkillId": 17,
+      "coverSkill": "问题解决与改进",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "问题解决与改进加权差距2.40，优先级第6位。作为通用类技能，安排在技术技能之后学习，使学员能运用结构化方法总结维修案例、提出改进措施，支撑目标3级达成。"
+     }
+    ],
+    "totalHours": 62.0,
+    "costMs": 3745,
+    "totalTokens": 3137
+   },
+   {
+    "label": "C",
+    "summary": "针对王海涛（设备维修技术员）的 6 项技能差距，按「加权差距 = 等级差 × 技能权重」排序后，优先补齐设备维护保养（差 5 级）、设备故障诊断与排除（差 5 级），共安排 5 门课程、合计 36.0 学时。",
+    "courses": [
+     {
+      "courseId": 9,
+      "courseName": "设备维护保养基础",
+      "seqNo": 1,
+      "hours": 4.0,
+      "coverSkillId": 6,
+      "coverSkill": "设备维护保养",
+      "gapBefore": 5,
+      "courseLevel": 2,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 0 级、岗位要求 5 级，差 5 级，权重 1.80，加权差距 9.00，在岗位差距中优先级排第 1 位；《设备维护保养基础》覆盖等级 2，与目标等级最接近，作为针对性补齐课程。"
+     },
+     {
+      "courseId": 10,
+      "courseName": "设备故障诊断与排除基础",
+      "seqNo": 2,
+      "hours": 6.0,
+      "coverSkillId": 7,
+      "coverSkill": "设备故障诊断与排除",
+      "gapBefore": 5,
+      "courseLevel": 2,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 0 级、岗位要求 5 级，差 5 级，权重 1.80，加权差距 9.00，在岗位差距中优先级排第 2 位；《设备故障诊断与排除基础》覆盖等级 2，与目标等级最接近，作为基础补齐课程。"
+     },
+     {
+      "courseId": 11,
+      "courseName": "设备故障诊断与排除进阶与实战",
+      "seqNo": 3,
+      "hours": 16.0,
+      "coverSkillId": 7,
+      "coverSkill": "设备故障诊断与排除",
+      "gapBefore": 5,
+      "courseLevel": 4,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 0 级、岗位要求 5 级，差 5 级，权重 1.80，加权差距 9.00，在岗位差距中优先级排第 2 位；《设备故障诊断与排除进阶与实战》覆盖等级 4，与目标等级最接近，作为进阶强化课程。"
+     },
+     {
+      "courseId": 18,
+      "courseName": "电气安全与操作基础",
+      "seqNo": 4,
+      "hours": 6.0,
+      "coverSkillId": 12,
+      "coverSkill": "电气安全与操作",
+      "gapBefore": 4,
+      "courseLevel": 2,
+      "priorityScore": 66.67,
+      "reason": "该技能当前 0 级、岗位要求 4 级，差 4 级，权重 1.50，加权差距 6.00，在岗位差距中优先级排第 3 位；《电气安全与操作基础》覆盖等级 2，与目标等级最接近，作为针对性补齐课程。"
+     },
+     {
+      "courseId": 1,
+      "courseName": "安全生产规范基础",
+      "seqNo": 5,
+      "hours": 4.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 4,
+      "courseLevel": 1,
+      "priorityScore": 44.44,
+      "reason": "该技能当前 0 级、岗位要求 4 级，差 4 级，权重 1.00，加权差距 4.00，在岗位差距中优先级排第 4 位；《安全生产规范基础》覆盖等级 1，与目标等级最接近，作为针对性补齐课程。"
+     }
+    ],
+    "totalHours": 36.0,
+    "costMs": 10,
+    "totalTokens": null
+   }
+  ]
+ },
+ {
+  "blindId": "3c35993917ba",
+  "userId": 4,
+  "variants": [
+   {
+    "label": "A",
+    "summary": "针对刘敏（质量检验员）的 6 项技能差距，按「加权差距 = 等级差 × 技能权重」排序后，优先补齐质量检验与测量（差 5 级）、缺陷判定与原因分析（差 4 级），共安排 6 门课程、合计 40.0 学时。",
+    "courses": [
+     {
+      "courseId": 12,
+      "courseName": "质量检验与测量基础",
+      "seqNo": 1,
+      "hours": 6.0,
+      "coverSkillId": 8,
+      "coverSkill": "质量检验与测量",
+      "gapBefore": 5,
+      "courseLevel": 2,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 0 级、岗位要求 5 级，差 5 级，权重 2.00，加权差距 10.00，在岗位差距中优先级排第 1 位；《质量检验与测量基础》覆盖等级 2，与目标等级最接近，作为针对性补齐课程。"
+     },
+     {
+      "courseId": 13,
+      "courseName": "缺陷判定与原因分析基础",
+      "seqNo": 2,
+      "hours": 4.0,
+      "coverSkillId": 9,
+      "coverSkill": "缺陷判定与原因分析",
+      "gapBefore": 4,
+      "courseLevel": 2,
+      "priorityScore": 60.0,
+      "reason": "该技能当前 0 级、岗位要求 4 级，差 4 级，权重 1.50，加权差距 6.00，在岗位差距中优先级排第 2 位；《缺陷判定与原因分析基础》覆盖等级 2，与目标等级最接近，作为基础补齐课程。"
+     },
+     {
+      "courseId": 14,
+      "courseName": "缺陷判定与原因分析进阶与实战",
+      "seqNo": 3,
+      "hours": 10.0,
+      "coverSkillId": 9,
+      "coverSkill": "缺陷判定与原因分析",
+      "gapBefore": 4,
+      "courseLevel": 4,
+      "priorityScore": 60.0,
+      "reason": "该技能当前 0 级、岗位要求 4 级，差 4 级，权重 1.50，加权差距 6.00，在岗位差距中优先级排第 2 位；《缺陷判定与原因分析进阶与实战》覆盖等级 4，与目标等级最接近，作为进阶强化课程。"
+     },
+     {
+      "courseId": 1,
+      "courseName": "安全生产规范基础",
+      "seqNo": 4,
+      "hours": 4.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 4,
+      "courseLevel": 1,
+      "priorityScore": 40.0,
+      "reason": "该技能当前 0 级、岗位要求 4 级，差 4 级，权重 1.00，加权差距 4.00，在岗位差距中优先级排第 3 位；《安全生产规范基础》覆盖等级 1，与目标等级最接近，作为基础补齐课程。"
+     },
+     {
+      "courseId": 2,
+      "courseName": "安全生产规范进阶与实战",
+      "seqNo": 5,
+      "hours": 10.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 4,
+      "courseLevel": 3,
+      "priorityScore": 40.0,
+      "reason": "该技能当前 0 级、岗位要求 4 级，差 4 级，权重 1.00，加权差距 4.00，在岗位差距中优先级排第 3 位；《安全生产规范进阶与实战》覆盖等级 3，与目标等级最接近，作为进阶强化课程。"
+     },
+     {
+      "courseId": 15,
+      "courseName": "生产数据分析基础",
+      "seqNo": 6,
+      "hours": 6.0,
+      "coverSkillId": 10,
+      "coverSkill": "生产数据分析",
+      "gapBefore": 3,
+      "courseLevel": 2,
+      "priorityScore": 30.0,
+      "reason": "该技能当前 0 级、岗位要求 3 级，差 3 级，权重 1.00，加权差距 3.00，在岗位差距中优先级排第 4 位；《生产数据分析基础》覆盖等级 2，与目标等级最接近，作为针对性补齐课程。"
+     }
+    ],
+    "totalHours": 40.0,
+    "costMs": 10,
+    "totalTokens": null
+   },
+   {
+    "label": "B",
+    "summary": "刘敏为质量检验员，六项技能当前均为0级，需从基础系统补起。方案按加权差距从高到低排序：优先质量检验与测量（差距5级），其次缺陷判定与原因分析（差距4级，基础+进阶递进），再安排安全生产规范（差距4级），最后生产数据分析（差距3级）。总学时40，符合上限。培训后按知识库建议以题库测验与现场实操验证，提升1级以上视为有效。",
+    "courses": [
+     {
+      "courseId": 12,
+      "courseName": "质量检验与测量基础",
+      "seqNo": 1,
+      "hours": 6.0,
+      "coverSkillId": 8,
+      "coverSkill": "质量检验与测量",
+      "gapBefore": 5,
+      "courseLevel": 2,
+      "priorityScore": 100.0,
+      "reason": "该技能加权差距10.00，优先级第1位，为岗位核心要求（岗位说明书要求等级5）。课程等级2可帮助从0级建立检验标准、量具使用、抽样方法与检验记录规范的基本概念与指导下操作能力，依据片段5的技能分级标准安排为首门基础课。"
+     },
+     {
+      "courseId": 13,
+      "courseName": "缺陷判定与原因分析基础",
+      "seqNo": 2,
+      "hours": 4.0,
+      "coverSkillId": 9,
+      "coverSkill": "缺陷判定与原因分析",
+      "gapBefore": 4,
+      "courseLevel": 2,
+      "priorityScore": 60.0,
+      "reason": "该技能加权差距6.00，优先级第2位，岗位要求等级4。依据片段3培训建议，先安排基础课程建立缺陷判定与5Why/鱼骨图分析概念，为后续进阶实战打基础。"
+     },
+     {
+      "courseId": 14,
+      "courseName": "缺陷判定与原因分析进阶与实战",
+      "seqNo": 3,
+      "hours": 10.0,
+      "coverSkillId": 9,
+      "coverSkill": "缺陷判定与原因分析",
+      "gapBefore": 4,
+      "courseLevel": 4,
+      "priorityScore": 60.0,
+      "reason": "在基础课之后衔接进阶与实战课程（等级4），对应岗位等级4要求，依据片段2与片段3，通过案例研讨与实操强化复杂与异常场景处理能力，实现从概念到独立作业的跃升。"
+     },
+     {
+      "courseId": 1,
+      "courseName": "安全生产规范基础",
+      "seqNo": 4,
+      "hours": 4.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 4,
+      "courseLevel": 1,
+      "priorityScore": 40.0,
+      "reason": "该技能加权差距4.00，优先级第3位，属安全类必修。先以基础课程（等级1）建立安全规范基本认知，满足质量检验岗位现场作业的安全底线要求。"
+     },
+     {
+      "courseId": 2,
+      "courseName": "安全生产规范进阶与实战",
+      "seqNo": 5,
+      "hours": 10.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 4,
+      "courseLevel": 3,
+      "priorityScore": 40.0,
+      "reason": "在安全基础之上安排进阶与实战课程（等级3），强化现场安全操作与异常处置能力，支撑目标等级4的达成，与基础课形成递进。"
+     },
+     {
+      "courseId": 15,
+      "courseName": "生产数据分析基础",
+      "seqNo": 6,
+      "hours": 6.0,
+      "coverSkillId": 10,
+      "coverSkill": "生产数据分析",
+      "gapBefore": 3,
+      "courseLevel": 2,
+      "priorityScore": 30.0,
+      "reason": "该技能加权差距3.00，优先级第4位。依据片段4，课程等级2可帮助在指导下使用统计工具分析生产与质量数据，为后续向质量工程师发展（要求等级4）奠定数据基础。"
+     }
+    ],
+    "totalHours": 40.0,
+    "costMs": 3612,
+    "totalTokens": 2015
+   },
+   {
+    "label": "C",
+    "summary": "针对质量检验员刘敏当前技能均为0级、需快速达标的情况，按加权差距从高到低安排学习：先集中攻克质量检验与测量（差距5级）、缺陷判定与原因分析（差距4级）两项核心技术，穿插安全生产规范以满足上岗合规要求，再补充生产数据分析、沟通表达与流程制度执行。总学时38学时，控制在40学时以内，每门课均从基础层起步，确保零基础可学、逐级递进。",
+    "courses": [
+     {
+      "courseId": 12,
+      "courseName": "质量检验与测量基础",
+      "seqNo": 1,
+      "hours": 6.0,
+      "coverSkillId": 8,
+      "coverSkill": "质量检验与测量",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "该技能加权差距10.00、优先级第1，是岗位说明书明确要求的等级5核心技能。员工当前0级，需先通过基础课程建立检验标准、量具使用、抽样方法与检验记录规范的概念（依据片段5：等级1-2为知晓概念与指导下完成），为后续现场实操与进阶达标打基础。"
+     },
+     {
+      "courseId": 13,
+      "courseName": "缺陷判定与原因分析基础",
+      "seqNo": 2,
+      "hours": 4.0,
+      "coverSkillId": 9,
+      "coverSkill": "缺陷判定与原因分析",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "该技能加权差距6.00、优先级第2，岗位要求等级4。依据片段3培训建议，应先安排基础课程建立缺陷等级判定与5Why/鱼骨图分析的基本概念（片段2：等级1-2），再进入实操强化，故紧随第一项技术技能之后安排。"
+     },
+     {
+      "courseId": 1,
+      "courseName": "安全生产规范基础",
+      "seqNo": 3,
+      "hours": 4.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "该技能加权差距4.00、优先级第3，属安全类上岗前置要求。员工0级，须先完成基础安全规范培训以满足合规底线，且安全知识是后续进入检验现场实操的前提，故安排在第3位、技术基础课之后立即补齐。"
+     },
+     {
+      "courseId": 14,
+      "courseName": "缺陷判定与原因分析进阶与实战",
+      "seqNo": 4,
+      "hours": 10.0,
+      "coverSkillId": 9,
+      "coverSkill": "缺陷判定与原因分析",
+      "gapBefore": 0,
+      "courseLevel": 4,
+      "priorityScore": null,
+      "reason": "在基础课建立概念后，依据片段3“现场实操与案例研讨强化”的建议，通过等级4的进阶实战课程处理复杂与异常场景并指导他人（片段2），使该技能从基础层提升至岗位要求的等级4，是本方案学时投入最大的核心课。"
+     },
+     {
+      "courseId": 15,
+      "courseName": "生产数据分析基础",
+      "seqNo": 5,
+      "hours": 6.0,
+      "coverSkillId": 10,
+      "coverSkill": "生产数据分析",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "该技能加权差距3.00、优先级第4，岗位要求等级3。依据片段4，需掌握统计工具分析生产与质量数据并输出改进结论；安排在检验与缺陷分析之后学习，可使数据分析直接服务于质量改进场景，形成技能闭环。"
+     },
+     {
+      "courseId": 22,
+      "courseName": "沟通表达基础",
+      "seqNo": 6,
+      "hours": 6.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "该技能加权差距2.40、优先级第5，岗位要求等级3。质量检验员需向生产与工艺部门反馈缺陷结论、参与质量改进沟通，故安排基础沟通课程建立表达与反馈规范，学时适中、不影响核心技术达标。"
+     },
+     {
+      "courseId": 27,
+      "courseName": "流程制度执行基础",
+      "seqNo": 7,
+      "hours": 8.0,
+      "coverSkillId": 18,
+      "coverSkill": "流程制度执行",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "该技能加权差距2.40、优先级第6，岗位要求等级3。检验记录、不合格品处置均依赖流程制度严格执行，安排在最后作为收尾课程，与已学的检验记录规范、安全规范形成制度落地闭环，总学时控制在38学时以内。"
+     }
+    ],
+    "totalHours": 44.0,
+    "costMs": 4863,
+    "totalTokens": 3141
+   }
+  ]
+ },
+ {
+  "blindId": "5c5aedacdcc2",
+  "userId": 5,
+  "variants": [
+   {
+    "label": "A",
+    "summary": "针对李四（生产操作工）的 2 项技能差距，按「加权差距 = 等级差 × 技能权重」排序后，优先补齐质量检验与测量（差 1 级）、团队协作（差 1 级），共安排 2 门课程、合计 10.0 学时。",
+    "courses": [
+     {
+      "courseId": 12,
+      "courseName": "质量检验与测量基础",
+      "seqNo": 1,
+      "hours": 6.0,
+      "coverSkillId": 8,
+      "coverSkill": "质量检验与测量",
+      "gapBefore": 1,
+      "courseLevel": 2,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 2 级、岗位要求 3 级，差 1 级，权重 1.00，加权差距 1.00，在岗位差距中优先级排第 1 位；《质量检验与测量基础》覆盖等级 2，与目标等级最接近，作为针对性补齐课程。"
+     },
+     {
+      "courseId": 21,
+      "courseName": "团队协作基础",
+      "seqNo": 2,
+      "hours": 4.0,
+      "coverSkillId": 14,
+      "coverSkill": "团队协作",
+      "gapBefore": 1,
+      "courseLevel": 1,
+      "priorityScore": 80.0,
+      "reason": "该技能当前 2 级、岗位要求 3 级，差 1 级，权重 0.80，加权差距 0.80，在岗位差距中优先级排第 2 位；《团队协作基础》覆盖等级 1，与目标等级最接近，作为针对性补齐课程。"
+     }
+    ],
+    "totalHours": 10.0,
+    "costMs": 10,
+    "totalTokens": null
+   },
+   {
+    "label": "B",
+    "summary": "李四为一号生产车间生产操作工，两项高优先级差距均为1级：质量检验与测量（权重1.00）与团队协作（权重0.80）。按加权差距从大到小，先安排《质量检验与测量基础》建立检验标准、量具使用与记录规范，再安排《团队协作基础》强化交接班信息传递与任务协同。两门课合计10学时，远低于40学时上限，符合先基础后实操、以测验验证等级提升的培训建议。",
+    "courses": [
+     {
+      "courseId": 12,
+      "courseName": "质量检验与测量基础",
+      "seqNo": 1,
+      "hours": 6.0,
+      "coverSkillId": 8,
+      "coverSkill": "质量检验与测量",
+      "gapBefore": 1,
+      "courseLevel": 2,
+      "priorityScore": 100.0,
+      "reason": "解决质量检验与测量当前2级至目标3级的1级差距，该技能权重1.00、加权差距1.00，优先级第1。课程等级2与当前等级匹配，可建立检验标准、量具使用、抽样方法与检验记录规范等概念基础；依据《技术岗位技能标准》该技能等级3要求能独立完成常规作业，且片段3建议先安排基础课程建立概念，再以现场实操与题库测验验证提升。"
+     },
+     {
+      "courseId": 21,
+      "courseName": "团队协作基础",
+      "seqNo": 2,
+      "hours": 4.0,
+      "coverSkillId": 14,
+      "coverSkill": "团队协作",
+      "gapBefore": 1,
+      "courseLevel": 1,
+      "priorityScore": 80.0,
+      "reason": "解决团队协作当前2级至目标3级的1级差距，该技能权重0.80、加权差距0.80，优先级第2。课程等级1适合从基本概念入手，覆盖跨班组沟通、任务协同、交接班信息传递与冲突处理；依据《通用岗位技能标准》团队协作等级3要求能独立完成常规作业，先补齐此项通用能力可支撑生产现场的协同与信息交接。"
+     }
+    ],
+    "totalHours": 10.0,
+    "costMs": 2143,
+    "totalTokens": 1352
+   },
+   {
+    "label": "C",
+    "summary": "针对李四质量检验与测量（差距1级、权重1.00）与团队协作（差距1级、权重0.80）两项高优先级差距，结合生产操作工岗位对安全与设备操作的基础要求，方案先补质量检验与测量，再补团队协作，并穿插安全生产与设备操作基础课程以夯实岗位底线。总学时控制在40学时以内，课程按差距优先级与技能依赖关系排序，每门课均说明安排依据。",
+    "courses": [
+     {
+      "courseId": 12,
+      "courseName": "质量检验与测量基础",
+      "seqNo": 1,
+      "hours": 6.0,
+      "coverSkillId": 8,
+      "coverSkill": "质量检验与测量",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "该课程直接对应第1优先级差距（质量检验与测量，当前2级→目标3级，加权差距1.00）。知识库片段2指出等级2为能在指导下完成、等级3为能独立完成常规作业，本课程等级2可系统补齐检验标准、量具使用、抽样方法与检验记录规范，为后续现场实操与等级提升打基础；片段3建议先安排基础课程建立概念，故列为第一门。"
+     },
+     {
+      "courseId": 13,
+      "courseName": "缺陷判定与原因分析基础",
+      "seqNo": 2,
+      "hours": 4.0,
+      "coverSkillId": 9,
+      "coverSkill": "缺陷判定与原因分析",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "质量检验与测量等级3要求能独立完成常规作业并处理检验结果，缺陷判定与原因分析是其直接支撑技能。知识库片段1显示质量检验相关岗位对缺陷判定有明确等级要求，本课程等级2可帮助李四在完成检验后正确判定缺陷并初步分析原因，巩固第1优先级技能的应用能力，故紧随质量检验基础之后安排。"
+     },
+     {
+      "courseId": 21,
+      "courseName": "团队协作基础",
+      "seqNo": 3,
+      "hours": 4.0,
+      "coverSkillId": 14,
+      "coverSkill": "团队协作",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "该课程直接对应第2优先级差距（团队协作，当前2级→目标3级，加权差距0.80）。知识库片段5指出团队协作涵盖跨班组沟通、任务协同、交接班信息传递与冲突处理，等级3要求能独立完成常规协作作业；本课程等级1可建立协作概念与基本方法，为后续在岗实践提升至3级奠定认知基础，按差距优先级排在第1优先级技能课程之后。"
+     },
+     {
+      "courseId": 22,
+      "courseName": "沟通表达基础",
+      "seqNo": 4,
+      "hours": 6.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "团队协作等级3的核心是交接班信息传递与跨班组沟通，沟通表达是团队协作的底层支撑技能。知识库片段5明确团队协作包含信息传递与冲突处理，本课程可补齐沟通表达基础能力，使团队协作培训从概念落到可操作行为，故作为团队协作的配套课程安排在其后。"
+     },
+     {
+      "courseId": 1,
+      "courseName": "安全生产规范基础",
+      "seqNo": 5,
+      "hours": 4.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "知识库片段4明确生产操作工需达到安全生产规范等级4，是岗位硬性要求。虽然本次技能差距清单未列安全项，但作为生产操作工的基础底线，且质量检验与设备操作均需在安全规范下进行，安排基础安全课程可保障后续实操培训的安全合规，学时少、收益高，故纳入方案。"
+     },
+     {
+      "courseId": 7,
+      "courseName": "设备操作与标准化作业基础",
+      "seqNo": 6,
+      "hours": 8.0,
+      "coverSkillId": 5,
+      "coverSkill": "设备操作与标准化作业",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "知识库片段4指出生产操作工需达到设备操作与标准化作业等级4，是岗位核心要求。质量检验与测量需在设备操作过程中完成自检与测量，本课程等级2可帮助李四规范设备操作与标准化作业流程，使质量检验技能在实际产线场景中落地，故安排在质量与协作课程之后作为岗位能力补强。"
+     },
+     {
+      "courseId": 27,
+      "courseName": "流程制度执行基础",
+      "seqNo": 7,
+      "hours": 6.0,
+      "coverSkillId": 18,
+      "coverSkill": "流程制度执行",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "质量检验记录规范、交接班信息传递与标准化作业均依赖流程制度执行能力。本课程等级2可强化李四按制度执行检验记录、交接班流程与作业标准的习惯，支撑质量检验与团队协作两项优先差距的长期保持，作为收尾课程安排，总学时控制在40以内。"
+     }
+    ],
+    "totalHours": 38.0,
+    "costMs": 5304,
+    "totalTokens": 3014
+   }
+  ]
+ },
+ {
+  "blindId": "3442571ad2b0",
+  "userId": 6,
+  "variants": [
+   {
+    "label": "A",
+    "summary": "针对班组长卫桂英，优先补齐安全生产规范3级差距（高权重），安排基础与进阶课程共14学时；其次现场管理与带教1级差距，安排进阶实战10学时；最后应急处置与逃生1级差距，安排进阶实战16学时。总学时40，符合上限。学习顺序按加权差距从大到小，先安全后管理再应急，每门课均对应候选清单与知识库标准。",
+    "courses": [
+     {
+      "courseId": 1,
+      "courseName": "安全生产规范基础",
+      "seqNo": 1,
+      "hours": 4.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 3,
+      "courseLevel": 1,
+      "priorityScore": 100.0,
+      "reason": "安全生产规范差距3级、加权差距4.50为最高优先级。依据《关键岗位说明书汇编》，班组长需达到安全生产规范等级4以上，当前仅2级。先以基础课程建立概念与规范框架，对应课程等级1，为后续进阶打基础。"
+     },
+     {
+      "courseId": 2,
+      "courseName": "安全生产规范进阶与实战",
+      "seqNo": 2,
+      "hours": 10.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 3,
+      "courseLevel": 3,
+      "priorityScore": 100.0,
+      "reason": "在基础课程之后衔接进阶与实战课程（等级3），针对同一3级差距强化危险源辨识与现场安全实操，符合知识库建议的“先基础再实操强化”路径，推动从2级向5级目标提升。"
+     },
+     {
+      "courseId": 29,
+      "courseName": "现场管理与带教进阶与实战",
+      "seqNo": 3,
+      "hours": 10.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 1,
+      "courseLevel": 4,
+      "priorityScore": 33.33,
+      "reason": "现场管理与带教差距1级、加权差距1.50为第二优先级。依据《管理岗位技能标准》，班组长需达到等级4，当前3级。该课程等级4，聚焦5S、目视化与新人带教方法，可处理复杂异常并指导他人，直接补齐1级差距。"
+     },
+     {
+      "courseId": 5,
+      "courseName": "应急处置与逃生进阶与实战",
+      "seqNo": 4,
+      "hours": 16.0,
+      "coverSkillId": 3,
+      "coverSkill": "应急处置与逃生",
+      "gapBefore": 1,
+      "courseLevel": 3,
+      "priorityScore": 26.67,
+      "reason": "应急处置与逃生差距1级、加权差距1.20为第三优先级。依据《安全岗位技能标准》，当前3级需提升至4级以处理复杂异常并指导他人。该进阶实战课程等级3，结合现场实操与案例研讨，符合知识库培训考核建议，可有效提升1级以上。"
+     }
+    ],
+    "totalHours": 40.0,
+    "costMs": 2880,
+    "totalTokens": 1617
+   },
+   {
+    "label": "B",
+    "summary": "针对卫桂英（班组长）的 3 项技能差距，按「加权差距 = 等级差 × 技能权重」排序后，优先补齐安全生产规范（差 3 级）、现场管理与带教（差 1 级），共安排 4 门课程、合计 40.0 学时。",
+    "courses": [
+     {
+      "courseId": 1,
+      "courseName": "安全生产规范基础",
+      "seqNo": 1,
+      "hours": 4.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 3,
+      "courseLevel": 1,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 2 级、岗位要求 5 级，差 3 级，权重 1.50，加权差距 4.50，在岗位差距中优先级排第 1 位；《安全生产规范基础》覆盖等级 1，与目标等级最接近，作为基础补齐课程。"
+     },
+     {
+      "courseId": 2,
+      "courseName": "安全生产规范进阶与实战",
+      "seqNo": 2,
+      "hours": 10.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 3,
+      "courseLevel": 3,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 2 级、岗位要求 5 级，差 3 级，权重 1.50，加权差距 4.50，在岗位差距中优先级排第 1 位；《安全生产规范进阶与实战》覆盖等级 3，与目标等级最接近，作为进阶强化课程。"
+     },
+     {
+      "courseId": 29,
+      "courseName": "现场管理与带教进阶与实战",
+      "seqNo": 3,
+      "hours": 10.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 1,
+      "courseLevel": 4,
+      "priorityScore": 33.33,
+      "reason": "该技能当前 3 级、岗位要求 4 级，差 1 级，权重 1.50，加权差距 1.50，在岗位差距中优先级排第 2 位；《现场管理与带教进阶与实战》覆盖等级 4，与目标等级最接近，作为针对性补齐课程。"
+     },
+     {
+      "courseId": 5,
+      "courseName": "应急处置与逃生进阶与实战",
+      "seqNo": 4,
+      "hours": 16.0,
+      "coverSkillId": 3,
+      "coverSkill": "应急处置与逃生",
+      "gapBefore": 1,
+      "courseLevel": 3,
+      "priorityScore": 26.67,
+      "reason": "该技能当前 3 级、岗位要求 4 级，差 1 级，权重 1.20，加权差距 1.20，在岗位差距中优先级排第 3 位；《应急处置与逃生进阶与实战》覆盖等级 3，与目标等级最接近，作为针对性补齐课程。"
+     }
+    ],
+    "totalHours": 40.0,
+    "costMs": 13,
+    "totalTokens": null
+   },
+   {
+    "label": "C",
+    "summary": "针对班组长卫桂英，优先补齐安全生产规范（差距3级，权重1.5），安排基础与进阶课程共14学时；其次提升现场管理与带教（差距1级），安排进阶实战10学时；最后强化应急处置与逃生（差距1级），安排进阶实战16学时。总学时40，符合上限。课程顺序按加权差距从高到低，每门课均对应技能差距与知识库标准。",
+    "courses": [
+     {
+      "courseId": 1,
+      "courseName": "安全生产规范基础",
+      "seqNo": 1,
+      "hours": 4.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "员工安全生产规范当前2级，目标5级，差距3级，加权差距4.50为最高优先级。知识库片段1要求班组长安全规范达4级以上，需先通过基础课程建立概念，对应等级1课程，为进阶学习打基础。"
+     },
+     {
+      "courseId": 2,
+      "courseName": "安全生产规范进阶与实战",
+      "seqNo": 2,
+      "hours": 10.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 0,
+      "courseLevel": 3,
+      "priorityScore": null,
+      "reason": "在基础课程后，安排等级3进阶实战课程，直接针对差距3级中的高阶能力，覆盖复杂场景与指导他人，符合知识库片段1对班组长安全规范等级4以上的要求，并衔接后续补训。"
+     },
+     {
+      "courseId": 29,
+      "courseName": "现场管理与带教进阶与实战",
+      "seqNo": 3,
+      "hours": 10.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 0,
+      "courseLevel": 4,
+      "priorityScore": null,
+      "reason": "现场管理与带教当前3级，目标4级，差距1级，加权差距1.50为第二优先级。知识库片段4要求班组长达4级，能处理复杂异常并指导他人，故直接选择等级4进阶实战课程，避免重复基础内容。"
+     },
+     {
+      "courseId": 5,
+      "courseName": "应急处置与逃生进阶与实战",
+      "seqNo": 4,
+      "hours": 16.0,
+      "coverSkillId": 3,
+      "coverSkill": "应急处置与逃生",
+      "gapBefore": 0,
+      "courseLevel": 3,
+      "priorityScore": null,
+      "reason": "应急处置与逃生当前3级，目标4级，差距1级，加权差距1.20为第三优先级。知识库片段2要求等级4能处理复杂异常并指导他人，片段3建议通过实操与案例研讨强化，故选择等级3进阶实战课程，总学时控制在40以内。"
+     }
+    ],
+    "totalHours": 40.0,
+    "costMs": 2887,
+    "totalTokens": 2639
+   }
+  ]
+ },
+ {
+  "blindId": "ae6c2d1d0f02",
+  "userId": 7,
+  "variants": [
+   {
+    "label": "A",
+    "summary": "针对施超（生产主管）的 7 项技能差距，按「加权差距 = 等级差 × 技能权重」排序后，优先补齐问题解决与改进（差 3 级）、现场管理与带教（差 2 级），共安排 4 门课程、合计 40.0 学时。",
+    "courses": [
+     {
+      "courseId": 25,
+      "courseName": "问题解决与改进基础",
+      "seqNo": 1,
+      "hours": 8.0,
+      "coverSkillId": 17,
+      "coverSkill": "问题解决与改进",
+      "gapBefore": 3,
+      "courseLevel": 1,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 1 级、岗位要求 4 级，差 3 级，权重 1.50，加权差距 4.50，在岗位差距中优先级排第 1 位；《问题解决与改进基础》覆盖等级 1，与目标等级最接近，作为基础补齐课程。"
+     },
+     {
+      "courseId": 26,
+      "courseName": "问题解决与改进进阶与实战",
+      "seqNo": 2,
+      "hours": 16.0,
+      "coverSkillId": 17,
+      "coverSkill": "问题解决与改进",
+      "gapBefore": 3,
+      "courseLevel": 3,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 1 级、岗位要求 4 级，差 3 级，权重 1.50，加权差距 4.50，在岗位差距中优先级排第 1 位；《问题解决与改进进阶与实战》覆盖等级 3，与目标等级最接近，作为进阶强化课程。"
+     },
+     {
+      "courseId": 28,
+      "courseName": "现场管理与带教基础",
+      "seqNo": 3,
+      "hours": 6.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 2,
+      "courseLevel": 2,
+      "priorityScore": 66.67,
+      "reason": "该技能当前 2 级、岗位要求 4 级，差 2 级，权重 1.50，加权差距 3.00，在岗位差距中优先级排第 2 位；《现场管理与带教基础》覆盖等级 2，与目标等级最接近，作为基础补齐课程。"
+     },
+     {
+      "courseId": 29,
+      "courseName": "现场管理与带教进阶与实战",
+      "seqNo": 4,
+      "hours": 10.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 2,
+      "courseLevel": 4,
+      "priorityScore": 66.67,
+      "reason": "该技能当前 2 级、岗位要求 4 级，差 2 级，权重 1.50，加权差距 3.00，在岗位差距中优先级排第 2 位；《现场管理与带教进阶与实战》覆盖等级 4，与目标等级最接近，作为进阶强化课程。"
+     }
+    ],
+    "totalHours": 40.0,
+    "costMs": 9,
+    "totalTokens": null
+   },
+   {
+    "label": "B",
+    "summary": "针对生产主管施超的技能差距，优先补足问题解决与改进（差距3级）和现场管理与带教（差距2级）两项高权重技能，按等级递进安排基础与进阶课程，共4门课、40学时，符合40学时上限。其余中低优先级差距暂不安排课程，建议后续结合在岗实践与安全专项培训跟进。",
+    "courses": [
+     {
+      "courseId": 25,
+      "courseName": "问题解决与改进基础",
+      "seqNo": 1,
+      "hours": 8.0,
+      "coverSkillId": 17,
+      "coverSkill": "问题解决与改进",
+      "gapBefore": 3,
+      "courseLevel": 1,
+      "priorityScore": 100.0,
+      "reason": "问题解决与改进差距3级、加权差距4.50，为最高优先级。当前1级需先建立基本概念与方法框架，故先修等级1基础课程，为进阶实战打基础。"
+     },
+     {
+      "courseId": 26,
+      "courseName": "问题解决与改进进阶与实战",
+      "seqNo": 2,
+      "hours": 16.0,
+      "coverSkillId": 17,
+      "coverSkill": "问题解决与改进",
+      "gapBefore": 3,
+      "courseLevel": 3,
+      "priorityScore": 100.0,
+      "reason": "在基础课程之上，通过等级3进阶与实战课程强化分析与改进工具的实际应用，支撑从1级向4级目标提升，属高权重核心差距。"
+     },
+     {
+      "courseId": 28,
+      "courseName": "现场管理与带教基础",
+      "seqNo": 3,
+      "hours": 6.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 2,
+      "courseLevel": 2,
+      "priorityScore": 66.67,
+      "reason": "现场管理与带教差距2级、加权差距3.00，为第二优先级。依据《管理岗位技能标准》，需先掌握5S、目视化与带教基本方法，故安排等级2基础课程。"
+     },
+     {
+      "courseId": 29,
+      "courseName": "现场管理与带教进阶与实战",
+      "seqNo": 4,
+      "hours": 10.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 2,
+      "courseLevel": 4,
+      "priorityScore": 66.67,
+      "reason": "在基础课程后安排等级4进阶与实战课程，覆盖复杂与异常场景处理及指导他人，对应目标4级要求，完成该技能差距闭环。"
+     }
+    ],
+    "totalHours": 40.0,
+    "costMs": 2715,
+    "totalTokens": 1794
+   },
+   {
+    "label": "C",
+    "summary": "针对生产主管施超的技能差距，优先补齐问题解决与改进（差距3级）、现场管理与带教（差距2级）和团队协作（差距2级）三项高优先级能力，再巩固成本与效率意识、危险源辨识与风险评估等低差距项。方案遵循先高权重后低权重、先基础后进阶的顺序，总学时控制在40学时以内，兼顾管理能力与安全意识提升。",
+    "courses": [
+     {
+      "courseId": 25,
+      "courseName": "问题解决与改进基础",
+      "seqNo": 1,
+      "hours": 8.0,
+      "coverSkillId": 17,
+      "coverSkill": "问题解决与改进",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "该技能加权差距4.50为最高优先级，当前仅1级，需先通过基础课程建立问题识别、分析工具（如5Why、鱼骨图）与改进方法的概念框架，为后续进阶实战奠定基础。"
+     },
+     {
+      "courseId": 26,
+      "courseName": "问题解决与改进进阶与实战",
+      "seqNo": 2,
+      "hours": 16.0,
+      "coverSkillId": 17,
+      "coverSkill": "问题解决与改进",
+      "gapBefore": 0,
+      "courseLevel": 3,
+      "priorityScore": null,
+      "reason": "在基础课程之上，通过案例研讨与现场实战强化复杂问题解决与改进方案落地能力，对应目标4级中“处理复杂与异常场景并指导他人”的要求，确保差距从1级提升至4级。"
+     },
+     {
+      "courseId": 28,
+      "courseName": "现场管理与带教基础",
+      "seqNo": 3,
+      "hours": 6.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "该技能加权差距3.00为第二优先级，当前2级。基础课程覆盖5S、目视化管理与带教方法的基本概念和操作要点，依据《管理岗位技能标准》补齐独立完成常规作业的能力。"
+     },
+     {
+      "courseId": 29,
+      "courseName": "现场管理与带教进阶与实战",
+      "seqNo": 4,
+      "hours": 10.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 0,
+      "courseLevel": 4,
+      "priorityScore": null,
+      "reason": "在基础之上强化异常场景处理与新人带教实战，对应目标4级“处理复杂与异常场景并指导他人”，结合生产主管岗位说明书对班组长带教等级4的要求，完成从2级到4级的提升。"
+     },
+     {
+      "courseId": 21,
+      "courseName": "团队协作基础",
+      "seqNo": 5,
+      "hours": 4.0,
+      "coverSkillId": 14,
+      "coverSkill": "团队协作",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "该技能加权差距2.40为第三优先级，当前2级。基础课程帮助建立团队角色认知、协作沟通与冲突处理的基本方法，支撑生产现场跨班组协作效率提升。"
+     },
+     {
+      "courseId": 30,
+      "courseName": "成本与效率意识基础",
+      "seqNo": 6,
+      "hours": 4.0,
+      "coverSkillId": 20,
+      "coverSkill": "成本与效率意识",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "该技能加权差距1.50，当前3级，仅差1级达标。基础课程聚焦物料损耗控制、工时效率与成本改善意识，依据《管理岗位技能标准》补齐独立完成常规成本改善的能力，学时精简高效。"
+     },
+     {
+      "courseId": 3,
+      "courseName": "危险源辨识与风险评估基础",
+      "seqNo": 7,
+      "hours": 6.0,
+      "coverSkillId": 2,
+      "coverSkill": "危险源辨识与风险评估",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "该技能加权差距1.20，当前3级。依据《安全岗位技能标准》，通过基础课程巩固JSA/LEC方法在复杂与异常场景中的应用，支撑从3级向4级“指导他人”的能力跃升，同时满足班组长岗位对危险源辨识等级4的要求。"
+     }
+    ],
+    "totalHours": 54.0,
+    "costMs": 3633,
+    "totalTokens": 3138
+   }
+  ]
+ },
+ {
+  "blindId": "2406e42e97e2",
+  "userId": 8,
+  "variants": [
+   {
+    "label": "A",
+    "summary": "针对孔芳（培训专员）的 6 项技能差距，按「加权差距 = 等级差 × 技能权重」排序后，优先补齐沟通表达（差 2 级）、技术文档写作（差 2 级），共安排 5 门课程、合计 38.0 学时。",
+    "courses": [
+     {
+      "courseId": 22,
+      "courseName": "沟通表达基础",
+      "seqNo": 1,
+      "hours": 6.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 2,
+      "courseLevel": 1,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 3 级、岗位要求 5 级，差 2 级，权重 1.80，加权差距 3.60，在岗位差距中优先级排第 1 位；《沟通表达基础》覆盖等级 1，与目标等级最接近，作为基础补齐课程。"
+     },
+     {
+      "courseId": 23,
+      "courseName": "沟通表达进阶与实战",
+      "seqNo": 2,
+      "hours": 12.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 2,
+      "courseLevel": 3,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 3 级、岗位要求 5 级，差 2 级，权重 1.80，加权差距 3.60，在岗位差距中优先级排第 1 位；《沟通表达进阶与实战》覆盖等级 3，与目标等级最接近，作为进阶强化课程。"
+     },
+     {
+      "courseId": 24,
+      "courseName": "技术文档写作基础",
+      "seqNo": 3,
+      "hours": 6.0,
+      "coverSkillId": 16,
+      "coverSkill": "技术文档写作",
+      "gapBefore": 2,
+      "courseLevel": 1,
+      "priorityScore": 83.33,
+      "reason": "该技能当前 2 级、岗位要求 4 级，差 2 级，权重 1.50，加权差距 3.00，在岗位差距中优先级排第 2 位；《技术文档写作基础》覆盖等级 1，与目标等级最接近，作为针对性补齐课程。"
+     },
+     {
+      "courseId": 21,
+      "courseName": "团队协作基础",
+      "seqNo": 4,
+      "hours": 4.0,
+      "coverSkillId": 14,
+      "coverSkill": "团队协作",
+      "gapBefore": 2,
+      "courseLevel": 1,
+      "priorityScore": 66.67,
+      "reason": "该技能当前 2 级、岗位要求 4 级，差 2 级，权重 1.20，加权差距 2.40，在岗位差距中优先级排第 3 位；《团队协作基础》覆盖等级 1，与目标等级最接近，作为针对性补齐课程。"
+     },
+     {
+      "courseId": 2,
+      "courseName": "安全生产规范进阶与实战",
+      "seqNo": 5,
+      "hours": 10.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 2,
+      "courseLevel": 3,
+      "priorityScore": 55.56,
+      "reason": "该技能当前 2 级、岗位要求 4 级，差 2 级，权重 1.00，加权差距 2.00，在岗位差距中优先级排第 4 位；《安全生产规范进阶与实战》覆盖等级 3，与目标等级最接近，作为针对性补齐课程。"
+     }
+    ],
+    "totalHours": 38.0,
+    "costMs": 12,
+    "totalTokens": null
+   },
+   {
+    "label": "B",
+    "summary": "孔芳任培训专员，沟通表达与技术文档写作差距最大且权重高，优先安排进阶课程补齐；团队协作与安全生产规范差距次之，安排基础课程；现场管理与带教、流程制度执行差距较小，安排基础课程巩固。总学时控制在40以内，先高权重后低权重，兼顾岗位实际需要。",
+    "courses": [
+     {
+      "courseId": 23,
+      "courseName": "沟通表达进阶与实战",
+      "seqNo": 1,
+      "hours": 12.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 0,
+      "courseLevel": 3,
+      "priorityScore": null,
+      "reason": "沟通表达差距2级、加权差距3.60居首，当前3级需进阶课程提升至5级，课程等级3衔接当前水平，12学时聚焦实战演练。"
+     },
+     {
+      "courseId": 24,
+      "courseName": "技术文档写作基础",
+      "seqNo": 2,
+      "hours": 6.0,
+      "coverSkillId": 16,
+      "coverSkill": "技术文档写作",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "技术文档写作差距2级、加权差距3.00列第二，当前2级需从基础系统学习作业指导书与报告编写，6学时打牢规范写作基础。"
+     },
+     {
+      "courseId": 21,
+      "courseName": "团队协作基础",
+      "seqNo": 3,
+      "hours": 4.0,
+      "coverSkillId": 14,
+      "coverSkill": "团队协作",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "团队协作差距2级、加权差距2.40列第三，当前2级需补基础，4学时覆盖跨班组沟通、任务协同与交接班信息传递。"
+     },
+     {
+      "courseId": 2,
+      "courseName": "安全生产规范进阶与实战",
+      "seqNo": 4,
+      "hours": 10.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 0,
+      "courseLevel": 3,
+      "priorityScore": null,
+      "reason": "安全生产规范差距2级、加权差距2.00，当前2级需进阶课程提升至4级，10学时覆盖规范实战与异常场景处置。"
+     },
+     {
+      "courseId": 29,
+      "courseName": "现场管理与带教进阶与实战",
+      "seqNo": 5,
+      "hours": 10.0,
+      "coverSkillId": 19,
+      "coverSkill": "现场管理与带教",
+      "gapBefore": 0,
+      "courseLevel": 4,
+      "priorityScore": null,
+      "reason": "现场管理与带教差距1级、加权差距1.50，当前3级需进阶课程达到4级，掌握5S、目视化与新人带教复杂场景处理。"
+     },
+     {
+      "courseId": 27,
+      "courseName": "流程制度执行基础",
+      "seqNo": 6,
+      "hours": 8.0,
+      "coverSkillId": 18,
+      "coverSkill": "流程制度执行",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "流程制度执行差距1级、加权差距1.20列末位，当前3级需基础课程巩固制度执行规范，8学时性价比高。"
+     }
+    ],
+    "totalHours": 50.0,
+    "costMs": 2954,
+    "totalTokens": 2843
+   },
+   {
+    "label": "C",
+    "summary": "针对孔芳（培训专员）的六项技能差距，按加权差距从高到低安排5门候选课程，总学时38学时。优先补齐沟通表达、技术文档写作、团队协作三项高优先级差距，再覆盖安全生产规范；现场管理与带教、流程制度执行差距较小且候选清单无对应课程，暂以在岗实践补足。",
+    "courses": [
+     {
+      "courseId": 22,
+      "courseName": "沟通表达基础",
+      "seqNo": 1,
+      "hours": 6.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 2,
+      "courseLevel": 1,
+      "priorityScore": 100.0,
+      "reason": "沟通表达加权差距3.60居首，当前3级距目标5级差2级。先以等级1基础课补齐概念与规范表达，依据《通用岗位技能标准》分级要求，为后续进阶实战打基础。"
+     },
+     {
+      "courseId": 23,
+      "courseName": "沟通表达进阶与实战",
+      "seqNo": 2,
+      "hours": 12.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 2,
+      "courseLevel": 3,
+      "priorityScore": 100.0,
+      "reason": "承接基础课，等级3进阶与实战课面向独立完成与复杂场景沟通，直接支撑沟通表达由3级升至5级的目标，对应差距2级、优先级得分100。"
+     },
+     {
+      "courseId": 24,
+      "courseName": "技术文档写作基础",
+      "seqNo": 3,
+      "hours": 6.0,
+      "coverSkillId": 16,
+      "coverSkill": "技术文档写作",
+      "gapBefore": 2,
+      "courseLevel": 1,
+      "priorityScore": 83.33,
+      "reason": "技术文档写作加权差距3.00列第2，当前2级距目标4级差2级。依据《通用岗位技能标准》技术文档写作分级，基础课覆盖作业指导书、报告编写的基本规范，解决“能在指导下完成”到独立编写的差距。"
+     },
+     {
+      "courseId": 21,
+      "courseName": "团队协作基础",
+      "seqNo": 4,
+      "hours": 4.0,
+      "coverSkillId": 14,
+      "coverSkill": "团队协作",
+      "gapBefore": 2,
+      "courseLevel": 1,
+      "priorityScore": 66.67,
+      "reason": "团队协作加权差距2.40列第3，当前2级距目标4级差2级。依据《通用岗位技能标准》团队协作分级，基础课覆盖跨班组沟通、任务协同与交接班信息传递，补齐常规协作能力。"
+     },
+     {
+      "courseId": 2,
+      "courseName": "安全生产规范进阶与实战",
+      "seqNo": 5,
+      "hours": 10.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 2,
+      "courseLevel": 3,
+      "priorityScore": 55.56,
+      "reason": "安全生产规范加权差距2.00列第4，当前2级距目标4级差2级。依据《关键岗位说明书汇编》对安全等级4的要求，进阶实战课覆盖危险源辨识与异常处置，满足岗位安全达标需要。"
+     }
+    ],
+    "totalHours": 38.0,
+    "costMs": 2697,
+    "totalTokens": 1840
+   }
+  ]
+ },
+ {
+  "blindId": "0c36d793a954",
+  "userId": 9,
+  "variants": [
+   {
+    "label": "A",
+    "summary": "针对尤艳（生产操作工）的5项技能差距，按加权差距从高到低安排学习顺序：先补安全生产规范与设备操作标准化（各差2级、权重1.5），再补设备维护保养（差3级、从0起步）与质量检验测量（差2级），最后以团队协作收尾。方案以基础课打底、进阶课达标，总学时控制在40以内，兼顾岗位说明书对安全与设备操作等级4的要求。",
+    "courses": [
+     {
+      "courseId": 1,
+      "courseName": "安全生产规范基础",
+      "seqNo": 1,
+      "hours": 4.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "安全生产规范当前2级、目标4级，加权差距3.00居首，且《关键岗位说明书汇编》明确生产操作工需达等级4。先以等级1基础课补齐概念与底线要求，为进阶课打基础。"
+     },
+     {
+      "courseId": 2,
+      "courseName": "安全生产规范进阶与实战",
+      "seqNo": 2,
+      "hours": 10.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 0,
+      "courseLevel": 3,
+      "priorityScore": null,
+      "reason": "在基础课之上以等级3进阶课覆盖异常场景处置与规范落地，衔接目标等级4；安全类权重1.5，优先在前段完成闭环。"
+     },
+     {
+      "courseId": 7,
+      "courseName": "设备操作与标准化作业基础",
+      "seqNo": 3,
+      "hours": 8.0,
+      "coverSkillId": 5,
+      "coverSkill": "设备操作与标准化作业",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "该技能当前2级、目标4级，加权差距3.00并列第二，岗位说明书要求等级4。基础课（等级2）巩固开机点检、参数设定与标准作业顺序，是进阶实战的前置。"
+     },
+     {
+      "courseId": 8,
+      "courseName": "设备操作与标准化作业进阶与实战",
+      "seqNo": 4,
+      "hours": 10.0,
+      "coverSkillId": 5,
+      "coverSkill": "设备操作与标准化作业",
+      "gapBefore": 0,
+      "courseLevel": 4,
+      "priorityScore": null,
+      "reason": "以等级4进阶课直接对标岗位目标等级，训练复杂与异常场景处理及指导他人能力，与安全课共同构成高权重差距的核心补齐内容。"
+     },
+     {
+      "courseId": 9,
+      "courseName": "设备维护保养基础",
+      "seqNo": 5,
+      "hours": 4.0,
+      "coverSkillId": 6,
+      "coverSkill": "设备维护保养",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "该技能当前0级、目标3级，差距最大（3级），但权重1.0。依据《技术岗位技能标准》，先以等级2基础课掌握日常点检、润滑保养与易损件更换，实现从0到能独立作业的起步。"
+     },
+     {
+      "courseId": 12,
+      "courseName": "质量检验与测量基础",
+      "seqNo": 6,
+      "hours": 6.0,
+      "coverSkillId": 8,
+      "coverSkill": "质量检验与测量",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "当前1级、目标3级，加权差距2.00。依据技能标准，等级2基础课覆盖检验标准、量具使用与检验记录规范，支撑生产操作工产品自检职责。"
+     },
+     {
+      "courseId": 21,
+      "courseName": "团队协作基础",
+      "seqNo": 7,
+      "hours": 4.0,
+      "coverSkillId": 14,
+      "coverSkill": "团队协作",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "差距仅1级、权重0.8，优先级最低，安排在末尾以低成本补齐；基础课覆盖协作意识与配合规范，满足目标等级3的入门要求。"
+     }
+    ],
+    "totalHours": 46.0,
+    "costMs": 3997,
+    "totalTokens": 2971
+   },
+   {
+    "label": "B",
+    "summary": "针对尤艳（生产操作工）的高优先级技能差距，按差距从大到小安排：先补设备维护保养（0→3级），再补安全生产规范与设备操作（均2→4级），最后补质量检验与测量（1→3级）。团队协作差距小且权重低，本期不安排。总学时32，控制在40学时内，所选课程均来自候选清单。",
+    "courses": [
+     {
+      "courseId": 9,
+      "courseName": "设备维护保养基础",
+      "seqNo": 1,
+      "hours": 4.0,
+      "coverSkillId": 6,
+      "coverSkill": "设备维护保养",
+      "gapBefore": 3,
+      "courseLevel": 2,
+      "priorityScore": 100.0,
+      "reason": "设备维护保养当前0级、目标3级，差距3级为最大，权重1.00，优先级第3位。依据《技术岗位技能标准》设备维护保养，需从知晓概念起步，先学基础课（等级2）建立点检、润滑保养与易损件更换基础，为后续独立作业打底。"
+     },
+     {
+      "courseId": 2,
+      "courseName": "安全生产规范进阶与实战",
+      "seqNo": 2,
+      "hours": 10.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 2,
+      "courseLevel": 3,
+      "priorityScore": 100.0,
+      "reason": "安全生产规范当前2级、目标4级，差距2级，权重1.50，加权差距3.00，优先级第1位。依据《关键岗位说明书汇编》，生产操作工需达等级4；进阶课等级3覆盖异常场景与指导他人，是通往4级的关键环节。"
+     },
+     {
+      "courseId": 8,
+      "courseName": "设备操作与标准化作业进阶与实战",
+      "seqNo": 3,
+      "hours": 10.0,
+      "coverSkillId": 5,
+      "coverSkill": "设备操作与标准化作业",
+      "gapBefore": 2,
+      "courseLevel": 4,
+      "priorityScore": 100.0,
+      "reason": "设备操作与标准化作业当前2级、目标4级，差距2级，权重1.50，加权差距3.00，优先级第2位。依据《技术岗位技能标准》，等级4要求能处理复杂与异常场景并指导他人，进阶实战课（等级4）直接对应目标等级。"
+     },
+     {
+      "courseId": 21,
+      "courseName": "团队协作基础",
+      "seqNo": 4,
+      "hours": 4.0,
+      "coverSkillId": 14,
+      "coverSkill": "团队协作",
+      "gapBefore": 1,
+      "courseLevel": 1,
+      "priorityScore": 26.67,
+      "reason": "团队协作当前2级、目标3级，差距1级，权重0.80，优先级最低。基础课等级1可补充协作规范认知，学时短、成本低，作为高优先级技能补齐后的补充学习。"
+     },
+     {
+      "courseId": 1,
+      "courseName": "安全生产规范基础",
+      "seqNo": 5,
+      "hours": 4.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 2,
+      "courseLevel": 1,
+      "priorityScore": 100.0,
+      "reason": "安全生产规范差距2级、优先级第1位，进阶课前需夯实基础概念与规范条款。基础课等级1学时短，可确保尤艳在进入进阶实战前具备一致的安全知识基线，降低学习风险。"
+     }
+    ],
+    "totalHours": 32.0,
+    "costMs": 3377,
+    "totalTokens": 1910
+   },
+   {
+    "label": "C",
+    "summary": "针对尤艳（生产操作工）的 5 项技能差距，按「加权差距 = 等级差 × 技能权重」排序后，优先补齐安全生产规范（差 2 级）、设备操作与标准化作业（差 2 级），共安排 6 门课程、合计 40.0 学时。",
+    "courses": [
+     {
+      "courseId": 1,
+      "courseName": "安全生产规范基础",
+      "seqNo": 1,
+      "hours": 4.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 2,
+      "courseLevel": 1,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 2 级、岗位要求 4 级，差 2 级，权重 1.50，加权差距 3.00，在岗位差距中优先级排第 1 位；《安全生产规范基础》覆盖等级 1，与目标等级最接近，作为基础补齐课程。"
+     },
+     {
+      "courseId": 2,
+      "courseName": "安全生产规范进阶与实战",
+      "seqNo": 2,
+      "hours": 10.0,
+      "coverSkillId": 1,
+      "coverSkill": "安全生产规范",
+      "gapBefore": 2,
+      "courseLevel": 3,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 2 级、岗位要求 4 级，差 2 级，权重 1.50，加权差距 3.00，在岗位差距中优先级排第 1 位；《安全生产规范进阶与实战》覆盖等级 3，与目标等级最接近，作为进阶强化课程。"
+     },
+     {
+      "courseId": 7,
+      "courseName": "设备操作与标准化作业基础",
+      "seqNo": 3,
+      "hours": 8.0,
+      "coverSkillId": 5,
+      "coverSkill": "设备操作与标准化作业",
+      "gapBefore": 2,
+      "courseLevel": 2,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 2 级、岗位要求 4 级，差 2 级，权重 1.50，加权差距 3.00，在岗位差距中优先级排第 2 位；《设备操作与标准化作业基础》覆盖等级 2，与目标等级最接近，作为基础补齐课程。"
+     },
+     {
+      "courseId": 8,
+      "courseName": "设备操作与标准化作业进阶与实战",
+      "seqNo": 4,
+      "hours": 10.0,
+      "coverSkillId": 5,
+      "coverSkill": "设备操作与标准化作业",
+      "gapBefore": 2,
+      "courseLevel": 4,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 2 级、岗位要求 4 级，差 2 级，权重 1.50，加权差距 3.00，在岗位差距中优先级排第 2 位；《设备操作与标准化作业进阶与实战》覆盖等级 4，与目标等级最接近，作为进阶强化课程。"
+     },
+     {
+      "courseId": 9,
+      "courseName": "设备维护保养基础",
+      "seqNo": 5,
+      "hours": 4.0,
+      "coverSkillId": 6,
+      "coverSkill": "设备维护保养",
+      "gapBefore": 3,
+      "courseLevel": 2,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 0 级、岗位要求 3 级，差 3 级，权重 1.00，加权差距 3.00，在岗位差距中优先级排第 3 位；《设备维护保养基础》覆盖等级 2，与目标等级最接近，作为针对性补齐课程。"
+     },
+     {
+      "courseId": 21,
+      "courseName": "团队协作基础",
+      "seqNo": 6,
+      "hours": 4.0,
+      "coverSkillId": 14,
+      "coverSkill": "团队协作",
+      "gapBefore": 1,
+      "courseLevel": 1,
+      "priorityScore": 26.67,
+      "reason": "该技能当前 2 级、岗位要求 3 级，差 1 级，权重 0.80，加权差距 0.80，在岗位差距中优先级排第 5 位；《团队协作基础》覆盖等级 1，与目标等级最接近，作为针对性补齐课程。"
+     }
+    ],
+    "totalHours": 40.0,
+    "costMs": 12,
+    "totalTokens": null
+   }
+  ]
+ },
+ {
+  "blindId": "5395fbfcdcb5",
+  "userId": 10,
+  "variants": [
+   {
+    "label": "A",
+    "summary": "针对许强（质量检验员）的 2 项技能差距，按「加权差距 = 等级差 × 技能权重」排序后，优先补齐质量检验与测量（差 2 级）、沟通表达（差 2 级），共安排 3 门课程、合计 24.0 学时。",
+    "courses": [
+     {
+      "courseId": 12,
+      "courseName": "质量检验与测量基础",
+      "seqNo": 1,
+      "hours": 6.0,
+      "coverSkillId": 8,
+      "coverSkill": "质量检验与测量",
+      "gapBefore": 2,
+      "courseLevel": 2,
+      "priorityScore": 100.0,
+      "reason": "该技能当前 3 级、岗位要求 5 级，差 2 级，权重 2.00，加权差距 4.00，在岗位差距中优先级排第 1 位；《质量检验与测量基础》覆盖等级 2，与目标等级最接近，作为针对性补齐课程。"
+     },
+     {
+      "courseId": 22,
+      "courseName": "沟通表达基础",
+      "seqNo": 2,
+      "hours": 6.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 2,
+      "courseLevel": 1,
+      "priorityScore": 40.0,
+      "reason": "该技能当前 1 级、岗位要求 3 级，差 2 级，权重 0.80，加权差距 1.60，在岗位差距中优先级排第 2 位；《沟通表达基础》覆盖等级 1，与目标等级最接近，作为基础补齐课程。"
+     },
+     {
+      "courseId": 23,
+      "courseName": "沟通表达进阶与实战",
+      "seqNo": 3,
+      "hours": 12.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 2,
+      "courseLevel": 3,
+      "priorityScore": 40.0,
+      "reason": "该技能当前 1 级、岗位要求 3 级，差 2 级，权重 0.80，加权差距 1.60，在岗位差距中优先级排第 2 位；《沟通表达进阶与实战》覆盖等级 3，与目标等级最接近，作为进阶强化课程。"
+     }
+    ],
+    "totalHours": 24.0,
+    "costMs": 10,
+    "totalTokens": null
+   },
+   {
+    "label": "B",
+    "summary": "针对许强（质量检验员）的两项技能差距，按加权差距从高到低安排：优先补齐质量检验与测量（差距2级、权重2.00），选择等级2基础课程建立概念，再通过现场实操与案例研讨强化，并以题库测验验证；随后补齐沟通表达（差距2级、权重0.80），先修基础课程建立概念，再修进阶与实战课程强化跨部门沟通与汇报能力。总学时24学时，控制在40学时以内。",
+    "courses": [
+     {
+      "courseId": 12,
+      "courseName": "质量检验与测量基础",
+      "seqNo": 1,
+      "hours": 6.0,
+      "coverSkillId": 8,
+      "coverSkill": "质量检验与测量",
+      "gapBefore": 2,
+      "courseLevel": 2,
+      "priorityScore": 100.0,
+      "reason": "该课程覆盖质量检验与测量，课程等级2，对应2级差距，优先级得分100.0，为最高优先级技能。依据《技术岗位技能标准》片段2，等级3需能独立完成常规作业，等级5需能制定标准与开展改进培训；片段3建议先安排基础课程建立概念，再通过现场实操与案例研讨强化，最后以题库测验验证。本课程作为基础环节，为后续实操强化与等级提升奠定概念基础。"
+     },
+     {
+      "courseId": 22,
+      "courseName": "沟通表达基础",
+      "seqNo": 2,
+      "hours": 6.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 2,
+      "courseLevel": 1,
+      "priorityScore": 40.0,
+      "reason": "该课程覆盖沟通表达，课程等级1，对应2级差距，优先级得分40.0，为第二优先级技能。依据《通用岗位技能标准》片段4，沟通表达等级3需能独立完成常规作业；片段5建议先安排基础课程建立概念，再通过现场实操与案例研讨强化，最后以题库测验验证。本课程作为沟通表达的基础环节，帮助许强建立清晰汇报、撰写交接记录与跨部门沟通的基本概念。"
+     },
+     {
+      "courseId": 23,
+      "courseName": "沟通表达进阶与实战",
+      "seqNo": 3,
+      "hours": 12.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 2,
+      "courseLevel": 3,
+      "priorityScore": 40.0,
+      "reason": "该课程覆盖沟通表达，课程等级3，对应2级差距，优先级得分40.0，与基础课程形成递进。依据片段5的培训建议，在基础课程建立概念后，需通过实战强化跨部门沟通与汇报能力；片段4指出等级3需能独立完成常规作业，本课程等级3与目标等级3匹配，可帮助许强在基础之上达到独立完成常规沟通作业的水平，并以题库测验验证培训效果。"
+     }
+    ],
+    "totalHours": 24.0,
+    "costMs": 3085,
+    "totalTokens": 1533
+   },
+   {
+    "label": "C",
+    "summary": "针对许强质量检验与测量（差距2级、权重2.0）与沟通表达（差距2级、权重0.8）的差距，按高权重优先原则先安排质量检验与测量课程，从基础到进阶再到缺陷判定，形成检验能力闭环；后安排沟通表达基础与进阶，提升汇报与跨部门沟通能力。总学时38学时，控制在40学时以内，每门课均对应技能标准与知识库培训考核建议。",
+    "courses": [
+     {
+      "courseId": 12,
+      "courseName": "质量检验与测量基础",
+      "seqNo": 1,
+      "hours": 6.0,
+      "coverSkillId": 8,
+      "coverSkill": "质量检验与测量",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "许强质量检验与测量当前3级、目标5级，差距2级且权重2.0为最高优先级。依据《技术岗位技能标准》等级2要求及片段3建议先安排基础课程建立概念，本课覆盖检验标准、量具使用与抽样方法基础，为后续进阶奠定基础。"
+     },
+     {
+      "courseId": 13,
+      "courseName": "缺陷判定与原因分析基础",
+      "seqNo": 2,
+      "hours": 4.0,
+      "coverSkillId": 9,
+      "coverSkill": "缺陷判定与原因分析",
+      "gapBefore": 0,
+      "courseLevel": 2,
+      "priorityScore": null,
+      "reason": "依据《关键岗位说明书汇编》，质量检验员需达到缺陷判定与原因分析等级4，该技能与质量检验与测量高度关联。先修基础课掌握缺陷判定方法，为进阶实战和检验结果分析提供支撑，符合从基础到应用的顺序。"
+     },
+     {
+      "courseId": 14,
+      "courseName": "缺陷判定与原因分析进阶与实战",
+      "seqNo": 3,
+      "hours": 10.0,
+      "coverSkillId": 9,
+      "coverSkill": "缺陷判定与原因分析",
+      "gapBefore": 0,
+      "courseLevel": 4,
+      "priorityScore": null,
+      "reason": "在基础课之后安排进阶实战，对应等级4要求，训练复杂与异常场景的缺陷判定和原因分析能力，与质量检验与测量等级5的改进与培训要求衔接，依据片段1岗位要求与片段3案例研讨强化建议。"
+     },
+     {
+      "courseId": 23,
+      "courseName": "沟通表达进阶与实战",
+      "seqNo": 4,
+      "hours": 12.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 0,
+      "courseLevel": 3,
+      "priorityScore": null,
+      "reason": "沟通表达当前1级、目标3级，差距2级，权重0.8为第二优先级。依据《通用岗位技能标准》等级3要求及片段5建议，在基础概念后通过进阶实战强化工作汇报、交接记录与跨部门沟通，满足质量检验员独立完成常规沟通作业的要求。"
+     },
+     {
+      "courseId": 22,
+      "courseName": "沟通表达基础",
+      "seqNo": 5,
+      "hours": 6.0,
+      "coverSkillId": 15,
+      "coverSkill": "沟通表达",
+      "gapBefore": 0,
+      "courseLevel": 1,
+      "priorityScore": null,
+      "reason": "依据片段5培训考核建议，沟通表达提升应先安排基础课程建立概念。本课覆盖沟通基本概念与规范，为进阶实战提供前置知识，虽排在进阶之后作为补强，仍确保概念体系完整，总学时控制在40以内。"
+     }
+    ],
+    "totalHours": 38.0,
+    "costMs": 4289,
+    "totalTokens": 2686
+   }
+  ]
+ }
+]

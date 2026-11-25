@@ -1,0 +1,25 @@
+{
+  "mode": "HYBRID",
+  "concurrency": 5,
+  "tasks": 8,
+  "wall_seconds": 5.92,
+  "tps": 1.35,
+  "avg_ms": 3091.1,
+  "p50_ms": 2892.7,
+  "p95_ms": 4294.7,
+  "max_ms": 4294.7,
+  "min_ms": 2294.2,
+  "error_count": 0,
+  "error_rate": 0.0,
+  "error_samples": [],
+  "latencies": [
+    2294.2,
+    2524.7,
+    2775.8,
+    2892.7,
+    3083.4,
+    3143.4,
+    3720.0,
+    4294.7
+  ]
+}
