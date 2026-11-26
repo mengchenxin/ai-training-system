@@ -93,7 +93,9 @@
         <el-table-column prop="successRate" label="成功率(%)" width="110" align="center" />
       </el-table>
       <div class="muted mt8" style="font-size: 12px">
-        纯规则模式不消耗 token；纯大模型组的「平均幻觉课程」就是约束必要性的量化证据。
+        纯规则模式不消耗 token。注意「平均幻觉课程」一列两组口径不同：混合模式是严格校验，
+        课程超出候选集即整份失败并降级，成功路径恒计 0；纯大模型是宽松校验，按「课程库里是否存在」统计。
+        两者不能直接比大小——约束的价值在于保证课程可选、学时可控，而不是降低幻觉数。
       </div>
     </div>
 

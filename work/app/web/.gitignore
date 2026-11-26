@@ -4,6 +4,8 @@ node_modules/
 # Build output
 dist/
 dist-ssr/
+# 巡检/验证用的另存产物目录（vite build --outDir dist-check 等）
+dist-*/
 stats.html
 
 # Local env files
