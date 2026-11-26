@@ -31,6 +31,8 @@ public class UserService {
 
     public PageResult<UserVO> page(long current, long size, String keyword, Long deptId,
                                    Long postId, Long roleId, Integer status) {
+        // 用户列表含手机号、邮箱与角色，属管理数据，普通员工不可拉取
+        LoginHelper.requireManager();
         LambdaQueryWrapper<SysUser> w = new LambdaQueryWrapper<>();
         if (StringUtils.hasText(keyword)) {
             w.and(q -> q.like(SysUser::getUsername, keyword).or().like(SysUser::getRealName, keyword));
@@ -103,6 +105,8 @@ public class UserService {
     }
 
     public UserVO detail(Long id) {
+        // 本人可查自己；查他人需管理员/讲师。否则任何员工都能按 id 遍历全公司手机号与邮箱
+        LoginHelper.requireSelfOrManager(id);
         SysUser u = userMapper.selectById(id);
         if (u == null) {
             throw new BizException("用户不存在");

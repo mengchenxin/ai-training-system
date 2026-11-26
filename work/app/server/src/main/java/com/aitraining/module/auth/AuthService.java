@@ -25,19 +25,24 @@ public class AuthService {
     private final SysDeptMapper deptMapper;
     private final PostMapper postMapper;
     private final PasswordEncoder passwordEncoder;
+    private final LoginAttemptService attemptService;
 
     public LoginResult login(LoginRequest req) {
+        String username = req.getUsername();
+        // 先判锁定，避免锁定期间仍消耗一次密码校验（也可挡住暴力尝试）
+        attemptService.checkBlocked(username);
+
         SysUser user = userMapper.selectOne(new LambdaQueryWrapper<SysUser>()
-                .eq(SysUser::getUsername, req.getUsername()));
-        if (user == null) {
-            throw new BizException("账号不存在");
+                .eq(SysUser::getUsername, username));
+        // 账号不存在与密码错误共用一套文案与计数，避免被用来枚举有效用户名
+        if (user == null || !passwordEncoder.matches(req.getPassword(), user.getPassword())) {
+            attemptService.onFailure(username);
+            throw new BizException("账号或密码错误");
         }
         if (user.getStatus() != null && user.getStatus() == 0) {
             throw new BizException("账号已被停用，请联系管理员");
         }
-        if (!passwordEncoder.matches(req.getPassword(), user.getPassword())) {
-            throw new BizException("密码错误");
-        }
+        attemptService.onSuccess(username);
         StpUtil.login(user.getId());
         // 角色写入 Session，避免每次请求重复查库
         List<String> roles = roleCodes(user.getId());

@@ -9,6 +9,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.UUID;
+
 /**
  * 全局异常处理
  */
@@ -45,7 +47,10 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public Result<Void> handleOther(Exception e) {
-        log.error("系统异常", e);
-        return Result.fail(500, "系统繁忙：" + e.getMessage());
+        // 不把 e.getMessage() 回给前端：它可能是 SQL 片段、表名、文件路径或类名，
+        // 等于把内部结构告诉调用方。对外只给一个短错误码，完整堆栈留在日志里。
+        String traceId = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
+        log.error("系统异常 traceId={} type={}", traceId, e.getClass().getSimpleName(), e);
+        return Result.fail(500, "系统繁忙，请稍后重试（错误码 " + traceId + "）");
     }
 }
