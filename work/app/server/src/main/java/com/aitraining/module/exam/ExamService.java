@@ -11,6 +11,7 @@ import com.aitraining.module.exam.entity.*;
 import com.aitraining.module.exam.mapper.*;
 import com.aitraining.module.skill.entity.Skill;
 import com.aitraining.module.skill.mapper.SkillMapper;
+import com.aitraining.module.train.TrainPlanService;
 import com.aitraining.security.LoginHelper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +43,7 @@ public class ExamService {
     private final AiJudgeService judgeService;
     private final com.aitraining.module.system.mapper.SysUserMapper userMapper;
     private final ObjectMapper objectMapper;
+    private final TrainPlanService trainPlanService;
 
     // ---------------- 组卷 ----------------
 
@@ -174,12 +176,29 @@ public class ExamService {
         return PageResult.of(rows, p.getTotal(), current, size);
     }
 
+    /**
+     * 试卷归属校验：员工只能访问自己所参与计划下的试卷。
+     *
+     * <p>试卷本身没有考生字段，只有 planId 一个线索。此前取卷 / 开考 / 交卷都不校验，
+     * 任何员工按 id 递增就能取到别人计划下的试卷（虽不含答案，但可提前看题）。
+     * 管理员与讲师不受限；planId 为空的自由组卷试卷无法判定归属，保持放行。
+     */
+    private void assertPaperAccessible(ExamPaper paper) {
+        if (!LoginHelper.isEmployee() || paper.getPlanId() == null) {
+            return;
+        }
+        if (!trainPlanService.isTargetUser(paper.getPlanId(), LoginHelper.userId())) {
+            throw new BizException(403, "该试卷不属于你的培训计划");
+        }
+    }
+
     /** 考生取卷：不返回答案与解析 */
     public Map<String, Object> paperForExam(Long paperId) {
         ExamPaper paper = paperMapper.selectById(paperId);
         if (paper == null) {
             throw new BizException("试卷不存在");
         }
+        assertPaperAccessible(paper);
         List<ExamPaperQuestion> pqs = paperQuestionMapper.selectList(
                 new LambdaQueryWrapper<ExamPaperQuestion>().eq(ExamPaperQuestion::getPaperId, paperId)
                         .orderByAsc(ExamPaperQuestion::getSeqNo));
@@ -219,6 +238,11 @@ public class ExamService {
     }
 
     public void startExam(Long paperId) {
+        ExamPaper paper = paperMapper.selectById(paperId);
+        if (paper == null) {
+            throw new BizException("试卷不存在");
+        }
+        assertPaperAccessible(paper);
         Long uid = LoginHelper.userId();
         AnswerSheet exist = sheetMapper.selectOne(new LambdaQueryWrapper<AnswerSheet>()
                 .eq(AnswerSheet::getPaperId, paperId).eq(AnswerSheet::getUserId, uid));
@@ -245,6 +269,7 @@ public class ExamService {
         if (paper == null) {
             throw new BizException("试卷不存在");
         }
+        assertPaperAccessible(paper);
         List<ExamPaperQuestion> pqs = paperQuestionMapper.selectList(
                 new LambdaQueryWrapper<ExamPaperQuestion>().eq(ExamPaperQuestion::getPaperId, paperId));
         if (pqs.isEmpty()) {

@@ -154,7 +154,11 @@ public class TrainBasicController {
     @PostMapping("/need")
     public Result<Long> saveNeed(@RequestBody TrainNeed need) {
         if (need.getId() == null) {
-            if (need.getSubmitterId() == null) {
+            // 员工只能以自己名义提报：忽略前端传来的 submitterId，避免冒用他人名义
+            // 讲师与管理员可代提（此时保留传入值，未传则落到本人）
+            if (LoginHelper.isEmployee()) {
+                need.setSubmitterId(LoginHelper.userId());
+            } else if (need.getSubmitterId() == null) {
                 need.setSubmitterId(LoginHelper.userId());
             }
             if (!StringUtils.hasText(need.getSource())) {
@@ -172,6 +176,10 @@ public class TrainBasicController {
             }
             if (!"PENDING".equals(db.getAuditStatus()) && !LoginHelper.isManager()) {
                 throw new BizException("已审核的需求不能再修改");
+            }
+            if (LoginHelper.isEmployee()) {
+                // 员工改自己的需求时不允许把提交人改成别人（updateById 跳过 null 字段）
+                need.setSubmitterId(null);
             }
             needMapper.updateById(need);
         }

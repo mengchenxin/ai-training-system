@@ -30,10 +30,19 @@ public class SaTokenConfig implements WebMvcConfigurer {
                 );
     }
 
+    /**
+     * 跨域策略：只放开本机来源。
+     *
+     * <p>原来写的是 allowedOriginPatterns("*") + allowCredentials(true)，
+     * 实测任意 Origin 都会被原样回显且带 Allow-Credentials: true。
+     * 本项目令牌走 Authorization 头而非 Cookie，实际无法被第三方站点冒用，
+     * 但这种配置一旦将来引入 Cookie 会话就会直接变成 CSRF 通道，故收敛为白名单。
+     * 答辩演示固定在本机 3000 端口，localhost 与 127.0.0.1 任意端口都放行。
+     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOriginPatterns("*")
+                .allowedOriginPatterns("http://localhost:[*]", "http://127.0.0.1:[*]")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true)

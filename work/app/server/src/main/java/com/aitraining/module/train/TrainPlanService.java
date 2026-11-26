@@ -330,6 +330,23 @@ public class TrainPlanService {
         return userMapper.selectList(w);
     }
 
+    /**
+     * 判断用户是否为该计划的目标学员。
+     *
+     * <p>试卷等下游资源只有 planId 一个归属线索，考试侧据此做归属校验，
+     * 避免员工按 id 遍历到别人计划下的试卷（可提前看题）。
+     */
+    public boolean isTargetUser(Long planId, Long userId) {
+        if (planId == null || userId == null) {
+            return false;
+        }
+        TrainPlan plan = planMapper.selectById(planId);
+        if (plan == null) {
+            return false;
+        }
+        return resolveTargetUsers(plan).stream().anyMatch(u -> u.getId().equals(userId));
+    }
+
     @Transactional
     public void changeStatus(Long id, String target) {
         TrainPlan plan = planMapper.selectById(id);
