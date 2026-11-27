@@ -379,29 +379,37 @@ public class AiPlanService {
         if (scores == null || scores.isEmpty()) {
             throw new BizException("请至少为一个方案打分");
         }
-        String best = null;
-        int bestScore = -1;
+        // 只接受 1-5 的有效打分；0 或空视为「未评」，既不写库也不参与首选判定，
+        // 避免把「没点星」误判成 1 分拉低平均分。
+        Map<String, Integer> effective = new LinkedHashMap<>();
         for (Map.Entry<String, Integer> e : scores.entrySet()) {
-            Long recordId = s.mapping.get(e.getKey());
-            if (recordId == null) {
+            if (!s.mapping.containsKey(e.getKey()) || e.getValue() == null || e.getValue() <= 0) {
                 continue;
             }
-            int score = e.getValue() == null ? 0 : Math.max(1, Math.min(5, e.getValue()));
-            AiGenRecord upd = new AiGenRecord();
-            upd.setId(recordId);
-            upd.setBlindScore(score);
-            genRecordMapper.updateById(upd);
-            if (score > bestScore) {
-                bestScore = score;
-                best = e.getKey();
-            }
+            effective.put(e.getKey(), Math.max(1, Math.min(5, e.getValue())));
         }
+        if (effective.isEmpty()) {
+            throw new BizException("请至少为一个方案打分");
+        }
+        for (Map.Entry<String, Integer> e : effective.entrySet()) {
+            AiGenRecord upd = new AiGenRecord();
+            upd.setId(s.mapping.get(e.getKey()));
+            upd.setBlindScore(e.getValue());
+            genRecordMapper.updateById(upd);
+        }
+        List<String> tops = topLabels(effective);
+        int bestScore = effective.get(tops.get(0));
+        // 并列最高时不再按遍历顺序随便挑一个，统一标记 TIE，避免「获首选次数」被随机抬高
+        boolean tie = tops.size() > 1;
         for (Map.Entry<String, Long> e : s.mapping.entrySet()) {
+            if (!effective.containsKey(e.getKey())) {
+                continue; // 未打分的方案保持原状态
+            }
             AiGenRecord upd = new AiGenRecord();
             upd.setId(e.getValue());
-            if (e.getKey().equals(best)) {
-                upd.setAdoptStatus("ADOPTED");
-                upd.setRejectReason(null);
+            if (tops.contains(e.getKey())) {
+                upd.setAdoptStatus(tie ? "TIE" : "ADOPTED");
+                upd.setRejectReason(tie ? "盲评并列最高（" + blindId + "）" : null);
             } else {
                 upd.setAdoptStatus("REJECTED");
                 upd.setRejectReason("盲评未获首选（" + blindId + "）");
@@ -411,10 +419,28 @@ public class AiPlanService {
         blindSessions.remove(blindId);
         Map<String, Object> r = new LinkedHashMap<>();
         r.put("blindId", blindId);
-        r.put("bestLabel", best);
+        r.put("bestLabel", tops.get(0));
+        r.put("bestLabels", tops);
+        r.put("tie", tie);
         r.put("bestScore", bestScore);
-        r.put("scored", scores.size());
+        r.put("scored", effective.size());
         return r;
+    }
+
+    /** 取最高分对应的标签，可能并列（按传入 Map 的标签顺序返回） */
+    static List<String> topLabels(Map<String, Integer> scores) {
+        int max = Integer.MIN_VALUE;
+        for (Integer v : scores.values()) {
+            max = Math.max(max, v == null ? 0 : v);
+        }
+        List<String> tops = new ArrayList<>();
+        for (Map.Entry<String, Integer> e : scores.entrySet()) {
+            int v = e.getValue() == null ? 0 : e.getValue();
+            if (v == max) {
+                tops.add(e.getKey());
+            }
+        }
+        return tops;
     }
 
     private record BlindSession(Map<String, Long> mapping, long expireAt) {
@@ -440,6 +466,8 @@ public class AiPlanService {
                     .mapToInt(AiGenRecord::getBlindScore).average().orElse(0)));
             item.put("firstChoice", list.stream()
                     .filter(r -> "ADOPTED".equals(r.getAdoptStatus())).count());
+            item.put("tieCount", list.stream()
+                    .filter(r -> "TIE".equals(r.getAdoptStatus())).count());
             item.put("avgHallucination", list.isEmpty() ? null : round2(list.stream()
                     .mapToInt(r -> r.getHallucinationCount() == null ? 0 : r.getHallucinationCount())
                     .average().orElse(0)));

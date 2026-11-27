@@ -161,17 +161,19 @@
       </template>
     </el-dialog>
 
-    <el-dialog v-model="summaryDialog" title="盲评汇总（按生成模式解盲）" width="720px">
+    <el-dialog v-model="summaryDialog" title="盲评汇总（按生成模式解盲）" width="820px">
       <el-table :data="blindSummary" size="small">
-        <el-table-column prop="label" label="模式" min-width="140" />
-        <el-table-column prop="samples" label="样本数" width="90" align="center" />
-        <el-table-column prop="avgScore" label="平均分" width="90" align="center" />
-        <el-table-column prop="firstChoice" label="获首选次数" width="110" align="center" />
+        <el-table-column prop="label" label="模式" min-width="130" />
+        <el-table-column prop="samples" label="样本数" width="80" align="center" />
+        <el-table-column prop="avgScore" label="平均分" width="80" align="center" />
+        <el-table-column prop="firstChoice" label="获首选" width="80" align="center" />
+        <el-table-column prop="tieCount" label="并列" width="70" align="center" />
         <el-table-column prop="avgHallucination" label="平均幻觉课程" width="120" align="center" />
         <el-table-column prop="avgCostMs" label="平均耗时(ms)" width="120" align="center" />
       </el-table>
       <div class="muted mt8" style="font-size: 12px">
         只统计已提交过盲评的记录；平均分满分为 5，样本数不足时结论仅作参考。
+        「并列」指该轮有多个方案同分，按规则不计入「获首选」。
       </div>
     </el-dialog>
   </div>
@@ -297,7 +299,11 @@ async function submitBlind() {
   submitting.value = true;
   try {
     const res = await aiApi.blindPick({ blindId: blindId.value, scores: scores.value });
-    ElMessage.success(`已记录，首选为方案 ${res.bestLabel}（${res.bestScore} 分）`);
+    if (res.tie) {
+      ElMessage.success(`已记录：方案 ${(res.bestLabels || []).join(" / ")} 并列最高（${res.bestScore} 分），不记首选`);
+    } else {
+      ElMessage.success(`已记录，首选为方案 ${res.bestLabel}（${res.bestScore} 分）`);
+    }
     compareDialog.value = false;
     blindSummary.value = await aiApi.blindSummary();
     summaryDialog.value = true;
