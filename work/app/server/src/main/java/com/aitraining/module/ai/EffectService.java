@@ -324,7 +324,15 @@ public class EffectService {
         if (resp.isSuccess()) {
             try {
                 JsonNode node = objectMapper.readTree(cleanJson(resp.getContent()));
-                StringBuilder sb = new StringBuilder(node.path("diagnosis").asText(eval.getDiagnosis()));
+                // 等级以规则判定为准：大模型只负责分析数据与短板，不参与定档。
+                // 若模型仍给出等级且与系统不一致，仅记录告警，不采纳。
+                String llmResult = node.path("result").asText("");
+                if (!llmResult.isBlank() && !llmResult.equalsIgnoreCase(String.valueOf(eval.getEvalResult()))) {
+                    log.warn("效果诊断等级与规则判定不一致（模型 {} / 系统 {}，plan={} user={}），以系统为准",
+                            llmResult, eval.getEvalResult(), planId, userId);
+                }
+                StringBuilder sb = new StringBuilder(levelHeadline(eval));
+                sb.append(node.path("diagnosis").asText(eval.getDiagnosis()));
                 JsonNode sug = node.path("suggestions");
                 if (sug.isArray() && !sug.isEmpty()) {
                     List<String> list = new ArrayList<>();
@@ -341,6 +349,18 @@ public class EffectService {
             saveAiRecord(planId, userId, resp, "EFFECT_DIAG");
         }
         return eval;
+    }
+
+    /** 诊断文本的固定开头：把系统判定写在最前面，避免与大模型正文的口径打架 */
+    private String levelHeadline(EffectEval eval) {
+        String level = switch (eval.getEvalResult() == null ? "" : eval.getEvalResult()) {
+            case "EXCELLENT" -> "优秀";
+            case "PASS" -> "达标";
+            case "FAIL" -> "未达标";
+            default -> "待定";
+        };
+        return String.format("系统判定：%s（后测 %.1f 分；85 分及以上且提升不少于 10 分为优秀，60 分及以上为达标）。",
+                level, eval.getPostScore() == null ? 0 : eval.getPostScore().doubleValue());
     }
 
     private void saveAiRecord(Long planId, Long userId, LlmResponse resp, String bizType) {

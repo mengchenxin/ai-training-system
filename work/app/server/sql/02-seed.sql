@@ -870,8 +870,8 @@ INSERT INTO ai_prompt_template (template_code,template_name,scene,content,model,
 【培训后技能差距】{{gapAfter}}
 【差距缩小率】{{gapReduce}}%
 
-【要求】判断培训是否有效，指出仍存在的主要短板及其业务影响，给出 2-3 条具体改进建议。
-输出 JSON：{"result":"EXCELLENT|PASS|FAIL","diagnosis":"诊断结论，200字以内","weakPoints":["短板1","短板2"],"suggestions":["建议1","建议2"]}','deepseek-chat',0.20,1200,1),
+【要求】培训等级由系统依据分数阈值判定，已给出结论；你不要自行判定等级，诊断文字中不要出现「优秀」「达标」「未达标」「合格」等结论性等级词。请聚焦三点：本次培训是否产生实际效果（用数据说明）、仍存在的主要短板及其业务影响、2-3 条具体改进建议。
+输出 JSON：{"diagnosis":"诊断结论，200字以内，只描述数据与短板，不含等级判定","weakPoints":["短板1","短板2"],"suggestions":["建议1","建议2"]}','deepseek-chat',0.20,1200,1),
   ('QA_V1','知识库问答','QA','你是企业培训知识助手。请仅依据下面检索到的知识片段回答用户问题，不要编造。
 
 【知识片段】
