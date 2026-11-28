@@ -7,6 +7,10 @@ target/
 dist/
 *.jar
 
+# ===== 部署 =====
+deploy/.env
+deploy-ai-training.tar.gz
+
 # ===== 本地私有配置（含数据库密码，禁止入库）=====
 application-local.yml
 application-local.yaml

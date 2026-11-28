@@ -1,0 +1,64 @@
+name: ai-training
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: ait-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ai_training
+      TZ: Asia/Shanghai
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/zz-custom.cnf:ro
+      - ./init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$DB_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 120s
+    networks:
+      - ait
+
+  backend:
+    build:
+      context: ./backend
+    image: ait-backend:latest
+    container_name: ait-backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DB_USERNAME: root
+      DB_PASSWORD: ${DB_PASSWORD}
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ai_training?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      TZ: Asia/Shanghai
+    expose:
+      - "8000"
+    networks:
+      - ait
+
+  web:
+    image: nginx:1.27-alpine
+    container_name: ait-web
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./dist:/usr/share/nginx/html:ro
+    networks:
+      - ait
+
+volumes:
+  mysql-data:
+
+networks:
+  ait:
+    driver: bridge
