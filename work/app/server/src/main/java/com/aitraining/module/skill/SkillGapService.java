@@ -204,16 +204,88 @@ public class SkillGapService {
      * 用于识别「群体性短板」（支撑群体化培训计划）。
      */
     public List<Map<String, Object>> skillHeatmap(Long deptId, Long postId) {
-        List<GapResultVO> list = batchAnalyze(deptId, postId);
-        Map<Long, List<GapItemVO>> bySkill = new LinkedHashMap<>();
+        // 批量取数：固定 4 次查询，替代 batchAnalyze 里「每个员工 5 次查询」的 N+1
+        LambdaQueryWrapper<SysUser> w = new LambdaQueryWrapper<>();
+        w.eq(SysUser::getStatus, 1).isNotNull(SysUser::getPostId);
+        if (deptId != null) {
+            w.eq(SysUser::getDeptId, deptId);
+        }
+        if (postId != null) {
+            w.eq(SysUser::getPostId, postId);
+        }
+        List<SysUser> users = userMapper.selectList(w);
+        if (users.isEmpty()) {
+            return new ArrayList<>();
+        }
+        Set<Long> postIds = new HashSet<>();
+        Set<Long> userIds = new HashSet<>();
+        for (SysUser u : users) {
+            postIds.add(u.getPostId());
+            userIds.add(u.getId());
+        }
+        List<PostSkill> allReqs = postSkillMapper.selectList(
+                new LambdaQueryWrapper<PostSkill>().in(PostSkill::getPostId, postIds));
+        Map<Long, List<PostSkill>> reqByPost = new HashMap<>();
+        Set<Long> skillIds = new HashSet<>();
+        for (PostSkill r : allReqs) {
+            reqByPost.computeIfAbsent(r.getPostId(), k -> new ArrayList<>()).add(r);
+            skillIds.add(r.getSkillId());
+        }
         Map<Long, Skill> skillMap = new HashMap<>();
+        if (!skillIds.isEmpty()) {
+            skillMapper.selectBatchIds(skillIds).forEach(s -> skillMap.put(s.getId(), s));
+        }
+        Map<String, EmpSkill> empMap = new HashMap<>();
+        if (!skillIds.isEmpty()) {
+            empSkillMapper.selectList(new LambdaQueryWrapper<EmpSkill>()
+                            .in(EmpSkill::getUserId, userIds)
+                            .in(EmpSkill::getSkillId, skillIds))
+                    .forEach(es -> empMap.put(es.getUserId() + ":" + es.getSkillId(), es));
+        }
+
+        // 与 analyze() 口径一致：跳过未配置技能模型的岗位，员工按加权差距降序（保持技能出现顺序稳定）
+        List<GapResultVO> list = new ArrayList<>();
+        for (SysUser u : users) {
+            List<PostSkill> reqs = reqByPost.get(u.getPostId());
+            if (reqs == null || reqs.isEmpty()) {
+                continue;
+            }
+            List<GapItemVO> items = new ArrayList<>();
+            BigDecimal totalWeightedGap = BigDecimal.ZERO;
+            for (PostSkill req : reqs) {
+                Skill skill = skillMap.get(req.getSkillId());
+                if (skill == null) {
+                    continue;
+                }
+                EmpSkill es = empMap.get(u.getId() + ":" + req.getSkillId());
+                int current = es == null ? 0 : Math.max(0, es.getCurrentLevel());
+                int target = req.getTargetLevel();
+                int gap = Math.max(0, target - current);
+                BigDecimal weight = req.getWeight() == null ? BigDecimal.ONE : req.getWeight();
+                GapItemVO item = new GapItemVO();
+                item.setSkillId(skill.getId());
+                item.setSkillName(skill.getSkillName());
+                item.setCategory(skill.getCategory());
+                item.setTargetLevel(target);
+                item.setCurrentLevel(current);
+                item.setGap(gap);
+                item.setWeight(weight);
+                item.setWeightedGap(weight.multiply(BigDecimal.valueOf(gap)));
+                items.add(item);
+                totalWeightedGap = totalWeightedGap.add(item.getWeightedGap());
+            }
+            GapResultVO vo = new GapResultVO();
+            vo.setTotalWeightedGap(totalWeightedGap.setScale(2, RoundingMode.HALF_UP));
+            vo.setItems(items);
+            list.add(vo);
+        }
+        list.sort(Comparator.comparing(GapResultVO::getTotalWeightedGap).reversed());
+
+        Map<Long, List<GapItemVO>> bySkill = new LinkedHashMap<>();
         for (GapResultVO vo : list) {
             for (GapItemVO it : vo.getItems()) {
                 bySkill.computeIfAbsent(it.getSkillId(), k -> new ArrayList<>()).add(it);
             }
-        }
-        if (!bySkill.isEmpty()) {
-            skillMapper.selectBatchIds(bySkill.keySet()).forEach(s -> skillMap.put(s.getId(), s));
         }
         List<Map<String, Object>> out = new ArrayList<>();
         for (Map.Entry<Long, List<GapItemVO>> e : bySkill.entrySet()) {
@@ -231,7 +303,9 @@ public class SkillGapService {
             m.put("belowRate", BigDecimal.valueOf(below * 100.0 / items.size()).setScale(1, RoundingMode.HALF_UP));
             out.add(m);
         }
-        out.sort((a, b) -> ((BigDecimal) b.get("avgGap")).compareTo((BigDecimal) a.get("avgGap")));
+        out.sort(Comparator
+                .comparing((Map<String, Object> m) -> (BigDecimal) m.get("avgGap")).reversed()
+                .thenComparing(m -> (Long) m.get("skillId")));
         return out;
     }
 }

@@ -1,0 +1,26 @@
+{
+  "c1": {
+    "concurrency": 1,
+    "requests": 20,
+    "ok": 20,
+    "tps": 156.9,
+    "avg_ms": 6.4,
+    "p95_ms": 7.3
+  },
+  "c5": {
+    "concurrency": 5,
+    "requests": 50,
+    "ok": 50,
+    "tps": 655.5,
+    "avg_ms": 6.5,
+    "p95_ms": 7.5
+  },
+  "c10": {
+    "concurrency": 10,
+    "requests": 60,
+    "ok": 60,
+    "tps": 792.9,
+    "avg_ms": 9.6,
+    "p95_ms": 12.4
+  }
+}

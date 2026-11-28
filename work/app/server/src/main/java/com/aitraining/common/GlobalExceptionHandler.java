@@ -5,9 +5,11 @@ import cn.dev33.satoken.exception.NotPermissionException;
 import cn.dev33.satoken.exception.NotRoleException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.UUID;
 
@@ -43,6 +45,22 @@ public class GlobalExceptionHandler {
             msg = ex.getBindingResult().getFieldError().getDefaultMessage();
         }
         return Result.fail(400, msg);
+    }
+
+    /**
+     * 请求方法不匹配 / 路径不存在：属于调用方问题，不该按「系统异常」记 error 日志，
+     * 否则监控里全是 5xx 噪声。HTTP 仍返回 200，错误码放在响应体（与全局约定一致）。
+     */
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public Result<Void> handleMethod(HttpRequestMethodNotSupportedException e) {
+        log.warn("请求方法不支持: {} {}", e.getMethod(), e.getMessage());
+        return Result.fail(405, "请求方法不支持");
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public Result<Void> handleNotFound(NoResourceFoundException e) {
+        log.warn("接口不存在: {}", e.getResourcePath());
+        return Result.fail(404, "接口不存在");
     }
 
     @ExceptionHandler(Exception.class)

@@ -1,0 +1,110 @@
+{
+  "serial": [
+    {
+      "name": "课程分页",
+      "n": 30,
+      "fail": 0,
+      "median_ms": 2.1,
+      "p95_ms": 2.5,
+      "max_ms": 3.3
+    },
+    {
+      "name": "计划分页",
+      "n": 30,
+      "fail": 0,
+      "median_ms": 8.3,
+      "p95_ms": 10.8,
+      "max_ms": 11.0
+    },
+    {
+      "name": "需求分页",
+      "n": 30,
+      "fail": 0,
+      "median_ms": 2.9,
+      "p95_ms": 5.5,
+      "max_ms": 25.3
+    },
+    {
+      "name": "题库分页",
+      "n": 30,
+      "fail": 0,
+      "median_ms": 2.5,
+      "p95_ms": 3.6,
+      "max_ms": 3.8
+    },
+    {
+      "name": "用户分页",
+      "n": 30,
+      "fail": 0,
+      "median_ms": 3.1,
+      "p95_ms": 5.4,
+      "max_ms": 26.4
+    },
+    {
+      "name": "技能列表",
+      "n": 30,
+      "fail": 0,
+      "median_ms": 1.0,
+      "p95_ms": 1.4,
+      "max_ms": 2.3
+    },
+    {
+      "name": "计划详情",
+      "n": 30,
+      "fail": 0,
+      "median_ms": 3.1,
+      "p95_ms": 5.0,
+      "max_ms": 18.9
+    },
+    {
+      "name": "技能热力图",
+      "n": 30,
+      "fail": 0,
+      "median_ms": 4.6,
+      "p95_ms": 6.8,
+      "max_ms": 7.0
+    }
+  ],
+  "concurrent": [
+    {
+      "name": "轻量读",
+      "concurrency": 10,
+      "requests": 15719,
+      "success_pct": 100.0,
+      "tps": 1308.6,
+      "median_ms": 6.4,
+      "p95_ms": 19.2,
+      "p99_ms": 22.0,
+      "runs_tps": [
+        1091.5,
+        1308.6,
+        1349.3
+      ],
+      "runs_p95": [
+        22.3,
+        19.2,
+        18.6
+      ]
+    },
+    {
+      "name": "轻量读",
+      "concurrency": 30,
+      "requests": 17605,
+      "success_pct": 100.0,
+      "tps": 1464.4,
+      "median_ms": 11.5,
+      "p95_ms": 68.7,
+      "p99_ms": 185.8,
+      "runs_tps": [
+        1478.2,
+        1464.4,
+        1375.2
+      ],
+      "runs_p95": [
+        69.5,
+        67.2,
+        68.7
+      ]
+    }
+  ]
+}
