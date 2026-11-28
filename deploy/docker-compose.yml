@@ -14,7 +14,9 @@ services:
       - ./mysql/my.cnf:/etc/mysql/conf.d/zz-custom.cnf:ro
       - ./init:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$DB_PASSWORD --silent"]
+      # 注意必须用 MYSQL_ROOT_PASSWORD —— 容器内并没有 DB_PASSWORD 这个变量，
+      # 写成 $$DB_PASSWORD 会拿空密码去 ping，认证失败 → 永远 unhealthy → 后端不启动
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
       interval: 10s
       timeout: 5s
       retries: 20
